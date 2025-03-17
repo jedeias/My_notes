@@ -9,6 +9,7 @@ use src\Models\Core\Entities\Telefones\Itelefones;
 class Psicologos extends Pessoas implements Ipsicologos{
 
     private string $CRP;
+    private int $psicologoPk;
 
     public function getCRP(): string{
         return $this->CRP;
@@ -18,6 +19,19 @@ class Psicologos extends Pessoas implements Ipsicologos{
         $this->CRP = $CRP;
         return $this;
     }
+    
+    public function getPsicologoPk(): int
+    {
+        return $this->psicologoPk;
+    }
+
+    public function setPsicologoPk(int $psicologoPk): self
+    {
+        $this->psicologoPk = $psicologoPk;
+
+        return $this;
+    }
+
 
     public static function create(
         string $nome,
@@ -41,12 +55,13 @@ class Psicologos extends Pessoas implements Ipsicologos{
             $pessoa->setRG($RG);
             $pessoa->setCPF($CPF);
             $pessoa->setSexo($sexo);
+            $pessoa->setCRP($CRP);
             $pessoa->setImageLocal($imageLocal);
             $pessoa->setEndereco($endereco);
             $pessoa->setTelefone($telefone);
 
-            return $pessoa;
-        }
+        return $pessoa;
+    }
 
 }
 

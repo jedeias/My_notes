@@ -5,9 +5,12 @@ use src\Models\Core\Entities\Enderecos\Ienderecos;
 use src\Models\Core\Entities\Pessoas\Pessoas;
 use src\Models\Core\Entities\Telefones\Itelefones;
 use src\Models\Core\Entities\Pessoas\Ipsicologos;
+use src\Models\Core\Entities\Pessoas\Iresponsavel;
 
 class Pacientes extends Pessoas{
     private Ipsicologos $psicologo;
+
+    private Iresponsavel|null $responsavel = null;
     private int $pacientesPk;
     
     public function getPsicologo(): Ipsicologos{
@@ -29,6 +32,18 @@ class Pacientes extends Pessoas{
     public function setPacientesPk(int $pacientesPk): self
     {
         $this->pacientesPk = $pacientesPk;
+
+        return $this;
+    }
+    
+    public function getResponsavel(): ?Iresponsavel
+    {
+        return $this->responsavel;
+    }
+
+    public function setResponsavel(Iresponsavel $responsavel): self
+    {
+        $this->responsavel = $responsavel;
 
         return $this;
     }
@@ -57,7 +72,7 @@ class Pacientes extends Pessoas{
             $pessoa->setEndereco($endereco);
             $pessoa->setTelefone($telefone);
 
-            return $pessoa;
+        return $pessoa;
     }
 }
 

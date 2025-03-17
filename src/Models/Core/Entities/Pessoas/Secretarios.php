@@ -6,6 +6,21 @@ use src\Models\Core\Entities\Pessoas\Pessoas;
 use src\Models\Core\Entities\Telefones\Itelefones;
 
 class Secretarios extends Pessoas{
+
+    private int $SecretariosPk;
+
+    public function getSecretariosPk(): int
+    {
+        return $this->SecretariosPk;
+    }
+    
+    public function setSecretariosPk(int $SecretariosPk): self
+    {
+        $this->SecretariosPk = $SecretariosPk;
+
+        return $this;
+    }
+
     public static function create(
         string $nome,
         string $email,
@@ -33,7 +48,8 @@ class Secretarios extends Pessoas{
             $pessoa->setTelefone($telefone);
 
             return $pessoa;
-        }
+    }
+
 }
 
 

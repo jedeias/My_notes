@@ -5,7 +5,22 @@ use src\Models\Core\Entities\Enderecos\Ienderecos;
 use src\Models\Core\Entities\Pessoas\Pessoas;
 use src\Models\Core\Entities\Telefones\Itelefones;
 
-class Reponsaveis extends Pessoas{
+class Reponsaveis extends Pessoas implements Iresponsavel{
+    
+    private int $responsavelPk;
+
+    public function getResponsavelPk(): int
+    {
+        return $this->responsavelPk;
+    }
+
+    public function setResponsavelPk(int $responsavelPk): self
+    {
+        $this->responsavelPk = $responsavelPk;
+
+        return $this;
+    }
+
     public static function create(
         string $nome,
         string $email,
@@ -15,7 +30,6 @@ class Reponsaveis extends Pessoas{
         string $CPF,
         string $sexo,
         string $imageLocal,
-        string $CRP,
         Ienderecos $endereco,
         Itelefones $telefone,
         ): self{
@@ -32,8 +46,9 @@ class Reponsaveis extends Pessoas{
             $pessoa->setEndereco($endereco);
             $pessoa->setTelefone($telefone);
 
-            return $pessoa;
-        }
+        return $pessoa;
+    }
+
 }
 
 

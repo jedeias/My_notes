@@ -2,7 +2,7 @@
 
 namespace src\Models\Infra\Repository\Pessoas;
 use src\Models\Core\Entities\Pessoas\Pacientes;
-use src\Models\Infra\Repository\Pessoas\IrepositoryPaciente;
+use src\Models\Core\Repository\Pessoas\IrepositoryPaciente;
 use src\Models\Infra\Data\Sql;
 use PDO;
 
@@ -14,9 +14,26 @@ class RepositorioPaciente implements IrepositoryPaciente{
         $this->MySql = new Sql();
     }
 
-    public function insert() : void{
-        // Precisos setar o parametro na interface, implementar a call insertPacientes que já existe no banco
-        //OBS preciso voltar adicionado a chave primaria de Psicologos e Secretarios e Responsaveis, eles tem apenas a chave de pessoas.
+    public function insert(Pacientes $pacientes) : void{
+        try {
+            $prepare = $this->MySql->getConnect()->prepare("CALL insertPacientes(:fkPessoas, :fkPsicologo, :fkResponsavel);");
+            
+            $prepare->BindValue(":fkPessoas", $pacientes->getPessoaPk());
+            $prepare->BindValue(":fkPsicologo", $pacientes->getPsicologo()->getPsicologoPk());
+
+            if(!$pacientes->getResponsavel()){
+                $prepare->BindValue(":fkResponsavel", null);
+            }else{
+                $prepare->BindValue(":fkResponsavel", $pacientes->getResponsavel()->getPessoaPk());
+            }
+            
+            $prepare->execute();
+        } catch (\PDOException $erros) {
+            
+            echo("tivemos um erro.:");
+            
+            echo $erros->getMessage();
+        }
     }
     public function findByPk(Pacientes $pacientes) : array{
         try {

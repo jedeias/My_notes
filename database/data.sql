@@ -485,6 +485,62 @@ BEGIN
 END $$
 DELIMITER ;
 
+DELIMITER $$
+
+CREATE PROCEDURE findAllPsicologos(
+	
+)
+
+BEGIN
+
+    SELECT * FROM psicologos
+	INNER JOIN pessoas ON (pessoas.pkPessoa = psicologos.fkPessoa); 
+
+    COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
+
+-- seleciona o psicologo pelo email;
+
+DELIMITER $$
+
+CREATE PROCEDURE findPsicologoByEmail(
+	IN _email VARCHAR(180)
+)
+
+BEGIN
+
+    SELECT * FROM psicologos
+	INNER JOIN pessoas ON (pessoas.pkPessoa = psicologos.fkPessoa)
+	WHERE pessoas.email = _email;
+
+    COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
+
+-- seleciona o psicologo pelas PK;
+
+DELIMITER $$
+
+CREATE PROCEDURE findPsicologoByPk(
+	IN _pkPsicologo INT
+)
+
+BEGIN
+
+    SELECT * FROM psicologos
+	INNER JOIN pessoas ON (pessoas.pkPessoa = psicologos.fkPessoa)
+	WHERE psicologo.pkPsicologo = _pkPsicologo;
+
+    COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
 SELECT * FROM anotacoespacientes;
 SELECT * FROM anotacoespsicologos;
 SELECT * FROM atividades;        
