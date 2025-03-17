@@ -1,0 +1,340 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(50deg, #1a3a50,#000,#1a3a50);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    text-align: left;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+    text-align: left;
+    position: relative;
+    padding-bottom: 50px;
+    top: 30%;
+
+}
+.sidenav a:hover {
+    background-color: rgba(0,0,0,0.850);
+    padding-top: 50px;
+    border-bottom: 5px solid #fff;
+}
+.sidenav .closebtn:hover{
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+.sidenav .closebtn {
+    position: absolute;
+    top: 1%;
+    right: 25px;
+    font-size: 42px;
+    margin-left: 50px;
+    color: red;
+
+}
+
+.sidenav a i{
+    position: absolute;
+    margin-top: 15%;
+    left: 15%;
+
+}
+
+.sidenav a:last-child{
+    border: none;
+    padding: 0;
+}
+
+.sidenav img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.sidenav img:hover{
+    cursor: pointer;
+    transform:scale(1.5); 
+    left: 30%;
+    transition: 0.5s;
+}
+
+.sidenav .title {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    text-align: center;
+    width: 100%;
+}
+
+#menuBtn {
+    font-size: 30px;
+    cursor: pointer;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    color: #fff;
+}
+
+
+.notepad-container{
+    width: 100%;
+    display: flex;
+    background-image: linear-gradient(50deg, #ad9c72, #fff);
+    height: 100vh;
+}
+.notepad-container .notepad-content{
+    align-content: center;
+}
+.notepad-content{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 50%;
+    transform: translate(-50%);
+}
+
+
+.action-button-container{
+    display: flex;
+    justify-content: space-around;
+}
+.action-button{
+    width: 100%;
+    height: 45px;
+    font-size: 24px;
+    border-radius: 7px;
+    background-color: #130c7e;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.action-button:hover{
+    background-color: #110d42;
+}
+.notepad{
+    position: relative;
+    display: none;
+    flex-direction: column;
+}
+.notepad-count{
+    color: #737373;
+    position: absolute;
+    top: 82%;
+    right: 75px;
+    user-select: none;
+
+}
+.notepad-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+}
+.notepad-clock{
+    display: block;
+    position: relative;
+    right: 26px;
+    font-size: 25px;
+    color: #000;
+}
+
+.notepad-date{
+    font-size: 25px;
+    color: #000;
+}
+.notepad-header{
+    color: white;
+}
+.notepad textarea{
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    border: none;
+    background-position-y: 33px;
+    line-height: 35px;
+    padding: 30px;
+    margin: 7px;
+    font-size: 25px;
+    font-weight: 500;
+    width: 25vw;
+    height: 68vh;
+    border-radius: 7px;
+    resize: none;
+    overflow: auto;
+    outline: none;
+    
+}
+.prev-note-descartar{
+    margin-top: 3px;
+    width: 96%;
+
+
+}
+
+.delete-form{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.prev-button, .next-button{
+    width: 50px;
+    height: 50px;
+    border-radius: 7px;
+    background-color:  #130c7e;
+    color: white;
+    border: none;
+    cursor: pointer;
+    
+}
+
+.prev-button:hover, .next-button:hover{
+    background-color: #110d44;
+}
+
+.janela-modal.abrir{
+    display: inline-block;
+}
+
+.hidden{
+    display: none;
+    opacity: 0;
+}
+
+.active{
+    display: flex;
+}
+
+i#burger{
+    display: none;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+
+
+@media(max-width: 768px) {
+
+    html{
+        height: calc(100vh - 70px);
+    }
+    body{ 
+        height: 100vh;  
+    }  
+    .notepad textarea {
+        max-width: 100%;
+        width: 94%;
+        height: 459px;
+    }
+
+    .notepad-container{
+        height: 100%;
+        
+    }
+
+    .notepad-container{
+        display: block;
+        
+    }
+   
+    .notepad-content{
+        margin-left: 0;
+        top: 15%;
+    }
+
+    .notepad-count{
+        left: 50%;
+        top: 88%;
+    }
+   
+    .emoji-content{
+        width: 100%;
+    }
+
+
+    i#burger{
+        display: block;
+        border-radius: 7px;
+        background: transparent;
+        font-size: 3rem;
+
+    }
+
+    .menu-container{
+        background: none;
+        position: absolute;
+        width: 100%;
+        border-radius: 5px;
+        animation: abrirMenu 1s ease;
+        z-index: 2;
+    }   
+    .header-container{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+   
+
+    .menu li{
+        background: none;
+        padding: 30px;
+        border-bottom: 1px solid #333333;
+        border-radius: 7px;
+        margin: 0;
+    }
+  
+
+    .menu{
+        margin: 10px;
+        background-color: #1a1a1a;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        border-radius: 7px;
+        
+    }
+
+
+}
+
+
+@keyframes abrirMenu {
+    0% {
+   opacity: 0;
+   transform: translateX(-100%);
+ }
+ 50% {
+   opacity: 1;
+   transform: translateX(50%);
+ }
+ 100% {
+   transform: translateX(0%);
+ }
+
+
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="Pt_Br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/paciente.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Paciente</title>
+
+</head>
+<body>
+    <div id="menuBtn" onclick="openNav()">&#9776;</div>
+    <div id="mySidenav" class="sidenav">
+
+        <img src="../image/images.png" alt="">
+        <h1 class="title">My-Notes</h1>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Atividades</a>
+        <a href="#">Agenda</a>
+        <a href="#">Consultas Agendadas</a>
+        <a href="#">Contato</a>
+        <a href="../Telas/config.html"><i class="fa-solid fa-gear"></i></a> 
+    </div>
+
+    <section class="notepad-container">
+        <section class="notepad-content">
+            <button class="prev-button" onclick="prevNote()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                    <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                </svg>
+            </button>
+            <div id="anotacao<?php echo $numAnotacoes + 1;?>" class="notepad active">           
+                <form action="../../../controller/crud/paciente/inserteNota.php" method="POST">
+                <article class="notepad-header">
+                    
+                    <p id="digital-date" class="notepad-date"></p> 
+                    <p id = "digital-clock" class="notepad-clock" ></p>
+                    
+                </article>
+                <textarea required id="textarea" placeholder="Como você está?" name="descricao"></textarea>
+                <div class="action-button-container">
+                    <button class="action-button" type="submit" onclick="modalclick()">Salvar</button>
+                </div>
+
+            </form>
+            </div>
+            <button class="next-button" onclick="nextNote()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                    <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                </svg>
+            </button>
+            <p id='notepad-count' class='notepad-count'>1/1</p>
+        </section>
+
+    </section>
+    <script src="../JS/paciente.js"></script>
+
+</body>
+</html>
