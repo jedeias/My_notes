@@ -6,7 +6,8 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #c4c4c4;
+    background-image: linear-gradient(50deg, #ad9c72, #fff);
+    height: 100vh;
 }
 
 .sidenav {
