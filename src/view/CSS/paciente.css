@@ -27,17 +27,17 @@
     color: #fff;
     display: block;
     transition: 0.3s;
-    text-align: center; /* Centralizar texto */
+    text-align: left; /* Centralizar texto */
     position: relative;
-    padding-bottom: 50px;
     top: 30%;
+    margin-top: 35px;
 }
 
 .sidenav a:hover {
     background-color: rgba(0, 0, 0, 0.850);
-    padding-top: 50px;
     border-bottom: 5px solid #fff;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+    padding: 15px;
 }
 
 .sidenav .closebtn:hover{
@@ -155,52 +155,41 @@
     user-select: none;
 
 }
-.notepad-header{
+.notepad-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 10px;
 }
 
-.notepad-header-left {
-    display: flex;
-    flex-direction: column;
-}
 
-.notepad-header-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
 
-.notepad-header-right label {
+.notepad-header-center label {
     font-size: 18px;
     color: #000;
 }
 
-.notepad-header-right select {
+.notepad-header-center select {
     padding: 5px;
     font-size: 16px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #dac0c0;
     outline: none;
-}
-
-.notepad-clock{
-    display: block;
-    position: relative;
-    right: 26px;
-    font-size: 25px;
-    color: #000;
-}
-
-.notepad-date{
-    font-size: 25px;
-    color: #000;
-}
-.notepad-header{
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.850);
     color: white;
 }
+
+.notepad-clock {
+    font-size: 25px;
+    color: #000;
+}
+
+.notepad-date {
+    font-size: 25px;
+    color: #000;
+}
+
 .notepad textarea{
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
     border: none;
@@ -266,9 +255,6 @@ i#burger{
     padding: 10px;
     cursor: pointer;
 }
-
-
-
 
 @media(max-width: 768px) {
 
