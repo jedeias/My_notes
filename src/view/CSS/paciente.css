@@ -17,7 +17,7 @@
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
-    text-align: left;
+    text-align: center; /* Centralizar texto */
 }
 
 .sidenav a {
@@ -27,21 +27,25 @@
     color: #fff;
     display: block;
     transition: 0.3s;
-    text-align: left;
+    text-align: center; /* Centralizar texto */
     position: relative;
     padding-bottom: 50px;
     top: 30%;
-
 }
+
 .sidenav a:hover {
-    background-color: rgba(0,0,0,0.850);
+    background-color: rgba(0, 0, 0, 0.850);
     padding-top: 50px;
     border-bottom: 5px solid #fff;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
 }
+
 .sidenav .closebtn:hover{
     background-color: transparent;
     border: none;
     padding: 0;
+    box-shadow: none;
+
 }
 .sidenav .closebtn {
     position: absolute;
@@ -54,9 +58,9 @@
 }
 
 .sidenav a i{
-    position: absolute;
+    position: relative; /* Ajustar posição */
     margin-top: 15%;
-    left: 15%;
+    left: 0; /* Centralizar ícone */
 
 }
 
@@ -77,9 +81,9 @@
 
 .sidenav img:hover{
     cursor: pointer;
-    transform:scale(1.5); 
+    transform: scale(1.5) rotate(10deg);
     left: 30%;
-    transition: 0.5s;
+    transition: transform 0.5s ease, left 0.5s ease;
 }
 
 .sidenav .title {
@@ -157,6 +161,31 @@
     align-items: center;
     margin: 10px;
 }
+
+.notepad-header-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.notepad-header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.notepad-header-right label {
+    font-size: 18px;
+    color: #000;
+}
+
+.notepad-header-right select {
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
 .notepad-clock{
     display: block;
     position: relative;
@@ -187,7 +216,8 @@
     resize: none;
     overflow: auto;
     outline: none;
-    
+    background-color: #f5f5f5; /* Cor melhorada */
+    color: #333; /* Cor do texto */
 }
 .prev-note-descartar{
     margin-top: 3px;

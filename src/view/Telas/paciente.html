@@ -32,10 +32,20 @@
             <div id="anotacao<?php echo $numAnotacoes + 1;?>" class="notepad active">           
                 <form action="../../../controller/crud/paciente/inserteNota.php" method="POST">
                 <article class="notepad-header">
-                    
-                    <p id="digital-date" class="notepad-date"></p> 
-                    <p id = "digital-clock" class="notepad-clock" ></p>
-                    
+                    <div class="notepad-header-left">
+                        <p id="digital-date" class="notepad-date"></p> 
+                        <p id="digital-clock" class="notepad-clock"></p>
+                    </div>
+                    <div class="notepad-header-right">
+                        <label for="emotion">Tipo de Emoção:</label>
+                        <select id="emotion" name="emotion">
+                            <option value="feliz">Feliz</option>
+                            <option value="triste">Triste</option>
+                            <option value="ansioso">Ansioso</option>
+                            <option value="irritado">Irritado</option>
+                            <option value="calmo">Calmo</option>
+                        </select>
+                    </div>
                 </article>
                 <textarea required id="textarea" placeholder="Como você está?" name="descricao"></textarea>
                 <div class="action-button-container">
