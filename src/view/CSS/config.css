@@ -17,11 +17,11 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-image: linear-gradient(50deg, #1a3a50, #000, #1a3a50);
+    background-image: linear-gradient(50deg, #1a3a50,#000,#1a3a50);
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
-    text-align: left;
+    text-align: center; /* Centralizar texto */
 }
 
 .sidenav a {
@@ -31,18 +31,18 @@ body {
     color: #fff;
     display: block;
     transition: 0.3s;
-    text-align: left;
+    text-align: left; /* Centralizar texto */
     position: relative;
-    padding-bottom: 50px;
     top: 30%;
+    margin-top: 35px;
 }
 
 .sidenav a:hover {
     background-color: rgba(0, 0, 0, 0.850);
-    padding-top: 50px;
     border-bottom: 5px solid #fff;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+    padding: 15px;
 }
-
 .sidenav .closebtn:hover {
     background-color: transparent;
     border: none;
