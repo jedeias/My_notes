@@ -1,0 +1,141 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: linear-gradient(50deg, #1a3a50,#000,#1a3a50);
+    height: 100vh;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(50deg, #1a3a50,#000,#1a3a50);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    text-align: center; /* Centralizar texto */
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+    text-align: left; /* Centralizar texto */
+    position: relative;
+    top: 30%;
+    margin-top: 35px;
+}
+
+.sidenav a:hover {
+    background-color: rgba(0, 0, 0, 0.850);
+    border-bottom: 5px solid #fff;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+    padding: 15px;
+}
+
+.sidenav .closebtn:hover{
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+
+}
+.sidenav .closebtn {
+    position: absolute;
+    top: 1%;
+    right: 25px;
+    font-size: 42px;
+    margin-left: 50px;
+    color: red;
+
+}
+
+.sidenav a i{
+    position: relative; /* Ajustar posição */
+    margin-top: 15%;
+    left: 0; /* Centralizar ícone */
+
+}
+
+.sidenav a:last-child{
+    border: none;
+    padding: 0;
+}
+
+.sidenav img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.sidenav img:hover{
+    cursor: pointer;
+    transform: scale(1.5) rotate(10deg);
+    left: 30%;
+    transition: transform 0.5s ease, left 0.5s ease;
+}
+
+.sidenav .title {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    text-align: center;
+    width: 100%;
+}
+
+#menuBtn {
+    font-size: 30px;
+    cursor: pointer;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    color: #fff;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 75vh;
+    width: 85%;
+    margin: 100px auto;
+    /* background: rgba(0, 0, 0, 0.850); */
+}
+
+.container .att{
+    width: 90%;
+    border-radius: 7px;
+    height: 20%;
+    /* background: #1a3a50; */
+    margin-top: 100px;
+    box-shadow: 0.5rem 0.5rem 0.5rem #fff;
+}
+
+.container .att h1{
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+.container .att p{
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
