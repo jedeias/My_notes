@@ -5,6 +5,7 @@ use src\Models\Core\Entities\Pessoas\Pacientes;
 use src\Models\Core\Repository\Pessoas\IrepositoryPaciente;
 use src\Models\Infra\Data\Sql;
 use PDO;
+use PDOException;
 
 class RepositorioPaciente implements IrepositoryPaciente{
     

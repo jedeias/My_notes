@@ -541,6 +541,63 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- seleciona todos os secretario;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE findAllSecretarios(
+)
+BEGIN
+
+	START TRANSACTION;
+
+	SELECT * FROM secretarios INNER JOIN pessoas ON (secretarios.fkPessoa = pessoas.pkPessoa);
+
+	COMMIT;
+		ROLLBACK;
+END$$
+DELIMITER ;
+
+-- seleciona o secretario pelo email;
+
+DELIMITER $$
+
+CREATE PROCEDURE findSecretarioByEmail(
+	IN _email VARCHAR(180)
+)
+
+BEGIN
+	START TRANSACTION;
+
+    SELECT * FROM secretarios
+	INNER JOIN pessoas ON (pessoas.pkPessoa = secretarios.fkPessoa)
+	WHERE pessoas.email = _email;
+
+    COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
+-- seleciona o secretario pela PK;
+
+DELIMITER $$
+
+CREATE PROCEDURE findSecretarioByPk(
+	IN _pkSecretario INT
+)
+
+BEGIN
+
+    SELECT * FROM secretarios
+	INNER JOIN pessoas ON (pessoas.pkPessoa = secretarios.fkPessoa)
+	WHERE secretarios.pkSecretario = _pkSecretario;
+
+    COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
 SELECT * FROM anotacoespacientes;
 SELECT * FROM anotacoespsicologos;
 SELECT * FROM atividades;        

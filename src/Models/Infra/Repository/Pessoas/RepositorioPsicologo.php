@@ -5,6 +5,7 @@ use src\Models\Core\Entities\Pessoas\Ipsicologos;
 use src\Models\Core\Repository\Pessoas\IrepositoryPsicologos;
 use src\Models\Infra\Data\Sql;
 use PDO;
+use PDOException;
 
 class RepositorioPsicologo implements IrepositoryPsicologos{
     

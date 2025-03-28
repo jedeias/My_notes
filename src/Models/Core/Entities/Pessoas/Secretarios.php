@@ -4,8 +4,9 @@ namespace src\Models\Core\Entities\Pessoas;
 use src\Models\Core\Entities\Enderecos\Ienderecos;
 use src\Models\Core\Entities\Pessoas\Pessoas;
 use src\Models\Core\Entities\Telefones\Itelefones;
+use src\Models\Core\Entities\Pessoas\Isecretarios;
 
-class Secretarios extends Pessoas{
+class Secretarios extends Pessoas  implements Isecretarios{
 
     private int $SecretariosPk;
 
@@ -30,7 +31,6 @@ class Secretarios extends Pessoas{
         string $CPF,
         string $sexo,
         string $imageLocal,
-        string $CRP,
         Ienderecos $endereco,
         Itelefones $telefone,
         ): self{

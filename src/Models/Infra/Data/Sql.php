@@ -1,6 +1,7 @@
 <?php 
 
 namespace src\Models\Infra\Data;
+use PDOException;
 use src\Config\Hosts;
 
 use PDO;
@@ -14,9 +15,9 @@ class Sql extends Hosts{
             $this->connect = new PDO("mysql:host={$this->getServer()};dbname={$this->getDatabase()}", 
                                  $this->getUser(), 
                                  $this->getPassword());    
-        } catch (\Throwable $th) {
+        } catch (PDOException $error) {
             echo "Sorry we have a erro, try later";
-            echo($th);
+            echo($error->getMessage());
         }
         
     }
