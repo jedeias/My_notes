@@ -58,7 +58,8 @@ abstract class Pessoas implements Ipessoas{
 
     
     public function setSenha(string $senha): self{
-        $this->senha = md5($senha);
+        // $this->senha = md5($senha); com hash md5
+        $this->senha = $senha;
         return $this;
     }
 

@@ -1,13 +1,15 @@
 <?php 
 
 namespace src\Models\Core\Entities\Pessoas;
+use src\Models\Core\Entities\Pessoas\Ipacientes;
 use src\Models\Core\Entities\Enderecos\Ienderecos;
 use src\Models\Core\Entities\Pessoas\Pessoas;
 use src\Models\Core\Entities\Telefones\Itelefones;
 use src\Models\Core\Entities\Pessoas\Ipsicologos;
 use src\Models\Core\Entities\Pessoas\Iresponsavel;
 
-class Pacientes extends Pessoas{
+
+class Pacientes extends Pessoas implements Ipacientes{
     private Ipsicologos $psicologo;
 
     private Iresponsavel|null $responsavel = null;
@@ -17,7 +19,6 @@ class Pacientes extends Pessoas{
         return $this->psicologo;
     }
 
-    
     public function setPsicologo(Ipsicologos $psicologo): self{
         $this->psicologo = $psicologo;
 
@@ -58,7 +59,7 @@ class Pacientes extends Pessoas{
         string $sexo,
         string $imageLocal,
         Ienderecos $endereco,
-        Itelefones $telefone,): self{
+        Itelefones $telefone): self{
             
             $pessoa = new Pacientes();
             $pessoa->setNome($nome);

@@ -43,7 +43,7 @@ class RepositorioPaciente implements IrepositoryPaciente{
             $prepare->BindValue(":pkPaciente", $pacientes->getPacientesPk());
             $prepare->execute();
 
-            return $prepare->fetchAll(PDO::FETCH_ASSOC);
+            return $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
         } catch (\PDOException $erros) {
             
             echo("tivemos um erro.:");

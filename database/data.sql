@@ -453,6 +453,28 @@ CALL insertConsulta(2, '2024-02-28 14:00:00');
 CALL insertAtividadesPaciente(1, 1);
 CALL insertAtividadesPaciente(2, 2);
 
+-- seleciona o paciente pelo pk;
+
+DELIMITER $$
+
+CREATE PROCEDURE findPacienteByPk(
+	IN _pkPaciente INT
+)
+BEGIN
+
+	START TRANSACTION;
+
+	SELECT * FROM pacientes
+	INNER JOIN pessoas ON (pessoas.pkPessoa = pacientes.fkPessoa)
+	WHERE pacientes.pkPaciente = _pkPaciente; 
+
+	COMMIT;
+		ROLLBACK;
+END $$
+DELIMITER ;
+
+-- seleciona todos os pacientes;
+
 DELIMITER $$
 
 CREATE PROCEDURE findAllPacientes(
@@ -470,6 +492,8 @@ DELIMITER ;
 
 DELIMITER $$
 
+
+-- seleciona o paciente pelo email;
 CREATE PROCEDURE findPacienteByEmail(
 	IN _email VARCHAR(180)
 )
@@ -564,7 +588,7 @@ DELIMITER ;
 DELIMITER $$
 
 CREATE PROCEDURE findSecretarioByEmail(
-	IN _email VARCHAR(180)
+	IN _email VARCHAR(180),
 )
 
 BEGIN
@@ -598,6 +622,36 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- seleciona todsas derivantes de pessoas;
+
+DELIMITER $$
+
+CREATE PROCEDURE findAllTypePessoasByEmailAndPassword(
+	IN _email VARCHAR(180),
+	IN _senha VARCHAR(128)
+)
+
+BEGIN
+
+    SELECT 	pessoas.email, 
+			pessoas.senha, 
+			pessoas.pkPessoa, 
+			pacientes.pkPaciente,
+			psicologos.pkPsicologo,
+			secretarios.pkSecretario,
+			responsaveis.pkResponsavel
+	FROM pessoas
+	LEFT JOIN pacientes ON (pessoas.pkPessoa = pacientes.fkPessoa)
+	LEFT JOIN psicologos ON (pessoas.pkPessoa = psicologos.fkPessoa)
+	LEFT JOIN secretarios ON (pessoas.pkPessoa = secretarios.fkPessoa)
+	LEFT JOIN responsaveis ON (pessoas.pkPessoa = responsaveis.fkPessoa)
+	WHERE pessoas.email = _email AND pessoas.senha = _senha;
+
+    COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
 SELECT * FROM anotacoespacientes;
 SELECT * FROM anotacoespsicologos;
 SELECT * FROM atividades;        
@@ -614,4 +668,3 @@ SELECT * FROM telefones;
 
 
 SELECT * FROM atividadesPacientes;
-
