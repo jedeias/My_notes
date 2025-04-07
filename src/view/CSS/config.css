@@ -120,17 +120,17 @@ body {
 }
 
 
-#configForm {
+#fromularioDadosPessoais {
     display: flex;
     flex-direction: column;
 }
 
-#configForm label {
+#fromularioDadosPessoais label {
     margin-top: 10px;
 }
 
-#configForm input[type="text"],
-#configForm input[type="file"] {
+#fromularioDadosPessoais input[type="text"],
+#fromularioDadosPessoais input[type="file"] {
     padding: 10px;
     margin-top: 5px;
     border-radius: 5px;
@@ -138,7 +138,7 @@ body {
     outline: none;
 }
 
-#configForm button {
+#fromularioDadosPessoais button {
     margin-top: 20px;
     padding: 10px;
     border: none;
@@ -148,6 +148,6 @@ body {
     cursor: pointer;
 }
 
-#configForm button:hover {
+#fromularioDadosPessoais button:hover {
     background-color: #110d42;
 }
