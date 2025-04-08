@@ -20,12 +20,12 @@ class Psicologos extends Pessoas implements Ipsicologos{
         return $this;
     }
     
-    public function getPsicologoPk(): int
+    public function getPsicologosPk(): int
     {
         return $this->psicologoPk;
     }
 
-    public function setPsicologoPk(int $psicologoPk): self
+    public function setPsicologosPk(int $psicologoPk): self
     {
         $this->psicologoPk = $psicologoPk;
 

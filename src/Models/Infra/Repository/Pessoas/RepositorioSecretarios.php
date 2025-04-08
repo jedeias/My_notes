@@ -7,7 +7,7 @@ use src\Models\Core\Entities\Pessoas\Isecretarios;
 use PDO;
 use PDOException;
 
-class RepositorioSecretario implements IrepositorySecretarios{
+class RepositorioSecretarios implements IrepositorySecretarios{
 
     private Sql $MySql; 
 

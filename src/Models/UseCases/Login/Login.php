@@ -25,15 +25,19 @@ class Login implements Ilogin {
             'Pacientes' => 'pkPaciente',
         ];
 
-
         foreach ($typesOfClients as $type => $key) {
-            if (($dataArray[$type] != null)) {
-                $pessoas = new $key();
+            if (($dataArray[$key] != null)) {
+                $classUser = 'src\Models\Core\Entities\Pessoas\\' . $type;
+                $pessoas = new $classUser();
+                // print_r($pessoas);
                 $pessoas->setEmail($email);
                 $pessoas->setPessoaPk($dataArray['pkPessoa']);
+                $setTypePk = 'set' . $type . 'Pk';
+                $pessoas->$setTypePk($dataArray[$key]);
                 return $pessoas;
             }
         }
+
     }
 }
 ?>

@@ -7,7 +7,7 @@ use src\Models\Infra\Data\Sql;
 use PDO;
 use PDOException;
 
-class RepositorioPaciente implements IrepositoryPaciente{
+class RepositorioPacientes implements IrepositoryPaciente{
     
     private Sql $MySql;
 
@@ -20,7 +20,7 @@ class RepositorioPaciente implements IrepositoryPaciente{
             $prepare = $this->MySql->getConnect()->prepare("CALL insertPacientes(:fkPessoas, :fkPsicologo, :fkResponsavel);");
             
             $prepare->BindValue(":fkPessoas", $pacientes->getPessoaPk());
-            $prepare->BindValue(":fkPsicologo", $pacientes->getPsicologo()->getPsicologoPk());
+            $prepare->BindValue(":fkPsicologo", $pacientes->getPsicologo()->getPsicologosPk());
 
             if(!$pacientes->getResponsavel()){
                 $prepare->BindValue(":fkResponsavel", null);

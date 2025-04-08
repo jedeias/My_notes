@@ -7,7 +7,7 @@ use src\Models\Infra\Data\Sql;
 use PDO;
 use PDOException;
 
-class RepositorioPsicologo implements IrepositoryPsicologos{
+class RepositorioPsicologos implements IrepositoryPsicologos{
     
     private Sql $MySql;
 
@@ -34,7 +34,7 @@ class RepositorioPsicologo implements IrepositoryPsicologos{
 
         try{
             $prepare = $this->MySql->getConnect()->prepare("CALL findPsicologoByPk(:pkPsicologo);");
-            $prepare->bindValue(":pkPsicologo", $psicologos->getPsicologoPk());
+            $prepare->bindValue(":pkPsicologo", $psicologos->getPsicologosPk());
             $prepare->execute();
 
             return $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
