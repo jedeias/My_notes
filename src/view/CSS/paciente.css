@@ -13,18 +13,19 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-image: linear-gradient(50deg, #1a3a50,#000,#1a3a50);
+    background: #d9d9ec;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
     text-align: center; /* Centralizar texto */
+    border-right: 2px solid #000;
 }
 
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #fff;
+    color: #000;
     display: block;
     transition: 0.3s;
     text-align: left; /* Centralizar texto */
@@ -38,6 +39,7 @@
     border-bottom: 5px solid #fff;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
     padding: 15px;
+    color: #fff;
 }
 
 .sidenav .closebtn:hover{
@@ -67,6 +69,15 @@
 .sidenav a:last-child{
     border: none;
     padding: 0;
+
+}
+
+.sidenav a:last-child:hover{
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    color: #000;
 }
 
 .sidenav img{
@@ -91,7 +102,7 @@
     top: 25%;
     left: 50%;
     transform: translateX(-50%);
-    color: white;
+    color: #000;
     text-align: center;
     width: 100%;
 }
@@ -102,14 +113,14 @@
     position: fixed;
     top: 15px;
     left: 15px;
-    color: #fff;
+    color: #000000;
 }
 
 
 .notepad-container{
     width: 100%;
     display: flex;
-    background-image: linear-gradient(-50deg, rgba(148, 110, 110, 0.66) 5%,  #1a3a50 85%, #ad9c72);
+    background-color: #eaf4f4; /* Fundo azul claro */
     height: 100vh;
 }
 .notepad-container .notepad-content{
@@ -135,13 +146,13 @@
     height: 45px;
     font-size: 24px;
     border-radius: 7px;
-    background-color: #130c7e;
+    background-color: #007bff;
     color: white;
     border: none;
     cursor: pointer;
 }
 .action-button:hover{
-    background-color: #110d42;
+    background-color: #3f566e;
 }
 .notepad{
     position: relative;
@@ -179,7 +190,7 @@
     border: 1px solid #dac0c0;
     outline: none;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.850);
+    background-color: #c6c6e2;
     color: white;
 }
 
@@ -230,7 +241,7 @@
     width: 50px;
     height: 50px;
     border-radius: 7px;
-    background-color:  #130c7e;
+    background-color:  #007bff;
     color: white;
     border: none;
     cursor: pointer;
@@ -238,7 +249,7 @@
 }
 
 .prev-button:hover, .next-button:hover{
-    background-color: #110d44;
+    background-color: #3f566e;
 }
 
 .janela-modal.abrir{

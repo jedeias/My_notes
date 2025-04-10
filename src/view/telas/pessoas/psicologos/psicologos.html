@@ -1,43 +1,84 @@
 <!DOCTYPE html>
-<html lang="pt_Br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pisicologos</title>
+    <title>Psicólogos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../../../CSS/psicologos.css">
 </head>
 <body>
     
-    <nav>
-        wendell mete sua barra de navegação aqui broww essa parte é com tigo
-    </nav>
+    <div id="menuBtn" onclick="openNav()">&#9776;</div>
+    <div id="mySidenav" class="sidenav">
 
+        <img src="../../../image/default-profile.webp" alt="">
+        <h1 class="title">My-Notes</h1>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Atividades</a>
+        <a href="#">Agenda</a>
+        <a href="#">Consultas Agendadas</a>
+        <a href="#">Contato</a>
+        <a href="../Telas/config.html"><i class="fa-solid fa-gear"></i></a> 
+    </div>
     <article class="pacientes">
-        <h2>user list</h2>
-
-        <section>
-            <p>Jorge santos</p> <!-- Bota um negrito aqui wendell -->
+        <h2 class="pacientes-title">Lista de Pacientes</h2>
+        <h1>Selecione um Paciente</h1>
+        <section class="paciente-card">
+            <p><strong>Jorge Santos</strong></p>
+            <p>Idade: 35</p>
+            <p>Última consulta: 10/02/2023</p>
+            <button class="btn-next-paciente" onclick="nextPaciente()">Próximo Paciente</button>
         </section>
 
+        <section class="paciente-card" hidden>
+            <p><strong>Maria Oliveira</strong></p>
+            <p>Idade: 29</p>
+            <p>Última consulta: 15/03/2023</p>
+            <button class="btn-next-paciente" onclick="nextPaciente()">Próximo Paciente</button>
+        </section>
+
+        <section class="paciente-card" hidden>
+            <p><strong>Pedro Lima</strong></p>
+            <p>Idade: 42</p>
+            <p>Última consulta: 20/01/2023</p>
+            <button class="btn-next-paciente" onclick="nextPaciente()">Próximo Paciente</button>
+        </section>
+
+        <section class="paciente-card" hidden>
+            <p><strong>Carla Souza</strong></p>
+            <p>Idade: 31</p>
+            <p>Última consulta: 05/04/2023</p>
+            <button class="btn-next-paciente" onclick="nextPaciente()">Próximo Paciente</button>
+        </section>
+
+        <section class="paciente-card" hidden>
+            <p><strong>Lucas Almeida</strong></p>
+            <p>Idade: 27</p>
+            <p>Última consulta: 18/03/2023</p>
+            <button class="btn-next-paciente" onclick="nextPaciente()">Próximo Paciente</button>
+        </section>
     </article>
 
     <main>
 
-        <article class="button">
-            <button onclick="prevClick()">pre view</button>
-            <button onclick="nextClick()"> next</button>
-        </article>
-
         <article class="null">
-            <h1>Selecione um paciente</h1>
+            
         </article>
 
-        <article class="anotação" hidden>
-            <h1>Anotação</h1>
+        <article class="button">
+            <button class="btn-prev" onclick="prevClick()"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="btn-next" onclick="nextClick()"><i class="fa-solid fa-arrow-right"></i></button>
+        </article>
 
-            <section>
+        
 
+        <article class="anotação">
+            <h1 class="anotacao-title">Anotação</h1>
+
+            <section class="anotacao-content">
                 <div class="data_da_anotação">
-                    13:25
+                    <span>13:25</span>
                 </div>
 
                 <div class="dia_da_anotação">
@@ -45,13 +86,12 @@
                 </div>
 
                 <div class="tituloDescricao">
-                    <p>titulo</p>
+                    <p>Título</p>
                 </div>
 
                 <div class="descricao">
-                    <p>descricao:</p>
+                    <p>Descrição:</p>
                 </div>
-
             </section>
 
         </article>
@@ -63,19 +103,19 @@
         </article>
         
         <article class="atividadesRecomendadas" hidden>
-            <h1>Atividades Recomendadas</h1>
+            <h1 class="atividades-title">Atividades Recomendadas</h1>
 
-            <img src="" alt=""> seVira para jogar um svg de addição
+            <img src="" alt="Adicionar" class="add-icon">
 
-            <form action="" method="post">
+            <form action="" method="post" class="atividades-form">
 
-                <label for="titulo">titulo</label>
+                <label for="titulo">Título</label>
                 <input type="text" name="titulo" id="titulo" class="titulo">
 
-                <label for="atividade">recomendação</label>
-                <input type="text" name="atividade" id="atividade" class=".atividade">
+                <label for="atividade">Recomendação</label>
+                <input type="text" name="atividade" id="atividade" class="atividade">
 
-                <button type="submit">enviar</button>
+                <button type="submit" class="btn-submit">Enviar</button>
 
             </form>
         </article>
@@ -84,6 +124,7 @@
 
 
     <script src="../../../JS/psicologos.js"></script>
+    <script src="../../../JS/paciente.js"></script>
 
 </body>
 </html>

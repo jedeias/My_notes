@@ -1,4 +1,3 @@
-
 console.log("Funcionado");
 
 let fousPage = 0;
@@ -36,7 +35,16 @@ function nextClick() {
 
 }
 
+let currentPaciente = 0;
 
+function nextPaciente() {
+    const pacientes = document.querySelectorAll(".paciente-card");
+    pacientes[currentPaciente].setAttribute("hidden", true);
+
+    currentPaciente = (currentPaciente + 1) % pacientes.length;
+
+    pacientes[currentPaciente].removeAttribute("hidden");
+}
 
 function prevClick() {
     fousPage -= 1;
@@ -62,4 +70,15 @@ function prevClick() {
     elemento = document.querySelector("." + hashMap[fousPage])
     elemento.removeAttribute("hidden")
 
+}
+
+function toggleCard(card) {
+    const details = card.querySelector(".paciente-details");
+    if (details.hasAttribute("hidden")) {
+        details.removeAttribute("hidden");
+        card.classList.add("expanded");
+    } else {
+        details.setAttribute("hidden", true);
+        card.classList.remove("expanded");
+    }
 }
