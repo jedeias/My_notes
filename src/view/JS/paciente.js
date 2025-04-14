@@ -1,10 +1,3 @@
-function openNav() {
-    document.getElementById("mySidenav").style.width = "300px";
-}
-
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-}
 
 function updateClock() {
     let now = new Date();
