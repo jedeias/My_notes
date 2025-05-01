@@ -48,8 +48,3 @@ class LoginController{
 $login = new LoginController($_POST['email'], $_POST['senha']);
 
 ?>
-
-
-
-view/telas/pessoas/Pacientes.html
-view/telas/pessoas/Pacientes.html

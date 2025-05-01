@@ -22,7 +22,7 @@ class RepositorioSecretarios implements IrepositorySecretarios{
             $prepare->bindValue(":fkPessoa", $secretarios->getPessoaPk());
             $prepare->execute();
 
-        }catch(\PDOException $erros){
+        }catch(PDOException $erros){
             echo("tivemos um erro.:");
             echo($erros->getMessage());
         }
@@ -36,7 +36,7 @@ class RepositorioSecretarios implements IrepositorySecretarios{
 
             return $prepare->fetchAll(PDO::FETCH_ASSOC);
 
-        }catch(\PDOException $erros){
+        }catch(PDOException $erros){
             echo("tivemos um erro.:");
             return[$erros->getMessage()];
         }
@@ -50,7 +50,7 @@ class RepositorioSecretarios implements IrepositorySecretarios{
 
             return $prepare->fetchAll(PDO::FETCH_ASSOC);
 
-        }catch(\PDOException $erros){
+        }catch(PDOException $erros){
             echo("tivemos um erro.:");
             return[$erros->getMessage()];
         }
@@ -63,7 +63,7 @@ class RepositorioSecretarios implements IrepositorySecretarios{
 
             return $prepare->fetchAll(PDO::FETCH_ASSOC);
 
-        }catch(\PDOException $erros){
+        }catch(PDOException $erros){
             echo("tivemos um erro.:");
             return[$erros->getMessage()];
         }

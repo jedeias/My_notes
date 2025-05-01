@@ -27,7 +27,7 @@ class RepositorioEndereco implements IrepositoryEndereco {
             $prepare->bindValue(":estado", $endereco->getEstado());
             $prepare->execute();
         
-        } catch (\PDOException $erros) {
+        } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");
             echo($erros->getMessage());
@@ -38,14 +38,21 @@ class RepositorioEndereco implements IrepositoryEndereco {
         
     }
 
-    function findByCep(Ienderecos $endereco): array{        
+    function findByRuaAndNumero(Ienderecos $endereco): array{        
         try {
-            $prepare = $this->MySql->getConnect()->prepare("SELECT * FROM enderecos WHERE cep = :cep;");
-            $prepare->bindValue(":cep", $endereco->getCep());
+            $prepare = $this->MySql->getConnect()->prepare("SELECT * FROM enderecos WHERE rua = :rua AND numero = :numero;");
+            $prepare->bindValue(":rua", $endereco->getRua());
+            $prepare->bindValue(":numero", $endereco->getNumero());
             $prepare->execute();
 
-            return $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
-        } catch (\PDOException $erros) {
+            $data = $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
+
+            if(empty($data)){
+                return [];
+            }else{
+                return $data;                
+            }
+        } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");
             
@@ -61,7 +68,7 @@ class RepositorioEndereco implements IrepositoryEndereco {
             $prepare->execute();
 
             return $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
-        } catch (\PDOException $erros) {
+        } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");
             
@@ -76,7 +83,7 @@ class RepositorioEndereco implements IrepositoryEndereco {
             $prepare->execute();
 
             return $prepare->fetchAll(PDO::FETCH_ASSOC);
-        } catch (\PDOException $erros) {
+        } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");
             

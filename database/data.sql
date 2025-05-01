@@ -401,14 +401,16 @@ CALL insertTelefone(31, 912345428);
 
 -- Pessoas
 
-CALL insertPessoa('Ana Souza', 'ana@email.com', 'senha321', '1995-06-30', '44332211', '12345678900', 'F', 'img/ana.jpg', 1, 1);
-CALL insertPessoa('Pedro Lima', 'pedro@email.com', 'senha654', '1988-11-12', '66778899', '09876543211', 'M', 'img/pedro.jpg', 2, 2);
-CALL insertPessoa('Mariana Costa', 'mariana@email.com', 'senha987', '2002-09-05', '22334455', '11223344556', 'F', 'img/mariana.jpg', 3, 3);
-CALL insertPessoa('Ricardo Almeida', 'ricardo@email.com', 'senha159', '1993-04-20', '77889900', '22334455667', 'M', 'img/ricardo.jpg', 4, 1);
-CALL insertPessoa('Juliana Mendes', 'juliana@email.com', 'senha753', '1980-07-18', '33445566', '33445566778', 'F', 'img/juliana.jpg', 5, 2);
-CALL insertPessoa('Fernando Rocha', 'fernando@email.com', 'senha258', '1997-03-25', '55667788', '44556677889', 'M', 'img/fernando.jpg', 6, 3);
-CALL insertPessoa('Lucas Martins', 'lucas@email.com', 'senha852', '1992-02-14', '99887766', '55667788990', 'M', 'img/lucas.jpg', 1, 1);
-CALL insertPessoa('Camila Ferreira', 'camila@email.com', 'senha963', '1999-10-08', '11221133', '66778899000', 'F', 'img/camila.jpg', 2, 2);
+-- A senha é a palavra ("*_ 'senha' _*") em md5, e8d95a51f3af4a3b134bf6bb680a213a
+
+CALL insertPessoa('Ana Souza', 'ana@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1995-06-30', '44332211', '12345678900', 'F', 'img/ana.jpg', 1, 1);
+CALL insertPessoa('Pedro Lima', 'pedro@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1988-11-12', '66778899', '09876543211', 'M', 'img/pedro.jpg', 2, 2);
+CALL insertPessoa('Mariana Costa', 'mariana@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '2002-09-05', '22334455', '11223344556', 'F', 'img/mariana.jpg', 3, 3);
+CALL insertPessoa('Ricardo Almeida', 'ricardo@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1993-04-20', '77889900', '22334455667', 'M', 'img/ricardo.jpg', 4, 1);
+CALL insertPessoa('Juliana Mendes', 'juliana@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1980-07-18', '33445566', '33445566778', 'F', 'img/juliana.jpg', 5, 2);
+CALL insertPessoa('Fernando Rocha', 'fernando@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1997-03-25', '55667788', '44556677889', 'M', 'img/fernando.jpg', 6, 3);
+CALL insertPessoa('Lucas Martins', 'lucas@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1992-02-14', '99887766', '55667788990', 'M', 'img/lucas.jpg', 1, 1);
+CALL insertPessoa('Camila Ferreira', 'camila@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1999-10-08', '11221133', '66778899000', 'F', 'img/camila.jpg', 2, 2);
 
 
 -- Psicólogos

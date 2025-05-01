@@ -22,7 +22,7 @@ class RepositorioPsicologos implements IrepositoryPsicologos{
             $prepare->bindValue(":CRP", $psicologos->getCRP());
             
             $prepare->execute();
-        }catch(\PDOException $erros){
+        }catch(PDOException $erros){
             echo("tivemos um erro.:");
             echo($erros->getMessage());
         }
@@ -37,8 +37,13 @@ class RepositorioPsicologos implements IrepositoryPsicologos{
             $prepare->bindValue(":pkPsicologo", $psicologos->getPsicologosPk());
             $prepare->execute();
 
-            return $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
-        }catch(\PDOException $erros){
+            $data = $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
+            if(empty($data)){
+                return [];
+            }else{
+                return $data;;;
+            }
+        }catch(PDOException $erros){
             echo("tivemos um erro.:");
             return[$erros->getMessage()];
         }
@@ -51,8 +56,14 @@ class RepositorioPsicologos implements IrepositoryPsicologos{
             $prepare = $this->MySql->getConnect()->prepare("CALL findPsicologoByEmail(:email);");
             $prepare->bindValue(":email", $psicologos->getEmail());
             $prepare->execute();
-            return $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
-        }catch(\PDOException $erros){
+            
+            $data = $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
+            if(empty($data)){
+                return [];
+            }else{
+                return $data;;;
+            }
+        }catch(PDOException $erros){
             echo("tivemos um erro.:");
             return[$erros->getMessage()];
         }
@@ -66,7 +77,7 @@ class RepositorioPsicologos implements IrepositoryPsicologos{
             
             return $prepare->fetchAll(PDO::FETCH_ASSOC);
 
-        }catch(\PDOException $erros){
+        }catch(PDOException $erros){
             echo("tivemos um erro.:");
             return[$erros->getMessage()];
         }

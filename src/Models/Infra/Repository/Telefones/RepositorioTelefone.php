@@ -5,6 +5,7 @@ use src\Models\Core\Entities\Telefones\Itelefones;
 use src\Models\Core\Repository\Telefones\IrepositoryTelefone;
 use src\Models\Infra\Data\Sql;
 use PDO;
+use PDOException;
 
 class RepositorioTelefone implements IrepositoryTelefone {
 
@@ -22,7 +23,7 @@ class RepositorioTelefone implements IrepositoryTelefone {
             $prepare->bindValue(":numero", $telefones->getNumero());
             $prepare->execute();
         
-        } catch (\PDOException $erros) {
+        } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");
             echo($erros->getMessage());
@@ -41,7 +42,32 @@ class RepositorioTelefone implements IrepositoryTelefone {
             $prepare->execute();
 
             return $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
-        } catch (\PDOException $erros) {
+        } catch (PDOException $erros) {
+            
+            echo("tivemos um erro.:");
+            
+            return[$erros->getMessage()];
+        }
+        
+    }
+
+    function findByNumero(Itelefones $telefones) : array{
+
+        try {
+            $prepare = $this->MySql->getConnect()->prepare("SELECT * FROM telefones WHERE numero = :numero;");
+            $prepare->bindValue(":numero", $telefones->getNumero());	
+            $prepare->execute();
+
+            $data = $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
+
+            if(empty($data)){
+                return[];
+            }else{
+                return $data;
+            }
+
+
+        } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");
             
@@ -57,7 +83,7 @@ class RepositorioTelefone implements IrepositoryTelefone {
             $prepare->execute();
 
             return $prepare->fetchAll(PDO::FETCH_ASSOC);
-        } catch (\PDOException $erros) {
+        } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");
             

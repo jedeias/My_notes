@@ -58,8 +58,8 @@ abstract class Pessoas implements Ipessoas{
 
     
     public function setSenha(string $senha): self{
-        // $this->senha = md5($senha); com hash md5
-        $this->senha = $senha;
+        $this->senha = md5($senha); // com hash md5
+        // $this->senha = $senha;
         return $this;
     }
 
@@ -104,11 +104,10 @@ abstract class Pessoas implements Ipessoas{
     
     public function setSexo(string $sexo): self{
         
-        if($sexo != 'M' || $sexo != 'F'){
+        if(strtoupper($sexo) != 'M' || strtoupper($sexo) != 'F'){
             $sexo = 'N/A';
         }
-        
-        $this->sexo = $sexo;
+        $this->sexo = strtoupper($sexo);
         return $this;
     }
 

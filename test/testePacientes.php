@@ -6,8 +6,8 @@ use src\Models\Core\Entities\Pessoas\Pacientes;
 use src\Models\Core\Entities\Enderecos\Enderecos;
 use src\Models\Core\Entities\Telefones\Telefones;
 use src\Models\Infra\Repository\Enderecos\RepositorioEndereco;
+use src\Models\Infra\Repository\Pessoas\RepositorioPacientes;
 use src\Models\Infra\Repository\Telefones\RepositorioTelefone;
-use src\Models\Infra\Repository\Pessoas\RepositorioPaciente;
 use src\Models\UseCases\Login\Login;
 
 $repositoryTelefone = new RepositorioTelefone();
@@ -41,7 +41,7 @@ $endereco->setEstado($arrayEndereco['estado']);
 $pacientes = new Pacientes();
 $pacientes->setPacientesPk(1);
 
-$repositoryPacientes = new RepositorioPaciente();
+$repositoryPacientes = new RepositorioPacientes();
 
 $arrayPaciente =$repositoryPacientes->findByPk($pacientes);
 

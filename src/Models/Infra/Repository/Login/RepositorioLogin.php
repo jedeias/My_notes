@@ -3,6 +3,7 @@
 namespace src\Models\Infra\Repository\Login;
 use src\Models\Infra\Data\Sql;
 use PDO;
+use PDOException;
 
 class RepositorioLogin {
 
@@ -20,7 +21,7 @@ class RepositorioLogin {
             $prepare->execute();
 
             return $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
-        } catch (\PDOException $erros) {
+        } catch (PDOException $erros) {
             echo("tivemos um erro.:");
             return[$erros->getMessage()];
         }

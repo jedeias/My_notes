@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 use src\Models\Infra\Repository\Pessoas\RepositorioPessoa;
 use src\Models\Infra\Repository\Telefones\RepositorioTelefone;
 use src\Models\Infra\Repository\Pessoas\RepositorioPacientes;
@@ -106,21 +106,35 @@ $pacientes->setPacientesPk(1);
 $repositoryPacientes = new RepositorioPacientes();
 
 $arrayPaciente =$repositoryPacientes->findByPk($pacientes);
-
 $paciete = Pacientes::create(
     'João Pedro',
-    $arrayPaciente['email'],
-    $arrayPaciente['senha'],
-    $arrayPaciente['dataDeNascimento'],
-    $arrayPaciente['RG'],
-    $arrayPaciente['CPF'],
-    $arrayPaciente['sexo'],
-    $arrayPaciente['imageLocal'],
+    'joaoPedro@gmail.com',
+    'senha',
+    '1990-01-01',
+    '643456781',
+    '45665478923',
+    'M',
+    'imageLocal',
     $endereco,
     $telefone
 );
 
-print_r($repositoryPacientes->cheackedPessoas($paciete));
+$psicologos = Psicologos::create(
+    'gertrudes', 
+    'gertrudes@gertrudes.com', 
+    "senha", 
+    "1970-01-01", 
+    "12345676", 
+    "45667891", 
+    "F",
+    "senhorinha.png",
+    "544685654", 
+    $endereco, $telefone
+);
+
+$paciete->setPsicologo($psicologos);
+
+print_r($repositoryPacientes->insert($paciete));
 
 
 ?>

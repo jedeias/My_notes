@@ -5,6 +5,7 @@ use src\Models\Core\Entities\Atividades\Iatividades;
 use src\Models\Core\Repository\Atividades\IrepositoryAtividaes; 
 use src\Models\Infra\Data\Sql;
 use PDO;
+use PDOException;
 
 class RepositorioAtividades implements IrepositoryAtividaes {
 
@@ -20,7 +21,7 @@ class RepositorioAtividades implements IrepositoryAtividaes {
             $prepare->bindValue(":titulo", $atividades->getTitulo());
             $prepare->bindValue(":descricao", $atividades->getDescricao());
             $prepare->execute();
-        } catch (\PDOException $erros) {
+        } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");
             echo($erros->getMessage());
@@ -39,7 +40,7 @@ class RepositorioAtividades implements IrepositoryAtividaes {
             $prepare->execute();
 
             return $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
-        } catch (\PDOException $erros) {
+        } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");
             
@@ -56,7 +57,7 @@ class RepositorioAtividades implements IrepositoryAtividaes {
             $prepare->execute();
 
             return $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
-        } catch (\PDOException $erros) {
+        } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");
             
@@ -71,7 +72,7 @@ class RepositorioAtividades implements IrepositoryAtividaes {
             $prepare->execute();
 
             return $prepare->fetchAll(PDO::FETCH_ASSOC);
-        } catch (\PDOException $erros) {
+        } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");
             

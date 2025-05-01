@@ -5,6 +5,7 @@ use src\Models\Core\Entities\Flags\Iflags;
 use src\Models\Core\Repository\Flags\IrepositoryFlag;
 use src\Models\Infra\Data\Sql;
 use PDO;
+use PDOException;
 
 class RepositorioFlag implements IrepositoryFlag {
 
@@ -23,7 +24,7 @@ class RepositorioFlag implements IrepositoryFlag {
             $prepare->bindValue(":descricao", $flags->getDescricao());
             $prepare->execute();
         
-        } catch (\PDOException $erros) {
+        } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");
             echo($erros->getMessage());
@@ -42,7 +43,7 @@ class RepositorioFlag implements IrepositoryFlag {
             $prepare->execute();
 
             return $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
-        } catch (\PDOException $erros) {
+        } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");
             
@@ -58,7 +59,7 @@ class RepositorioFlag implements IrepositoryFlag {
             $prepare->execute();
 
             return $prepare->fetchAll(PDO::FETCH_ASSOC);
-        } catch (\PDOException $erros) {
+        } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");
             
