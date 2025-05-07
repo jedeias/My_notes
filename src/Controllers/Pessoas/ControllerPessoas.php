@@ -15,7 +15,7 @@ class ControllerPessoas{
     public function __construct() {
         $this->repositorioPessoa = new RepositorioPessoa();
         $this->pessoas = new Pacientes(); // A classe pessoas é abstra então nos faz esse role para intanciar ela com outra classe que tem o mesmo contrato
-        // $this->endereco = new Enderecos();
+        // $this->endereco = new Enderecos(); // esse trem de de enderecos, telefone já tem na classe pessoas, então é mais facil só usar o get pesso. 
         // $this->telefones = new Telefones();
     }
 

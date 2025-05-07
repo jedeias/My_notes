@@ -51,7 +51,7 @@ CREATE TABLE responsaveis(
 
 CREATE TABLE pacientes(
 	pkPaciente INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	fkPessoa INT NOT NULL,
+	fkPessoa INT NOT NULL UNIQUE KEY,
 	fkPsicologo INT NOT NULL,
 	fkResponsavel INT NULL,
 	FOREIGN KEY (fkPessoa) REFERENCES pessoas(pkPessoa),
@@ -108,7 +108,7 @@ CREATE TABLE atividadesPacientes(
 );
 
 CREATE TABLE consultas(
-	pkCosultas INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	pkCosulta INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	fkPaciente INT NOT NULL,
 	horarioDaConsulta DATETIME NOT NULL,
 	FOREIGN KEY (fkPaciente) REFERENCES pacientes(pkPaciente)
@@ -376,7 +376,7 @@ CREATE PROCEDURE insertConsulta(
 
 BEGIN
 
-    INSERT INTO consultas (pkCosultas, fkPaciente, horarioDaConsulta)
+    INSERT INTO consultas (pkCosulta, fkPaciente, horarioDaConsulta)
     VALUES (DEFAULT, _fkPaciente, _horarioDaConsulta);
 
     COMMIT;
@@ -560,7 +560,7 @@ BEGIN
 
     SELECT * FROM psicologos
 	INNER JOIN pessoas ON (pessoas.pkPessoa = psicologos.fkPessoa)
-	WHERE psicologo.pkPsicologo = _pkPsicologo;
+	WHERE psicologos.pkPsicologo = _pkPsicologo;
 
     COMMIT;
         ROLLBACK;
@@ -590,7 +590,7 @@ DELIMITER ;
 DELIMITER $$
 
 CREATE PROCEDURE findSecretarioByEmail(
-	IN _email VARCHAR(180),
+	IN _email VARCHAR(180)
 )
 
 BEGIN
@@ -650,6 +650,109 @@ BEGIN
 	WHERE pessoas.email = _email AND pessoas.senha = _senha;
 
     COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
+-- seleciona todas as consultas;
+
+DELIMITER $$
+
+CREATE PROCEDURE findAllconsultas()
+BEGIN
+
+    SELECT 	consultas.pkCosulta,
+			pessoas.nome,
+			consultas.horarioDaConsulta
+	FROM consultas
+	INNER JOIN pacientes on (pacientes.pkPaciente = consultas.fkPaciente)
+	INNER JOIN pessoas on (pessoas.pkPessoa = pacientes.fkPessoa);
+    
+	COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
+-- seleciona as consultas pela pk;
+
+DELIMITER $$
+CREATE PROCEDURE findByPkconsultas(
+	IN _pk INT
+)
+BEGIN
+
+    SELECT 	consultas.pkCosulta,
+			pessoas.nome,
+			consultas.horarioDaConsulta
+	FROM consultas
+	INNER JOIN pacientes on (pacientes.pkPaciente = consultas.fkPaciente)
+	INNER JOIN pessoas on (pessoas.pkPessoa = pacientes.fkPessoa)
+	WHERE pkCosulta = _pk;
+    
+	COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
+
+SELECT 	anotacoespacientes.pkAnotacaoPaciente,
+		anotacoespacientes.anotacao,
+		pessoas.pkPessoa,
+		pacientes.pkPaciente,
+		pessoas.nome,
+		anotacoespacientes.diaDaAnotacao
+FROM anotacoespacientes
+INNER JOIN pacientes ON (anotacoespacientes.fkPaciente = pacientes.pkPaciente)
+INNER JOIN pessoas ON (pessoas.pkPessoa = pacientes.fkPessoa);
+
+
+-- selciona todas as anotacoesPacientes de um paciente
+
+DELIMITER $$
+CREATE PROCEDURE findAnotacoesByPkPacientes(
+	IN _pk INT
+)
+BEGIN
+	
+	SELECT 	anotacoespacientes.pkAnotacaoPaciente,
+			anotacoespacientes.anotacao,
+			pessoas.pkPessoa,
+			pacientes.pkPaciente,
+			pessoas.nome,
+			anotacoespacientes.diaDaAnotacao
+	FROM anotacoespacientes
+	INNER JOIN pacientes ON (anotacoespacientes.fkPaciente = pacientes.pkPaciente)
+	INNER JOIN pessoas ON (pessoas.pkPessoa = pacientes.fkPessoa)
+	WHERE pacientes.pkPaciente = _pk;
+    
+	COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
+
+-- pega as anotacoes do psicologo pelo id da anoatacao do paciente;
+
+DELIMITER $$
+CREATE PROCEDURE findAnotacoesPsicologosByPkAnotacoesPacientes(
+	IN _pk INT
+)
+BEGIN
+
+SELECT	anotacoesPsicologos.pkAnotacoesPsicologo,
+			anotacoespsicologos.observacao,
+			pessoas.nome,
+			anotacoespacientes.pkAnotacaoPaciente,
+			anotacoespacientes.anotacao,
+			flags.color
+FROM anotacoesPsicologos
+INNER JOIN flags ON (anotacoesPsicologos.fkFlag = flags.pkFlag)
+INNER JOIN anotacoesPacientes ON (anotacoesPsicologos.fkAnotacoesPaciente = anotacoesPacientes.pkAnotacaoPaciente)
+INNER JOIN pacientes ON (anotacoesPacientes.fkPaciente = pacientes.pkPaciente)
+INNER JOIN pessoas ON (pacientes.fkPessoa = pessoas.pkPessoa)
+WHERE anotacoespacientes.pkAnotacaoPaciente = _pk;
+
+	COMMIT;
         ROLLBACK;
 END $$
 DELIMITER ;

@@ -4,6 +4,7 @@ namespace src\Models\Infra\Repository\Enderecos;
 use src\Models\Core\Entities\Enderecos\Ienderecos;
 use src\Models\Core\Repository\Enderecos\IrepositoryEndereco;
 use src\Models\Infra\Data\Sql;
+use PDOException;
 use PDO;
 
 class RepositorioEndereco implements IrepositoryEndereco {

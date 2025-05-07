@@ -13,7 +13,7 @@ class RepositorioLogin {
         $this->MySql = new Sql();
     }
 
-    public function findAllTypePessoasByEmailAndPasswords(string $email, string $senha) : array {
+    public function findAllTypePessoasByEmailAndPasswords(string $email, string $senha) : array|null {
         try {
             $prepare = $this->MySql->getConnect()->prepare("CALL findAllTypePessoasByEmailAndPassword(:email, :senha);");
             $prepare->bindValue(":email", $email);

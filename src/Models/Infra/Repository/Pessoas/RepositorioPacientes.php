@@ -109,12 +109,6 @@ class RepositorioPacientes implements IrepositoryPaciente{
         $dataPessoas = $this->repositorioPessoa->findByEmail($psicologo);
         $dataPsicologos = $this->repositorioPsicologos->findByEmail($psicologo);
 
-        echo "<pre>";
-        echo "Dados pessoas";
-        print_r($dataPessoas);
-        echo "Dados psicologos";
-        print_r($dataPsicologos);
-
         if($dataPessoas == null || empty($dataPessoas) && $dataPsicologos == null || empty($dataPsicologos)){
             $this->repositorioPessoa->insert($psicologo);
             
@@ -124,8 +118,10 @@ class RepositorioPacientes implements IrepositoryPaciente{
 
             $this->repositorioPsicologos->insert($psicologo);
             
-            $psicologo->setCRP($dataPsicologos["CRP"])->
-            $psicologo->setPsicologosPk($dataPsicologos["pkPsicologo"])->
+            $dataPsicologos = $this->repositorioPsicologos->findByEmail($psicologo);
+
+            $psicologo->setCRP($dataPsicologos["CRP"]);
+            $psicologo->setPsicologosPk($dataPsicologos["pkPsicologo"]);
             $psicologo->setPessoaPk($dataPsicologos["pkPessoa"]);
 
             return $psicologo;
