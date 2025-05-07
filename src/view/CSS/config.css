@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: linear-gradient(50deg, #ad9c72, #fff);
+    height: 100vh;
+}
+
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    padding: 50px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+
+#fromularioDadosPessoais {
+    display: flex;
+    flex-direction: column;
+}
+
+#fromularioDadosPessoais label {
+    margin-top: 10px;
+}
+
+#fromularioDadosPessoais input[type="text"],
+#fromularioDadosPessoais input[type="file"] {
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+#fromularioDadosPessoais button {
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #130c7e;
+    color: white;
+    cursor: pointer;
+}
+
+#fromularioDadosPessoais button:hover {
+    background-color: #110d42;
+}

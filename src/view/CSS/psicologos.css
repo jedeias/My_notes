@@ -1,0 +1,209 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #eaf4f4; /* Fundo azul claro */
+    color: #333;
+    line-height: 1.6;
+}
+
+
+.pacientes {
+    margin: 2rem auto;
+    text-align: center; 
+    
+}
+
+.pacientes-title {
+    font-size: 1.8rem;
+    color: #007bff; /* Azul hospitalar */
+    margin-bottom: 1rem;
+}
+
+.paciente-card {
+    width: 25%;
+    margin: 0;
+    margin-left: 15px;
+    padding: 1.5rem;
+    margin-top: 25px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+    position: relative;
+    cursor: pointer;
+    overflow: scroll ;
+}
+
+.paciente-card p {
+    margin: 0.5rem 0;
+}
+
+.button {
+    position: relative;
+    width: 100%;
+    margin: 2rem 0;
+}
+
+.btn-prev, .btn-next {
+    position: absolute;
+    top: 20%;
+    transform: translateY(-20%);
+    padding: 0.8rem 22rem;
+    background-color: transparent;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.btn-prev {
+    left: 10px;
+}
+
+.btn-next {
+    right: 10px;
+}
+
+
+
+.btn-next-paciente {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #4674a5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-next-paciente:hover {
+    background-color: #0056b3;
+}
+
+.anotação {
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 60%;
+}
+
+.anotacao-title {
+    font-size: 1.8rem;
+    color: #007bff;
+    margin-bottom: 1rem;
+}
+
+.anotacao-content {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.anotacao-content div {
+    margin-bottom: 0.5rem;
+}
+
+.atividadesRecomendadas {
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 50%;
+}
+
+.atividades-title {
+    font-size: 1.8rem;
+    color: #007bff;
+    margin-bottom: 1rem;
+}
+
+.atividades-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.atividades-form label {
+    font-size: 1rem;
+    color: #333;
+    text-align: left;
+}
+
+.atividades-form input {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.btn-submit {
+    padding: 0.5rem 1rem;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn-submit:hover {
+    background-color: #007bff;
+}
+
+.paciente-mini-card {
+    width: 25%;
+    margin: 1rem auto;
+    padding: 1rem;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 1rem;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.paciente-mini-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.paciente-mini-card.expanded {
+    background-color: #f9f9f9;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    
+}
+
+.paciente-details {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+
+.agenda{
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 50%;
+}
