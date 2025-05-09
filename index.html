@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../view/CSS/login.css">
+    <link rel="stylesheet" href="src/view/CSS/login.css">
 </head>
 
 <body>
@@ -28,14 +28,14 @@
         
         <div class="login-container">
             
-            <form class="login" action="app/main.php" method="POST" enctype="multipart/form-data">
+            <form class="login" action="src/Controllers/LoginController.php" method="POST" enctype="multipart/form-data">
                 
                 <h1 class="login-label">LOGIN</h1>        
                 <input type="text" name="email" placeholder="E-mail" class="usuario-input" required>
                
             
                 <div class="senha-container">
-                        <input type="password" name="password" required id="loginSenha" placeholder="Senha" class="senha-input">
+                        <input type="password" name="senha" required id="loginSenha" placeholder="Senha" class="senha-input">
                 </div>
                 <div class="action-button">
                     <input type="submit" name="entrar" class="entrar-button" value="Entrar">
@@ -50,5 +50,9 @@
     </section>
 
    
+    <script src="statusLogin">
+        //se tiver tempo futuramento fazer uma interação de erro ao realizar o login
+    </script>
+
 </body>
 </html>

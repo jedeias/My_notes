@@ -16,11 +16,17 @@ class RepositorioLogin {
     public function findAllTypePessoasByEmailAndPasswords(string $email, string $senha) : array|null {
         try {
             $prepare = $this->MySql->getConnect()->prepare("CALL findAllTypePessoasByEmailAndPassword(:email, :senha);");
-            $prepare->bindValue(":email", $email);
-            $prepare->bindValue(":senha", $senha);
+            $prepare->bindParam(":email", $email);
+            $prepare->bindParam(":senha", $senha);
             $prepare->execute();
 
-            return $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
+            $data = $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
+
+            if(empty($data) || !$data || $data == null){
+                return[];
+            }else{
+                return $data;
+            }
         } catch (PDOException $erros) {
             echo("tivemos um erro.:");
             return[$erros->getMessage()];

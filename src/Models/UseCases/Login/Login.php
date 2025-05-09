@@ -12,8 +12,12 @@ class Login implements Ilogin {
     }
 
     public function Autenticacao(string $email, string $senha) {
-        
-        $dataArray = $this->loginRepository->findAllTypePessoasByEmailAndPasswords($email, $senha);
+        try{
+
+            $dataArray = $this->loginRepository->findAllTypePessoasByEmailAndPasswords($email, $senha);
+        }catch(\Throwable $th){
+            echo $th->getMessage();
+        }
 
         if(empty($dataArray)){
             return false;
