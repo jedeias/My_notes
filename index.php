@@ -37,6 +37,16 @@
                 <div class="senha-container">
                         <input type="password" name="senha" required id="loginSenha" placeholder="Senha" class="senha-input">
                 </div>
+            
+                <?php
+                    // OBS ISSO É TRANPO QUE DAVA PARA FAZER NO JS.
+
+                    if (isset($_GET['status'])) {
+                        $status = $_GET['status'];
+                        echo "<p> $status </p>";
+                    }
+                ?>
+
                 <div class="action-button">
                     <input type="submit" name="entrar" class="entrar-button" value="Entrar">
                 </div>
@@ -48,11 +58,6 @@
         </div>
     
     </section>
-
-   
-    <script src="statusLogin">
-        //se tiver tempo futuramento fazer uma interação de erro ao realizar o login
-    </script>
 
 </body>
 </html>
