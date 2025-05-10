@@ -7,7 +7,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 class LoginController{
     
     private Login $login;
-    
+
     public function __construct(string $email,string  $senha){
         $this->login = new Login();
         
@@ -33,7 +33,7 @@ class LoginController{
                     
                     $userConstructor = 'src\Models\Infra\Repository\Pessoas\\' .'Repositorio'. $type;     
                     
-                    header("Location: ../view/telas/pessoas/$type/". $type .".html");
+                    header("Location: ../view/telas/pessoas/$type/". $type .".php");
                     break;
                 }else{
                     

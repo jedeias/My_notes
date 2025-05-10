@@ -1,3 +1,23 @@
+<?php
+
+include "../../../../../vendor/autoload.php";
+
+use src\Controllers\Autentificacao;
+use src\Models\Core\Entities\Session\Sessions;
+
+    
+$auth = new Autentificacao();
+$session = new Sessions();
+
+$userData = $session->get('user');
+if($userData['pkPsicologo'] != null){
+    header("Location: ../psicologos/psicologos.php");
+}else if($userData['pkSecretario'] != null){
+    header("Location: /secretarios/secretarios.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="Pt_Br">
 <head>

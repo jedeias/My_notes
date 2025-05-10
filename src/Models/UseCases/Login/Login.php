@@ -3,9 +3,12 @@
 namespace src\Models\UseCases\Login;
 use src\Models\Infra\Repository\Login\RepositorioLogin;
 use src\Models\UseCases\Interfaces\Ilogin;
+use src\Models\Core\Entities\Session\Sessions;
+
 
 class Login implements Ilogin {
     private RepositorioLogin $loginRepository;
+    private Sessions $sessions;
 
     public function __construct() {
         $this->loginRepository = new RepositorioLogin();
@@ -22,6 +25,9 @@ class Login implements Ilogin {
         if(empty($dataArray)){
             return false;
         }
+
+        $this->sessions = new Sessions();
+        $this->sessions->set("user", $dataArray);
 
         $typesOfClients = [
             'Psicologos' => 'pkPsicologo',
