@@ -74,7 +74,7 @@ $dataNotes = $anotacaoPacienteRepositorio->findAnotacaoByPkPacientes($pacientes)
 
         <h1 class="title">My-Notes</h1>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Atividades</a>
+        <a href="atividades.php">Atividades</a>
         <a href="#">Consultas Agendadas</a>
         <a href="#">Contato</a>
         <a href="#">Agenda</a>

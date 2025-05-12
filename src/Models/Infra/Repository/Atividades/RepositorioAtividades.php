@@ -2,6 +2,7 @@
 
 namespace src\Models\Infra\Repository\Atividades;
 use src\Models\Core\Entities\Atividades\Iatividades;
+use src\Models\Core\Entities\Pessoas\Ipacientes;
 use src\Models\Core\Repository\Atividades\IrepositoryAtividaes; 
 use src\Models\Infra\Data\Sql;
 use PDO;
@@ -69,6 +70,23 @@ class RepositorioAtividades implements IrepositoryAtividaes {
 
         try {
             $prepare = $this->MySql->getConnect()->prepare("SELECT * FROM atividades;");
+            $prepare->execute();
+
+            return $prepare->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $erros) {
+            
+            echo("tivemos um erro.:");
+            
+            return[$erros->getMessage()];
+        }
+        
+    }
+
+    function findAllAtividadesOfPacientes(Ipacientes $paciente) : array{
+
+        try {
+            $prepare = $this->MySql->getConnect()->prepare("call findAllAtividadesOfPacientes(:pkPaciente);");
+            $prepare->bindValue(":pkPaciente", $paciente->getPacientesPk());
             $prepare->execute();
 
             return $prepare->fetchAll(PDO::FETCH_ASSOC);
