@@ -2,20 +2,14 @@
 
 include "../../../../../vendor/autoload.php";
 
+use src\Controllers\NilveDeAcessos\StrategyNivelDeAcessoPsicologos;
 use src\Models\Core\Entities\Session\Sessions;
 use src\Controllers\Autentificacao;
 
 $auth = new Autentificacao();
 $session = new Sessions();
+$nivelDeAcesso = new StrategyNivelDeAcessoPsicologos();
 
-$userData = $session->get('user');
-if($userData['pkPaciente'] != null){
-    header("Location: ../pacientes/pacientes.php");
-}else if($userData['pkSecretario'] != null){
-    header("Location: /secretarios/secretarios.php");
-}
-
-var_dump($session->get('user'));
 
 
 ?>
@@ -35,18 +29,22 @@ var_dump($session->get('user'));
     <div id="menuBtn" onclick="openNav()">&#9776;</div>
     <div id="mySidenav" class="sidenav">
 
-        <img src="../../../image/default-profile.webp" alt="">
+        <img src="../image/images.png" alt='../../../image/default-profile.webp'>
         <h1 class="title">My-Notes</h1>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#">Atividades</a>
         <a href="#">Agenda</a>
         <a href="#">Consultas Agendadas</a>
         <a href="#">Contato</a>
-        <a href="../Telas/config.html"><i class="fa-solid fa-gear"></i></a> 
+        <a href="../sair.php">sair</a>
+        <a href="../config.php"><i class="fa-solid fa-gear"></i></a> 
     </div>
     <article class="pacientes">
         <h2 class="pacientes-title">Lista de Pacientes</h2>
         <h1>Selecione um Paciente</h1>
+
+        <input type="text" class="search" placeholder="Pesquisar Paciente" id="searchInput">
+        <button>"joga imagem de uma lupa aqui"</button>
         <section class="paciente-card">
             <p><strong>Jorge Santos</strong></p>
             <p>Idade: 35</p>
@@ -86,7 +84,6 @@ var_dump($session->get('user'));
     <main>
 
         <article class="null">
-            
         </article>
 
         <article class="button">

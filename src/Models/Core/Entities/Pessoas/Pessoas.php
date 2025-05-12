@@ -1,9 +1,11 @@
 <?php
 
 namespace src\Models\Core\Entities\Pessoas;
+use src\Models\Core\Entities\Enderecos\Enderecos;
 use src\Models\Core\Entities\Pessoas\Ipessoas;
 use src\Models\Core\Entities\Enderecos\Ienderecos;
 use src\Models\Core\Entities\Telefones\Itelefones;
+use src\Models\Core\Entities\Telefones\Telefones;
 
 abstract class Pessoas implements Ipessoas{
     
@@ -19,6 +21,11 @@ abstract class Pessoas implements Ipessoas{
     private Ienderecos $Endereco;
     private Itelefones $telefone;
     
+    public function __construct(){
+        $this->Endereco = new Enderecos();
+        $this->telefone = new Telefones();
+    }
+
     public function getPessoaPk(): int{
         return $this->pk;
     }
@@ -63,6 +70,10 @@ abstract class Pessoas implements Ipessoas{
         return $this;
     }
 
+    public function setSenhaComum(string $senha): self{
+        $this->senha = $senha;
+        return $this;
+    }
     
     public function getDataDeNascimento(): string{
         return $this->dataDeNascimento;
@@ -104,9 +115,6 @@ abstract class Pessoas implements Ipessoas{
     
     public function setSexo(string $sexo): self{
         
-        if(strtoupper($sexo) != 'M' || strtoupper($sexo) != 'F'){
-            $sexo = 'N/A';
-        }
         $this->sexo = strtoupper($sexo);
         return $this;
     }

@@ -635,13 +635,7 @@ CREATE PROCEDURE findAllTypePessoasByEmailAndPassword(
 
 BEGIN
 
-    SELECT 	pessoas.email, 
-			pessoas.senha, 
-			pessoas.pkPessoa, 
-			pacientes.pkPaciente,
-			psicologos.pkPsicologo,
-			secretarios.pkSecretario,
-			responsaveis.pkResponsavel
+   SELECT 	*
 	FROM pessoas
 	LEFT JOIN pacientes ON (pessoas.pkPessoa = pacientes.fkPessoa)
 	LEFT JOIN psicologos ON (pessoas.pkPessoa = psicologos.fkPessoa)
@@ -694,18 +688,6 @@ BEGIN
 END $$
 DELIMITER ;
 
-
-SELECT 	anotacoespacientes.pkAnotacaoPaciente,
-		anotacoespacientes.anotacao,
-		pessoas.pkPessoa,
-		pacientes.pkPaciente,
-		pessoas.nome,
-		anotacoespacientes.diaDaAnotacao
-FROM anotacoespacientes
-INNER JOIN pacientes ON (anotacoespacientes.fkPaciente = pacientes.pkPaciente)
-INNER JOIN pessoas ON (pessoas.pkPessoa = pacientes.fkPessoa);
-
-
 -- selciona todas as anotacoesPacientes de um paciente
 
 DELIMITER $$
@@ -723,7 +705,8 @@ BEGIN
 	FROM anotacoespacientes
 	INNER JOIN pacientes ON (anotacoespacientes.fkPaciente = pacientes.pkPaciente)
 	INNER JOIN pessoas ON (pessoas.pkPessoa = pacientes.fkPessoa)
-	WHERE pacientes.pkPaciente = _pk;
+	WHERE pacientes.pkPaciente = _pk
+	ORDER BY anotacoesPacientes.diaDaAnotacao;
     
 	COMMIT;
         ROLLBACK;
@@ -773,3 +756,38 @@ SELECT * FROM telefones;
 
 
 SELECT * FROM atividadesPacientes;
+
+-- procedure para encontra todos os dados de uma pessoa
+
+DELIMITER $$
+CREATE PROCEDURE findAllADataOfPessoaByPk(
+	IN _pk INT
+)
+BEGIN
+
+SELECT 
+		pessoas.*,
+		telefones.*,
+		enderecos.*,
+		telefones.numero AS 'numeroDeTelefone',
+		enderecos.numero AS 'numeroDaCasa',
+		pacientes.*,
+		psicologos.*,
+		secretarios.*,
+		responsaveis.*
+FROM pessoas
+LEFT JOIN telefones ON (pessoas.fkTelefone = telefones.pkTelefone)
+LEFT JOIN enderecos ON (pessoas.fkEndereco = enderecos.pkEndereco)
+LEFT JOIN pacientes ON (pessoas.pkPessoa = pacientes.fkPessoa)
+LEFT JOIN psicologos ON (pessoas.pkPessoa = psicologos.fkPessoa)
+LEFT JOIN secretarios ON (pessoas.pkPessoa = secretarios.fkPessoa)
+LEFT JOIN responsaveis ON (pessoas.pkPessoa = responsaveis.fkPessoa)
+WHERE pessoas.pkPessoa = _pk;
+
+
+	COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
+call findAllADataOfPessoaByPk(1);

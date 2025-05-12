@@ -102,6 +102,62 @@ class RepositorioPsicologos implements IrepositoryPsicologos{
         }
 
     }
+
+    public function update(Ipsicologos $psicologos): void{
+        try{
+            $prepare = $this->MySql->getConnect()->prepare("CALL updatePsicologos(
+            :pk,
+            :CRP,
+            :nome,
+            :email,
+            :senha,
+
+            :dataDeNascimento,
+            :RG,
+            :CPF,
+            :sexo,
+            :imageLocal,
+
+            :rua,
+            :numeroDaCasa,
+            :complemento,
+            :bairro,
+            :cep,
+
+            :cidade,
+            :estado,
+            :ddd,
+            :numeroDeTelefone
+            );");
+            $prepare->bindValue(":pk", $psicologos->getPsicologosPk());
+            $prepare->bindValue(":CRP", $psicologos->getCRP());
+            $prepare->bindValue(":nome", $psicologos->getNome());
+            $prepare->bindValue(":email", $psicologos->getEmail());
+            $prepare->bindValue(":senha", $psicologos->getSenha());
+            
+            $prepare->bindValue(":dataDeNascimento", $psicologos->getDataDeNascimento());
+            $prepare->bindValue(":RG", $psicologos->getRG());
+            $prepare->bindValue(":CPF", $psicologos->getCPF());
+            $prepare->bindValue(":sexo", $psicologos->getSexo());
+            $prepare->bindValue(":imageLocal", $psicologos->getImageLocal());
+
+            $prepare->bindValue(":rua", $psicologos->getEndereco()->getRua());
+            $prepare->bindValue(":numeroDaCasa", $psicologos->getEndereco()->getNumero());
+            $prepare->bindValue(":complemento", $psicologos->getEndereco()->getComplemento());
+            $prepare->bindValue(":bairro", $psicologos->getEndereco()->getBairro());
+            $prepare->bindValue(":cep", $psicologos->getEndereco()->getCep());
+
+            $prepare->bindValue(":cidade", $psicologos->getEndereco()->getCidade());
+            $prepare->bindValue(":estado", $psicologos->getEndereco()->getEstado());
+            $prepare->bindValue(":ddd", $psicologos->getTelefone()->getDdd());
+            $prepare->bindValue(":numeroDeTelefone", $psicologos->getTelefone()->getNumero());
+
+            $prepare->execute();
+        }catch(PDOException $erros){
+            echo("tivemos um erro.:");
+            echo($erros->getMessage());
+        }
+    }
 }
 
 ?>

@@ -6,10 +6,14 @@ class Sessions{
     
     // se sobra tempo da para jogar um siglenton so para dizer que tem um pattern no projeto.
 
+    private $sessionDAta;
+
     public function __construct() {
         if(!isset($_SESSION)){
             session_start();
         }
+
+        $this->sessionDAta = $_SESSION;
     }
 
     public function set($key, $value) : void {

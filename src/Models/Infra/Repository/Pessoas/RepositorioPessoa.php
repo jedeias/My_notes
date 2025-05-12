@@ -61,6 +61,26 @@ class RepositorioPessoa implements IrepositoryPessoas{
 
     }
 
+    public function findAllADataOfPessoaByPk(int $pk): array{
+        try {
+            $prepare = $this->MySql->getConnect()->prepare("CALL findAllADataOfPessoaByPk(:pk);");
+            $prepare->bindValue(":pk", $pk);
+            $prepare->execute();
+
+            $data = $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
+            if(empty($data)){
+                return [];
+            }else{
+                return $data;;
+            }
+        } catch (PDOException $erros) {
+            
+            echo("tivemos um erro.:");
+            
+            return[$erros->getMessage()];
+        }
+    }
+
     function findByPK(Ipessoas $pessoa) : array{
 
         try {
@@ -103,7 +123,6 @@ class RepositorioPessoa implements IrepositoryPessoas{
         }
         
     }
-
 
 
     function findByEmail(Ipessoas $pessoa) : array{
@@ -181,6 +200,61 @@ class RepositorioPessoa implements IrepositoryPessoas{
         }
         return $retrunPk;
     }
+
+        public function update(Ipessoas $pessoa): void{
+        try{
+            $prepare = $this->MySql->getConnect()->prepare("CALL updatePacientesAndSecretarios(
+            :pk,
+            :nome,
+            :email,
+            :senha,
+            :dataDeNascimento,
+
+            :RG,
+            :CPF,
+            :sexo,
+            :imageLocal,
+            :rua,
+
+            :numeroDaCasa,
+            :complemento,
+            :bairro,
+            :cep,
+            :cidade,
+
+            :estado,
+            :ddd,
+            :numeroDeTelefone
+            );");
+            $prepare->bindValue(":pk", $pessoa->getpessoaPk());
+            $prepare->bindValue(":nome", $pessoa->getNome());
+            $prepare->bindValue(":email", $pessoa->getEmail());
+            $prepare->bindValue(":senha", $pessoa->getSenha());
+            $prepare->bindValue(":dataDeNascimento", $pessoa->getDataDeNascimento());
+            
+            $prepare->bindValue(":RG", $pessoa->getRG());
+            $prepare->bindValue(":CPF", $pessoa->getCPF());
+            $prepare->bindValue(":sexo", $pessoa->getSexo());
+            $prepare->bindValue(":imageLocal", $pessoa->getImageLocal());
+            $prepare->bindValue(":rua", $pessoa->getEndereco()->getRua());
+
+            $prepare->bindValue(":numeroDaCasa", $pessoa->getEndereco()->getNumero());
+            $prepare->bindValue(":complemento", $pessoa->getEndereco()->getComplemento());
+            $prepare->bindValue(":bairro", $pessoa->getEndereco()->getBairro());
+            $prepare->bindValue(":cep", $pessoa->getEndereco()->getCep());
+            $prepare->bindValue(":cidade", $pessoa->getEndereco()->getCidade());
+
+            $prepare->bindValue(":estado", $pessoa->getEndereco()->getEstado());
+            $prepare->bindValue(":ddd", $pessoa->getTelefone()->getDdd());
+            $prepare->bindValue(":numeroDeTelefone", $pessoa->getTelefone()->getNumero());
+
+            $prepare->execute();
+        }catch(PDOException $erros){
+            echo("tivemos um erro.:");
+            echo($erros->getMessage());
+        }
+    }
+
 }
 
 ?>

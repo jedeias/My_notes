@@ -2,20 +2,15 @@
 
 include "../../../../../vendor/autoload.php";
 
-use src\Controllers\Autentificacao;
+use src\Controllers\NilveDeAcessos\StrategyNivelDeAcessoSecretarios;
 use src\Models\Core\Entities\Session\Sessions;
+use src\Controllers\Autentificacao;
 
 
 $auth = new Autentificacao();
 $session = new Sessions();
 
-$userData = $session->get('user');
-
-if($userData['pkPaciente'] != null){
-    header("Location: ../pacientes/pacientes.php");
-}else if($userData['pkPsicologo'] != null){
-    header("Location: ../psicologos/psicologos.php");
-}
+$nivelDeAcesso = new StrategyNivelDeAcessoSecretarios();
 
 ?>
 
@@ -35,14 +30,15 @@ if($userData['pkPaciente'] != null){
     <div id="menuBtn">&#9776;</div>
     <div id="mySidenav" class="sidenav">
 
-        <img src="../image/images.png" alt="">
+        <img src="../image/images.png" alt='../../../image/default-profile.webp'>
         <h1 class="title">My-Notes</h1>
         <a href="javascript:void(0)" class="closebtn">&times;</a>
         <a href="#">Atividades</a>
         <a href="#">Agenda</a>
         <a href="#">Consultas Agendadas</a>
         <a href="#">Contato</a>
-        <a href="../config.html"><i class="fa-solid fa-gear"></i></a> 
+        <a href="../sair.php">sair</a>
+        <a href="../config.php"><i class="fa-solid fa-gear"></i></a> 
     </div>
 
     <article>

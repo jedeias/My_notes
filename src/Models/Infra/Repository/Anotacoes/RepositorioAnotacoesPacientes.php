@@ -29,7 +29,7 @@ class RepositorioAnotacoesPacientes implements IrepositoryAnotacoesPacientes {
             $prepare = $this->MySql->getConnect()->prepare("CALL findAnotacoesByPkPacientes(:pk);");
             $prepare->bindValue(":pk", $pk);
             $prepare->execute();
-            $data = $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
+            $data = $prepare->fetchAll(PDO::FETCH_ASSOC);
 
             if (empty($data)) {
                 return [];

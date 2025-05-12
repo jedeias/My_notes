@@ -2,7 +2,8 @@
 
 namespace Src\Models\Core\Entities\Anotacoes;
 use src\Models\Core\Entities\Pessoas\Ipacientes;
-use Src\Models\Core\Entities\Anotacoes\IanotacoesPacientes;
+use src\Models\Core\Entities\Anotacoes\IanotacoesPacientes;
+
 class AnotacoesPacientes implements IanotacoesPacientes{
     
     private Ipacientes $pacientes;

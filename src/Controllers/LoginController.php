@@ -37,10 +37,10 @@ class LoginController{
                     break;
                 }else{
                     
-                    header("Location: ../../index.html?status='usaurio nao localizado ou senha incorreta ERRRO'");
+                    header("Location: ../../index.php?status='usaurio nao localizado ou senha incorreta ERRRO'");
                 }
             } catch (\Throwable $th) {
-                header("Location: ../../index.html?status='usaurio nao localizado ou senha incorreta ERRRO'");
+                header("Location: ../../index.php?status='usaurio nao localizado ou senha incorreta ERRRO'");
             }
         }
     

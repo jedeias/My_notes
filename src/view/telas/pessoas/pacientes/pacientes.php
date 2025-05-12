@@ -4,17 +4,51 @@ include "../../../../../vendor/autoload.php";
 
 use src\Controllers\Autentificacao;
 use src\Models\Core\Entities\Session\Sessions;
+use src\Controllers\NilveDeAcessos\StrategyNivelDeAcessoPacientes;
+use src\Models\Core\Entities\Pessoas\Psicologos;
+use src\Models\Core\Entities\Pessoas\Pacientes;
+use src\Models\Core\Entities\Anotacoes\AnotacoesPacientes;
+use src\Models\Infra\Repository\Anotacoes\RepositorioAnotacoesPacientes;
 
-    
 $auth = new Autentificacao();
 $session = new Sessions();
 
-$userData = $session->get('user');
-if($userData['pkPsicologo'] != null){
-    header("Location: ../psicologos/psicologos.php");
-}else if($userData['pkSecretario'] != null){
-    header("Location: /secretarios/secretarios.php");
+$nivelDeAcesso = new StrategyNivelDeAcessoPacientes();
+
+$dadosPacientes = $session->get('user');
+
+
+$psicologos = new Psicologos();
+$psicologos->setPsicologosPk($dadosPacientes['fkPsicologo']);
+
+$pacientes = new Pacientes();
+$pacientes->setPacientesPk($dadosPacientes['pkPaciente']);
+$pacientes->setNome($dadosPacientes['nome']);
+$pacientes->setEmail($dadosPacientes['email']);
+$pacientes->setImageLocal($dadosPacientes['imageLocal']);
+$pacientes->setPsicologo($psicologos);
+
+if($dadosPacientes['pkResponsavel'] != null){
+    $pacientes->setResponsavel($dadosPacientes['pkResponsavel']);
 }
+
+$anotacaoPaciente = new AnotacoesPacientes();
+
+$anotacaoPaciente->setPacientes($pacientes);
+$anotacaoPacienteRepositorio = new RepositorioAnotacoesPacientes();
+
+$dataNotes = $anotacaoPacienteRepositorio->findAnotacaoByPkPacientes($pacientes);
+
+// var_dump($dataNotes);
+
+// if($_POST){
+
+//     var_dump($_POST);
+
+//     $novaAnotacao = new AnotacoesPacientes();
+//     $novaAnotacao->setAnotacao($_POST['descricao']);
+//     $novaAnotacao->set($_POST['emotion']);
+// }
 
 ?>
 
@@ -33,14 +67,19 @@ if($userData['pkPsicologo'] != null){
     <div id="menuBtn" onclick="openNav()">&#9776;</div>
     <div id="mySidenav" class="sidenav">
 
-        <img src="../image/images.png" alt="">
+        <?php
+
+            echo "src=" . $pacientes->getImageLocal() . " alt='../../../image/default-profile.webp'";
+        ?>
+
         <h1 class="title">My-Notes</h1>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#">Atividades</a>
-        <a href="#">Agenda</a>
         <a href="#">Consultas Agendadas</a>
         <a href="#">Contato</a>
-        <a href="../Telas/config.html"><i class="fa-solid fa-gear"></i></a> 
+        <a href="#">Agenda</a>
+        <a href="../sair.php">sair</a>
+        <a href="../config.php"><i class="fa-solid fa-gear"></i></a> 
     </div>
 
     <section class="notepad-container">
@@ -51,7 +90,7 @@ if($userData['pkPsicologo'] != null){
                 </svg>
             </button>
             <div id="anotacao<?php echo $numAnotacoes + 1;?>" class="notepad active">           
-                <form action="../../../controller/crud/paciente/inserteNota.php" method="POST">
+                <form action="" method="POST">
                 <article class="notepad-header">
                     <div class="notepad-header-left">
                         <p id="digital-date" class="notepad-date"></p> 
@@ -82,7 +121,7 @@ if($userData['pkPsicologo'] != null){
                     <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
                 </svg>
             </button>
-            <p id='notepad-count' class='notepad-count'>1/1</p>
+            <p id='notepad-count' class='notepad-count'>1 / <?php echo count($dataNotes) ?></p>
         </section>
 
     </section>
