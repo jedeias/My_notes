@@ -27,8 +27,6 @@ if($session->get('user') == null) {
     header("Location: ../../../../index.php");
 }
 
-print_r($userData);
-
 if($_POST){
 
     $foto = $_FILES['imageLocal']['name'];
@@ -37,14 +35,7 @@ if($_POST){
 
     $pasta = "../../image/fotosUsuarios/";
 
-    echo "<br><br><br><br>";
     move_uploaded_file($_FILES['imageLocal']['tmp_name'], $pasta.$foto);
-
-
-    print_r($pasta);
-
-    echo "<br><br><br><br>";
-
 
     if($userData['pkPaciente'] != null){
         $pessoa = new Pacientes();
@@ -210,7 +201,7 @@ if($_POST){
                 <input type="text" id="senha" name="senha" placeholder="*******">
 
                 <label for="dataDeNascimento">Alterar data de nascimento:</label>
-                <input type="text" id="dataDeNascimento" name="dataDeNascimento" placeholder="Digite seu nome" value="<?php echo $userData['dataDeNascimento'] ?>">
+                <input type="date" id="dataDeNascimento" name="dataDeNascimento" placeholder="Digite seu nome" value="<?php echo $userData['dataDeNascimento'] ?>">
 
                 <label for="RG">Alterar RG:</label>
                 <input type="text" id="RG" name="RG" placeholder="Digite seu RG" value="<?php echo $userData['RG'] ?>">

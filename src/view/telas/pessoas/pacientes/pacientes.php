@@ -39,16 +39,13 @@ $anotacaoPacienteRepositorio = new RepositorioAnotacoesPacientes();
 
 $dataNotes = $anotacaoPacienteRepositorio->findAnotacaoByPkPacientes($pacientes);
 
-// var_dump($dataNotes);
-
-// if($_POST){
-
-//     var_dump($_POST);
-
-//     $novaAnotacao = new AnotacoesPacientes();
-//     $novaAnotacao->setAnotacao($_POST['descricao']);
-//     $novaAnotacao->set($_POST['emotion']);
-// }
+if($_POST){
+    $novaAnotacao = new AnotacoesPacientes();
+    $novaAnotacao->setAnotacao($_POST['descricao']);
+    $novaAnotacao->setPacientes($pacientes);
+    $anotacaoPacienteRepositorio->insert($novaAnotacao);
+    header("Location: pacientes.php");
+}
 
 ?>
 
@@ -116,6 +113,7 @@ $dataNotes = $anotacaoPacienteRepositorio->findAnotacaoByPkPacientes($pacientes)
 
             </form>
             </div>
+
             <button class="next-button" onclick="nextNote()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
                     <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
@@ -124,8 +122,17 @@ $dataNotes = $anotacaoPacienteRepositorio->findAnotacaoByPkPacientes($pacientes)
             <p id='notepad-count' class='notepad-count'>1 / <?php echo count($dataNotes) ?></p>
         </section>
 
+        
+        <div class="anotacoesDosPacientes">
+            <input id="quantidadeDeAnotacoes" hidden="" values="<?php echo count($dataNotes); ?>"></input/>
+            <input id="jsonDeAnotacoes" hidden="" value='<?php echo json_encode($dataNotes, JSON_UNESCAPED_UNICODE); ?>'></input>;
+        
+    </div>
+
+
     </section>
     <script src="../../../JS/paciente.js"></script>
+    <script src="../../../JS/anotacoesPacientes.js"></script>
     <script src="../../../JS/menu.js"></script>
 
 </body>
