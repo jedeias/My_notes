@@ -14,11 +14,13 @@ console.log("ponteiro é >_:", pointer.split('/')[0]);
 
 let textArea = document.getElementById('textarea');
 textArea.value = dados[valorAtual].anotacao;
+diaDoAno.innerHTML = dados[valorAtual].diaDaAnotacao;
 
 function nextNote(){
     if(valorAtual < dados.length){
         valorAtual++;
         textArea.value = dados[valorAtual].anotacao;
+        diaDoAno.innerHTML = dados[valorAtual].diaDaAnotacao;
     }else if(dados.length[valorAtual] == undefined){
         valorAtual++;
         textArea.value = "insira uma nova anotação";
@@ -27,13 +29,18 @@ function nextNote(){
 }
 
 function prevNote(){
-    if(valorAtual > dados.length){
+    if(valorAtual > dados.length && valorAtual > 0){
         valorAtual--;
         textArea.value = dados[valorAtual].anotacao;
+        diaDoAno.innerHTML = dados[valorAtual].diaDaAnotacao;
     }else if(dados.length[valorAtual] == undefined){
+        valorAtual--;
+        textArea.value = dados[valorAtual].anotacao;
+        diaDoAno.innerHTML = dados[valorAtual].diaDaAnotacao;
+    }else{
         valorAtual = 0;
         textArea.value = dados[valorAtual].anotacao;
+        diaDoAno.innerHTML = dados[valorAtual].diaDaAnotacao;
     }
-
     console.log(dados[valorAtual]);
 }

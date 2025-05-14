@@ -2,6 +2,8 @@
 
 include "../../../../../vendor/autoload.php";
 
+use src\Models\Core\Entities\Pessoas\Psicologos;
+use src\Models\Infra\Repository\Pessoas\RepositorioPsicologos;
 use src\Controllers\NilveDeAcessos\StrategyNivelDeAcessoPsicologos;
 use src\Models\Core\Entities\Session\Sessions;
 use src\Controllers\Autentificacao;
@@ -10,6 +12,21 @@ $auth = new Autentificacao();
 $session = new Sessions();
 $nivelDeAcesso = new StrategyNivelDeAcessoPsicologos();
 
+$dadosPsicologo = $session->get('user');
+
+$psicologos = new Psicologos();
+$psicologos->setPsicologosPk($dadosPsicologo['pkPsicologo']);
+$psicologos->setNome($dadosPsicologo['nome']);
+$psicologos->setEmail($dadosPsicologo['email']);
+$psicologos->setImageLocal($dadosPsicologo['imageLocal']);
+$psicologos->setCRP($dadosPsicologo['CRP']);
+$psicologos->setPessoaPk($dadosPsicologo['pkPessoa']);
+
+$listaDePacientes = new RepositorioPsicologos();
+$listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
+
+
+var_dump($psicologos->getImageLocal());
 
 
 ?>
@@ -29,7 +46,7 @@ $nivelDeAcesso = new StrategyNivelDeAcessoPsicologos();
     <div id="menuBtn" onclick="openNav()">&#9776;</div>
     <div id="mySidenav" class="sidenav">
 
-        <img src="../image/images.png" alt='../../../image/default-profile.webp'>
+        <img src="../../../image/fotosUsuarios/<?php echo $psicologos->getImageLocal()?>" alt='../../../image/default-profile.webp'>
         <h1 class="title">My-Notes</h1>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#">Atividades</a>
@@ -45,40 +62,28 @@ $nivelDeAcesso = new StrategyNivelDeAcessoPsicologos();
 
         <input type="text" class="search" placeholder="Pesquisar Paciente" id="searchInput">
         <button>"joga imagem de uma lupa aqui"</button>
-        <section class="paciente-card">
+        
+
+        <?php
+
+            foreach($listaDePacientes as $paciente){
+                echo "<section class='paciente-card'>";
+                echo "<p><strong>" . $paciente['nome'] . "</strong></p>";
+                echo "<p><strong>" . $paciente['email'] . "</strong></p>";
+                echo "<button class='btn-next-paciente' onclick='dadosPacientes(". $paciente['pkPaciente'].")'>informações</button>";
+                echo "</section>";
+            }
+            ?>
+        
+        <section class="paciente-card" >
             <p><strong>Jorge Santos</strong></p>
             <p>Idade: 35</p>
             <p>Última consulta: 10/02/2023</p>
             <button class="btn-next-paciente" onclick="nextPaciente()">Próximo Paciente</button>
         </section>
 
-        <section class="paciente-card">
-            <p><strong>Maria Oliveira</strong></p>
-            <p>Idade: 29</p>
-            <p>Última consulta: 15/03/2023</p>
-            <button class="btn-next-paciente" onclick="nextPaciente()">Próximo Paciente</button>
-        </section>
 
-        <section class="paciente-card" >
-            <p><strong>Pedro Lima</strong></p>
-            <p>Idade: 42</p>
-            <p>Última consulta: 20/01/2023</p>
-            <button class="btn-next-paciente" onclick="nextPaciente()">Próximo Paciente</button>
-        </section>
 
-        <section class="paciente-card" >
-            <p><strong>Carla Souza</strong></p>
-            <p>Idade: 31</p>
-            <p>Última consulta: 05/04/2023</p>
-            <button class="btn-next-paciente" onclick="nextPaciente()">Próximo Paciente</button>
-        </section>
-
-        <section class="paciente-card" >
-            <p><strong>Lucas Almeida</strong></p>
-            <p>Idade: 27</p>
-            <p>Última consulta: 18/03/2023</p>
-            <button class="btn-next-paciente" onclick="nextPaciente()">Próximo Paciente</button>
-        </section>
     </article>
 
     <main>
@@ -91,27 +96,16 @@ $nivelDeAcesso = new StrategyNivelDeAcessoPsicologos();
             <button class="btn-next" onclick="nextClick()"><i class="fa-solid fa-arrow-right"></i></button>
         </article>
 
-        
-
         <article class="anotação">
             <h1 class="anotacao-title">Anotação</h1>
 
             <section class="anotacao-content">
-                <div class="data_da_anotação">
-                    <span>13:25</span>
-                </div>
+                
+                <section hidden="true" id="listaDeAnotacoesDoPaciente" class="listaDeAnotacoesDoPaciente">
+                    <button onclick="hiddenListaDeAnotacoes()">fechar lista</button>
+                </section>
 
-                <div class="dia_da_anotação">
-                    <p>12/02/2030</p>
-                </div>
-
-                <div class="tituloDescricao">
-                    <p>Título</p>
-                </div>
-
-                <div class="descricao">
-                    <p>Descrição:</p>
-                </div>
+                <button onclick="ligarVisibilidadeDasAnotacoes()">mostra lista de anotacoes</button>
             </section>
 
         </article>
@@ -127,23 +121,33 @@ $nivelDeAcesso = new StrategyNivelDeAcessoPsicologos();
 
             <img src="" alt="Adicionar" class="add-icon">
 
+            
             <form action="" method="post" class="atividades-form">
-
+                
                 <label for="titulo">Título</label>
                 <input type="text" name="titulo" id="titulo" class="titulo">
-
+                
                 <label for="atividade">Recomendação</label>
                 <input type="text" name="atividade" id="atividade" class="atividade">
-
+                
                 <button type="submit" class="btn-submit">Enviar</button>
-
+                
             </form>
+            <button onclick="ligarVisibilidadeDasAtividades()">lista De Ativiades atual do paciente</button>
+            
+            <section hidden="true" id="listaDeAtividadesDoPaciente" class="listaDeAtividadesDoPaciente">
+            
+                <button onclick="hiddenListaDeAtividades()">fechar lista</button>
+                
+            </section>
         </article>
     
     </main>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script src="../../../JS/psicologos.js"></script>
+    <script src="../../../JS/psicologosDadosPacientes.js"></script>
     <script src="../../../JS/menu.js"></script>
 </body>
 </html>

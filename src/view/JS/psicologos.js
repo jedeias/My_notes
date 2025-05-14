@@ -34,3 +34,28 @@ function nextClick() {
     elemento.removeAttribute("hidden")
 
 }
+
+function prevClick() {
+
+    if(fousPage > 1){
+        fousPage -= 1;
+    }else{
+        fousPage = 3;
+    }
+    for(let key in hashMap){
+        elemento = document.querySelector("." + hashMap[key]);
+
+        console.log(elemento);
+
+        if (key != fousPage) {
+            elemento = document.querySelector("." + hashMap[key]);
+            elemento.setAttribute("hidden", true);
+
+            console.log(elemento)
+        }
+
+    }
+    elemento = document.querySelector("." + hashMap[fousPage])
+    elemento.removeAttribute("hidden")
+
+}

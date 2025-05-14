@@ -67,7 +67,7 @@ class RepositorioPsicologos implements IrepositoryPsicologos{
             if(empty($data)){
                 return [];
             }else{
-                return $data;;;
+                return $data;
             }
         }catch(PDOException $erros){
             echo("tivemos um erro.:");
@@ -158,6 +158,26 @@ class RepositorioPsicologos implements IrepositoryPsicologos{
             echo($erros->getMessage());
         }
     }
+
+    public function findAllPacientesOfPsicologo(Ipsicologos $psicologos){
+        try{
+            $prepare = $this->MySql->getConnect()->prepare("CALL findAllPacientesOfPsicologo(:pkPsicologo);");
+            $prepare->bindValue(":pkPsicologo", $psicologos->getPsicologosPk());
+            $prepare->execute();
+
+            $data = $prepare->fetchAll(PDO::FETCH_ASSOC);
+            if(empty($data)){
+                return [];
+            }else{
+                return $data;
+            }
+
+        }catch(PDOException $erros){
+            echo("tivemos um erro.:");
+            echo($erros->getMessage());
+        }
+    }
+
 }
 
 ?>

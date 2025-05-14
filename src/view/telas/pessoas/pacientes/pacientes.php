@@ -46,7 +46,6 @@ if($_POST){
     $anotacaoPacienteRepositorio->insert($novaAnotacao);
     header("Location: pacientes.php");
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +65,7 @@ if($_POST){
 
         <?php
 
-            echo "src=" . $pacientes->getImageLocal() . " alt='../../../image/default-profile.webp'";
+            echo "src=/".$pacientes->getImageLocal(). "alt='../../../image/default-profile.webp'";
         ?>
 
         <h1 class="title">My-Notes</h1>

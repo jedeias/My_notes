@@ -27,6 +27,10 @@ if($session->get('user') == null) {
     header("Location: ../../../../index.php");
 }
 
+/*
+    Aqui da para aplica um Strategy legal para cada usuarios que precisa de update, mas estou sem tempo para isso.
+*/
+
 if($_POST){
 
     $foto = $_FILES['imageLocal']['name'];
@@ -118,7 +122,7 @@ if($_POST){
     }else if($userData['pkSecretario'] != null){
         $pessoa = new Secretarios();
         
-        $pessoa->setPessoaPk($userData['pkSecretario']);
+        $pessoa->setPessoaPk($userData['pkPessoa']);
         $pessoa->setNome($_POST['nome']);
         if($_POST['senha'] == null){
             $pessoa->setSenhaComum($userData['senha']);
@@ -150,7 +154,7 @@ if($_POST){
         
         $repositorioPessoas->update($pessoa);
         
-        // header("Location: secretarios/secretarios.php");
+        header("Location: secretarios/secretarios.php");
     }
 }
 

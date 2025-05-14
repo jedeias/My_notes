@@ -740,23 +740,6 @@ WHERE anotacoespacientes.pkAnotacaoPaciente = _pk;
 END $$
 DELIMITER ;
 
-SELECT * FROM anotacoespacientes;
-SELECT * FROM anotacoespsicologos;
-SELECT * FROM atividades;        
-SELECT * FROM atividadespacientes;
-SELECT * FROM consultas;         
-SELECT * FROM enderecos;         
-SELECT * FROM flags;             
-SELECT * FROM pacientes;         
-SELECT * FROM pessoas;           
-SELECT * FROM psicologos;        
-SELECT * FROM responsaveis;      
-SELECT * FROM secretarios;       
-SELECT * FROM telefones;
-
-
-SELECT * FROM atividadesPacientes;
-
 -- procedure para encontra todos os dados de uma pessoa
 
 DELIMITER $$
@@ -790,4 +773,164 @@ WHERE pessoas.pkPessoa = _pk;
 END $$
 DELIMITER ;
 
-call findAllADataOfPessoaByPk(1);
+-- update de psicologos
+
+DELIMITER $$
+CREATE PROCEDURE updatePsicologos(
+IN _pk INT,
+IN _CRP VARCHAR(20),
+IN _nome VARCHAR(100),
+IN _email VARCHAR(100),
+IN _senha VARCHAR(100),
+
+IN _dataDeNascimento DATE,
+IN _RG VARCHAR(20),
+IN _CPF VARCHAR(20),
+IN _sexo CHAR(1),
+IN _imageLocal VARCHAR(255),
+
+IN _rua VARCHAR(100),
+IN _numeroDaCasa VARCHAR(10),
+IN _complemento VARCHAR(100),
+IN _bairro VARCHAR(100),
+IN _cep VARCHAR(10),
+
+IN _cidade VARCHAR(100),
+IN _estado VARCHAR(50),
+IN _ddd VARCHAR(3),
+IN _numeroDeTelefone VARCHAR(20)
+)
+BEGIN
+
+UPDATE psicologos
+INNER JOIN pessoas ON (psicologos.fkPessoa = pessoas.pkPessoa)
+INNER JOIN telefones ON (pessoas.fkTelefone = telefones.pkTelefone)
+INNER JOIN enderecos ON (pessoas.fkEndereco = enderecos.pkEndereco)
+SET 	psicologos.CRP = _CRP,
+        pessoas.nome = _nome,
+        pessoas.email = _email,
+        pessoas.senha = _senha,
+        pessoas.dataDeNascimento = _dataDeNascimento,
+        pessoas.RG = _RG,
+        pessoas.CPF = _CPF,
+        pessoas.sexo = _sexo,
+        pessoas.imageLocal = _imageLocal,
+        enderecos.rua = _rua,
+        enderecos.numero = _numeroDaCasa,
+        enderecos.complemento = _complemento,
+        enderecos.bairro = _bairro,
+        enderecos.cep = _cep,
+        enderecos.cidade = _cidade,
+        enderecos.estado = _estado,
+        telefones.ddd = _ddd,
+        telefones.numero = _numeroDeTelefone
+    WHERE psicologos.pkPsicologo = _pk;
+		
+	COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
+
+-- update de PacientesEsecretarios
+
+DELIMITER $$
+CREATE PROCEDURE updatePacientesAndSecretarios(
+IN _pk INT,
+IN _nome VARCHAR(100),
+IN _email VARCHAR(100),
+IN _senha VARCHAR(100),
+IN _dataDeNascimento DATE,
+
+IN _RG VARCHAR(20),
+IN _CPF VARCHAR(20),
+IN _sexo CHAR(1),
+IN _imageLocal VARCHAR(255),
+IN _rua VARCHAR(100),
+
+IN _numeroDaCasa VARCHAR(10),
+IN _complemento VARCHAR(100),
+IN _bairro VARCHAR(100),
+IN _cep VARCHAR(10),
+IN _cidade VARCHAR(100),
+
+IN _estado VARCHAR(50),
+IN _ddd VARCHAR(3),
+IN _numeroDeTelefone VARCHAR(20)
+)
+BEGIN
+
+UPDATE pessoas
+INNER JOIN telefones ON (pessoas.fkTelefone = telefones.pkTelefone)
+INNER JOIN enderecos ON (pessoas.fkEndereco = enderecos.pkEndereco)
+SET 	pessoas.nome = _nome,
+        pessoas.email = _email,
+        pessoas.senha = _senha,
+        pessoas.dataDeNascimento = _dataDeNascimento,
+        pessoas.RG = _RG,
+        pessoas.CPF = _CPF,
+        pessoas.sexo = _sexo,
+        pessoas.imageLocal = _imageLocal,
+        enderecos.rua = _rua,
+        enderecos.numero = _numeroDaCasa,
+        enderecos.complemento = _complemento,
+        enderecos.bairro = _bairro,
+        enderecos.cep = _cep,
+        enderecos.cidade = _cidade,
+        enderecos.estado = _estado,
+        telefones.ddd = _ddd,
+        telefones.numero = _numeroDeTelefone
+    WHERE pessoas.pkPessoa = _pk;
+		
+	COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
+-- procedure para encontra todas atividades de um paciente
+
+-- update de PacientesEsecretarios
+
+DELIMITER $$
+CREATE PROCEDURE findAllAtividadesOfPacientes(
+IN _pk INT
+)
+BEGIN
+
+	SELECT * FROM atividadesPacientes
+	INNER JOIN atividades ON (atividadespacientes.pkAtividade = atividades.pkAtividade)
+	WHERE atividadesPacientes.pkPaciente = _pk;
+		
+	COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
+/*
+	teste de atividades inseridas
+	call findAllAtividadesOfPacientes(2);
+	
+	CALL insertAtividades('Cubo Magico', 'Atividade de treinamento coginitivo.');
+	CALL insertAtividades('Leitura', 'Atividades de aprimoramento de mémoria.');
+	
+	CALL insertAtividadesPaciente(3, 2);
+	CALL insertAtividadesPaciente(3, 2);
+	CALL insertAtividadesPaciente(4, 2);
+	CALL insertAtividadesPaciente(4, 1);
+	
+*/
+
+SELECT * FROM anotacoespacientes;
+SELECT * FROM anotacoespsicologos;
+SELECT * FROM atividades;
+SELECT * FROM atividadespacientes;
+SELECT * FROM consultas;
+SELECT * FROM enderecos;
+SELECT * FROM flags;
+SELECT * FROM pacientes;
+SELECT * FROM pessoas;
+SELECT * FROM psicologos;
+SELECT * FROM responsaveis;
+SELECT * FROM secretarios;
+SELECT * FROM telefones;
+SELECT * FROM atividadespacientes;
