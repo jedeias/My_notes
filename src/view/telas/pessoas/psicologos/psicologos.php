@@ -26,7 +26,7 @@ $listaDePacientes = new RepositorioPsicologos();
 $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
 
 
-var_dump($psicologos->getImageLocal());
+// var_dump($psicologos->getImageLocal());
 
 
 ?>
@@ -47,9 +47,11 @@ var_dump($psicologos->getImageLocal());
     <div id="mySidenav" class="sidenav">
 
         <img src="../../../image/fotosUsuarios/<?php echo $psicologos->getImageLocal()?>" alt='../../../image/default-profile.webp'>
-        <h1 class="title">My-Notes</h1>
+        <h1 class="title"><?php echo $dadosPsicologo["nome"]; ?></h1>
+        <h2 class="subtitle"><?php echo $dadosPsicologo["email"]; ?></h2>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#">Atividades</a>
+        <a href="#">Pacientes</a>
         <a href="#">Agenda</a>
         <a href="#">Consultas Agendadas</a>
         <a href="#">Contato</a>
@@ -58,29 +60,32 @@ var_dump($psicologos->getImageLocal());
     </div>
     <article class="pacientes">
         <h2 class="pacientes-title">Lista de Pacientes</h2>
+        
+        <input type="text" class="search" placeholder="Pesquisar Paciente" id="searchInput">
+        <button class="btnsearch"><i class="fa-solid fa-magnifying-glass"></i></button>
+        
         <h1>Selecione um Paciente</h1>
 
-        <input type="text" class="search" placeholder="Pesquisar Paciente" id="searchInput">
-        <button>"joga imagem de uma lupa aqui"</button>
-        
 
-        <?php
+        <div class="container">
+            <?php
 
-            foreach($listaDePacientes as $paciente){
-                echo "<section class='paciente-card'>";
-                echo "<p><strong>" . $paciente['nome'] . "</strong></p>";
-                echo "<p><strong>" . $paciente['email'] . "</strong></p>";
-                echo "<button class='btn-next-paciente' onclick='dadosPacientes(". $paciente['pkPaciente'].")'>informações</button>";
-                echo "</section>";
-            }
+                foreach($listaDePacientes as $paciente){
+                    echo "<section class='paciente-card'>";
+                    echo "<p><strong>" . $paciente['nome'] . "</strong></p>";
+                    echo "<p><strong>" . $paciente['email'] . "</strong></p>";
+                    echo "<button class='btn-next-paciente' onclick='dadosPacientes(". $paciente['pkPaciente'].")'>informações</button>";
+                    echo "</section>";
+                }
             ?>
-        
-        <section class="paciente-card" >
+
+            <section class="paciente-card" >
             <p><strong>Jorge Santos</strong></p>
             <p>Idade: 35</p>
             <p>Última consulta: 10/02/2023</p>
             <button class="btn-next-paciente" onclick="nextPaciente()">Próximo Paciente</button>
-        </section>
+            </section>
+        </div>
 
 
 

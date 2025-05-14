@@ -174,7 +174,8 @@ if($_POST){
     <div id="menuBtn" onclick="openNav()">&#9776;</div>
     <div id="mySidenav" class="sidenav">
         <img src="../image/images.png" alt="">
-        <h1 class="title">My-Notes</h1>
+        <h1 class="title"><?php echo $userData["nome"]; ?></h1>
+        <h2 class="subtitle"><?php echo $userData["email"]; ?></h2>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#">Atividades</a>
         <a href="#">Agenda</a>
@@ -292,7 +293,6 @@ if($_POST){
             </form>
 
         </div>
-    <!-- <script src="..JS/paciente.js"></script> -->
-    <script src="../../JS/paciente.js"></script>
-</body>
+        <script src="../../JS/menu.js"></script>
+    </body>
 </html>

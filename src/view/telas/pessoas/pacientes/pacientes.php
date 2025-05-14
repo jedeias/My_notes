@@ -68,7 +68,8 @@ if($_POST){
             echo "src=/".$pacientes->getImageLocal(). "alt='../../../image/default-profile.webp'";
         ?>
 
-        <h1 class="title">My-Notes</h1>
+        <h1 class="title"><?php echo $dadosPacientes["nome"]; ?></h1>
+        <h2 class="subtitle"><?php echo $dadosPacientes["email"]; ?></h2>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="atividades.php">Atividades</a>
         <a href="#">Consultas Agendadas</a>
@@ -91,16 +92,7 @@ if($_POST){
                     <div class="notepad-header-left">
                         <p id="digital-date" class="notepad-date"></p> 
                     </div>
-                    <div class="notepad-header-center">
-                        <label for="emotion">Tipo de Emoção:</label>
-                        <select id="emotion" name="emotion">
-                            <option value="feliz">Feliz &#128512;</option>
-                            <option value="triste">Triste &#128542;</option>
-                            <option value="ansioso">Ansioso &#128534;</option>
-                            <option value="irritado">Irritado &#128545;</option>
-                            <option value="calmo">Calmo &#128521;</option>
-                        </select>
-                    </div>
+                  
                     <div class="notepad-header-right">
                         <p id="digital-clock" class="notepad-clock"></p>
                     </div>

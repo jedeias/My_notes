@@ -94,11 +94,21 @@
     width: 100%;
 }
 
+.sidenav .subtitle {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    text-align: center;
+    width: 100%;
+}
+
 #menuBtn {
     font-size: 30px;
     cursor: pointer;
     position: fixed;
     top: 15px;
     left: 15px;
-    color: #fff;
+    color: #000;
 }

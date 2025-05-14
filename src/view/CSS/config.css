@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-image: linear-gradient(50deg, #ad9c72, #fff);
+    background-color: #eaf4f4; 
     height: 100vh;
 }
 
@@ -22,6 +22,8 @@ body {
     width: 80%;
     max-width: 500px;
     border-radius: 10px;
+    overflow: scroll;
+    max-height: 80vh;
 }
 
 
@@ -35,7 +37,8 @@ body {
 }
 
 #fromularioDadosPessoais input[type="text"],
-#fromularioDadosPessoais input[type="file"] {
+#fromularioDadosPessoais input[type="file"],
+#fromularioDadosPessoais input[type="date"]{
     padding: 10px;
     margin-top: 5px;
     border-radius: 5px;
@@ -51,6 +54,15 @@ body {
     background-color: #130c7e;
     color: white;
     cursor: pointer;
+}
+
+select{
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    background: transparent;
 }
 
 #fromularioDadosPessoais button:hover {

@@ -31,7 +31,8 @@ $nivelDeAcesso = new StrategyNivelDeAcessoSecretarios();
     <div id="mySidenav" class="sidenav">
 
         <img src="../image/images.png" alt='../../../image/default-profile.webp'>
-        <h1 class="title">My-Notes</h1>
+        <h1 class="title"><?php echo $userData["nome"]; ?></h1>
+        <h2 class="subtitle"><?php echo $userData["email"]; ?></h2>
         <a href="javascript:void(0)" class="closebtn">&times;</a>
         <a href="#">Atividades</a>
         <a href="#">Agenda</a>
@@ -51,36 +52,212 @@ $nivelDeAcesso = new StrategyNivelDeAcessoSecretarios();
 
         <!-- Modal para Pacientes -->
         <div id="pacienteModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Cadastrar Paciente</h2>
-                <form>
-                    <label for="nomePaciente">Nome:</label>
-                    <input type="text" id="nomePaciente" name="nomePaciente">
-                    <label for="idadePaciente">Idade:</label>
-                    <input type="number" id="idadePaciente" name="idadePaciente">
-                    <label for="emailPaciente">Email:</label>
-                    <input type="email" id="emailPaciente" name="emailPaciente">
-                    <button type="submit">Cadastrar</button>
-                </form>
-            </div>
+        <div class="modal-content">
+            
+            <h2>Cadastrar pacientes</h2>
+            
+            <form id="fromularioDadosPessoais" action="" method="post" enctype="multipart/form-data">
+                
+                <h3>Dados pessoais</h3>
+
+                <label for="foto">Alterar Imagem:</label>
+                <input type="file" id="foto" name="imageLocal" value="" accept="image/*">
+                
+                <label for="nome">Alterar Nome:</label>
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome" value="">
+
+                <label for="email">Alterar email:</label>
+                <input type="text" id="email" name="email" placeholder="Digite seu email" value="">
+                
+                <label for="senha">Alterar senha:</label>
+                <input type="text" id="senha" name="senha" placeholder="*******">
+
+                <label for="dataDeNascimento">Alterar data de nascimento:</label>
+                <input type="date" id="dataDeNascimento" name="dataDeNascimento" placeholder="Digite seu nome" value="">
+
+                <label for="RG">Alterar RG:</label>
+                <input type="text" id="RG" name="RG" placeholder="Digite seu RG" value="">
+
+                <label for="CPF">Alterar CPF:</label>
+                <input type="text" id="CPF" name="CPF" placeholder="Digite seu CPF" value="">
+
+                <label for="sexo">sexo:</label>
+                <select name="sexo" id="sexo">
+                    <option value=""></option>
+                    <option value="M">Male</option>
+                    <option value="F">Famele</option>
+                </select>
+
+                <h3>Endereco</h3>
+
+                <label for="rua">Alterar Rua:</label>
+                <input type="text" id="rua" name="rua" placeholder="Digite seu rua" value="">
+
+                <label for="numero">Alterar Numero:</label>
+                <input type="text" id="numero" name="numeroDaCasa" placeholder="Digite seu numero" value="">
+
+                <label for="complemento">Alterar Complemento:</label>
+                <input type="text" id="complemento" name="complemento" placeholder="Digite seu complemento" value="">
+
+                <label for="bairro">Alterar Bairro:</label>
+                <input type="text" id="bairro" name="bairro" placeholder="Digite seu bairro" value="">
+
+                <label for="cep">Alterar CEP:</label>
+                <input type="text" id="cep" name="cep" placeholder="Digite seu cep" value="">
+
+                <label for="cidade">Alterar Cidade:</label>
+                <input type="text" id="cidade" name="cidade" placeholder="Digite seu cidade" value="">
+
+                <label for="estado">Alterar Estado:</label>
+                <select name="estado" id="estado">
+                    <option value=""></option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                </select>
+                <h3>Telefone</h3>
+
+                <label for="DD">Alterar DD:</label>
+                <input type="text" id="DD" name="DD" placeholder="Digite seu DD" value="">
+
+                <label for="numero">Alterar Numero:</label>
+                <input type="text" id="numero" name="numeroDeTelefone" placeholder="Digite seu numero" value="">
+
+            
+
+                <button type="submit">Salvar Alterações</button>
+            </form>
+
+        </div>
         </div>
 
         <!-- Modal para Psicólogos -->
         <div id="psicologoModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Cadastrar Psicólogo</h2>
-                <form>
-                    <label for="nomePsicologo">Nome:</label>
-                    <input type="text" id="nomePsicologo" name="nomePsicologo">
-                    <label for="especialidadePsicologo">Especialidade:</label>
-                    <input type="text" id="especialidadePsicologo" name="especialidadePsicologo">
-                    <label for="emailPsicologo">Email:</label>
-                    <input type="email" id="emailPsicologo" name="emailPsicologo">
-                    <button type="submit">Cadastrar</button>
-                </form>
-            </div>
+        <div class="modal-content">
+            
+            <h2>Cadastrar Psicólogo</h2>
+            
+            <form id="fromularioDadosPessoais" action="" method="post" enctype="multipart/form-data">
+                
+                <h3>Dados pessoais</h3>
+
+                <label for="foto">Alterar Imagem:</label>
+                <input type="file" id="foto" name="imageLocal" value="" accept="image/*">
+                
+                <label for="nome">Alterar Nome:</label>
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome" value="">
+
+                <label for="email">Alterar email:</label>
+                <input type="text" id="email" name="email" placeholder="Digite seu email" value="">
+                
+                <label for="senha">Alterar senha:</label>
+                <input type="text" id="senha" name="senha" placeholder="*******">
+
+                <label for="dataDeNascimento">Alterar data de nascimento:</label>
+                <input type="date" id="dataDeNascimento" name="dataDeNascimento" placeholder="Digite seu nome" value="">
+
+                <label for="RG">Alterar o CRM:</label>
+                <input type="text" id="CRM" name="CRM" placeholder="Digite o CRM" value="">
+
+                <label for="CPF">Alterar CPF:</label>
+                <input type="text" id="CPF" name="CPF" placeholder="Digite seu CPF" value="">
+
+                <label for="sexo">sexo:</label>
+                <select name="sexo" id="sexo">
+                    <option value=""></option>
+                    <option value="M">Male</option>
+                    <option value="F">Famele</option>
+                </select>
+
+                <h3>Endereco</h3>
+
+                <label for="rua">Alterar Rua:</label>
+                <input type="text" id="rua" name="rua" placeholder="Digite seu rua" value="">
+
+                <label for="numero">Alterar Numero:</label>
+                <input type="text" id="numero" name="numeroDaCasa" placeholder="Digite seu numero" value="">
+
+                <label for="complemento">Alterar Complemento:</label>
+                <input type="text" id="complemento" name="complemento" placeholder="Digite seu complemento" value="">
+
+                <label for="bairro">Alterar Bairro:</label>
+                <input type="text" id="bairro" name="bairro" placeholder="Digite seu bairro" value="">
+
+                <label for="cep">Alterar CEP:</label>
+                <input type="text" id="cep" name="cep" placeholder="Digite seu cep" value="">
+
+                <label for="cidade">Alterar Cidade:</label>
+                <input type="text" id="cidade" name="cidade" placeholder="Digite seu cidade" value="">
+
+                <label for="estado">Alterar Estado:</label>
+                <select name="estado" id="estado">
+                    <option value=""></option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                </select>
+                <h3>Telefone</h3>
+
+                <label for="DD">Alterar DD:</label>
+                <input type="text" id="DD" name="DD" placeholder="Digite seu DD" value="">
+
+                <label for="numero">Alterar Numero:</label>
+                <input type="text" id="numero" name="numeroDeTelefone" placeholder="Digite seu numero" value="">
+
+            
+
+                <button type="submit">Salvar Alterações</button>
+            </form>
+
+        </div>
         </div>
         
 

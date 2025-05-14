@@ -906,6 +906,22 @@ BEGIN
 END $$
 DELIMITER ;
 
+
+-- DELIMITER $$
+-- CREATE PROCEDURE findAllPacientesOfPsicologo (
+-- IN _pk INT
+-- )
+-- BEGIN
+
+-- 	SELECT * FROM pacientes
+-- 	INNER JOIN pessoas ON (pacientes.fkPessoa = pessoas.pkPessoa)
+-- 	WHERE pacientes.fkPsicologo = _pk;
+		
+-- 	COMMIT;
+--         ROLLBACK;
+-- END $$
+-- DELIMITER ;
+
 /*
 	teste de atividades inseridas
 	call findAllAtividadesOfPacientes(2);

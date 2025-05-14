@@ -59,3 +59,4 @@ function prevClick() {
     elemento.removeAttribute("hidden")
 
 }
+
