@@ -94,9 +94,9 @@ function showListaDeAnotacoesPaciente(array){
             window.location.href = '../psicologos/notasPsicologo.php?pkAnotacaoPaciente='+element["pkAnotacaoPaciente"];
         };
 
-        divNovoItem.appendChild(redirect)
         divNovoItem.appendChild(dataDaAnotacao)
         divNovoItem.appendChild(descricao)
+        divNovoItem.appendChild(redirect)
         section.appendChild(divNovoItem)
 
     });

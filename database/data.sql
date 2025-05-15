@@ -906,21 +906,22 @@ BEGIN
 END $$
 DELIMITER ;
 
+-- procedure para encontra todos os pacientes de um psicologo
 
--- DELIMITER $$
--- CREATE PROCEDURE findAllPacientesOfPsicologo (
--- IN _pk INT
--- )
--- BEGIN
+DELIMITER $$
+CREATE PROCEDURE findAllPacientesOfPsicologo(
+IN _pk INT
+)
+BEGIN
 
--- 	SELECT * FROM pacientes
--- 	INNER JOIN pessoas ON (pacientes.fkPessoa = pessoas.pkPessoa)
--- 	WHERE pacientes.fkPsicologo = _pk;
+	SELECT * FROM pacientes
+	INNER JOIN pessoas ON (pacientes.fkPessoa = pessoas.pkPessoa)
+	WHERE pacientes.fkPsicologo = _pk;
 		
--- 	COMMIT;
---         ROLLBACK;
--- END $$
--- DELIMITER ;
+	COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
 
 /*
 	teste de atividades inseridas

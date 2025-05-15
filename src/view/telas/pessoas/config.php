@@ -173,7 +173,7 @@ if($_POST){
 <body>
     <div id="menuBtn" onclick="openNav()">&#9776;</div>
     <div id="mySidenav" class="sidenav">
-        <img src="../image/images.png" alt="">
+        <img src="../../image/fotosUsuarios/<?php echo $userData["imageLocal"] ?>" alt="../../image/default-profile.webp">
         <h1 class="title"><?php echo $userData["nome"]; ?></h1>
         <h2 class="subtitle"><?php echo $userData["email"]; ?></h2>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>

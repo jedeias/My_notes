@@ -63,11 +63,7 @@ if($_POST){
     <div id="menuBtn" onclick="openNav()">&#9776;</div>
     <div id="mySidenav" class="sidenav">
 
-        <?php
-
-            echo "src=/".$pacientes->getImageLocal(). "alt='../../../image/default-profile.webp'";
-        ?>
-
+        <img src="../../../image/fotosUsuarios/<?php echo $pacientes->getImageLocal(); ?>" alt="../../../image/default-profile.webp">
         <h1 class="title"><?php echo $dadosPacientes["nome"]; ?></h1>
         <h2 class="subtitle"><?php echo $dadosPacientes["email"]; ?></h2>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>

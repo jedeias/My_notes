@@ -3,6 +3,7 @@
 include "../../../../../vendor/autoload.php";
 
 use src\Controllers\NilveDeAcessos\StrategyNivelDeAcessoSecretarios;
+use src\Models\Core\Entities\Pessoas\Secretarios;
 use src\Models\Core\Entities\Session\Sessions;
 use src\Controllers\Autentificacao;
 
@@ -11,6 +12,15 @@ $auth = new Autentificacao();
 $session = new Sessions();
 
 $nivelDeAcesso = new StrategyNivelDeAcessoSecretarios();
+
+$userData = $session->get('user');
+
+$secretarios = new Secretarios();
+$secretarios->setSecretariosPk($userData['pkSecretario']);
+$secretarios->setNome($userData['nome']);
+$secretarios->setEmail($userData['email']);
+$secretarios->setImageLocal($userData['imageLocal']);
+$secretarios->setPessoaPk($userData['pkPessoa']);
 
 ?>
 
@@ -30,9 +40,9 @@ $nivelDeAcesso = new StrategyNivelDeAcessoSecretarios();
     <div id="menuBtn">&#9776;</div>
     <div id="mySidenav" class="sidenav">
 
-        <img src="../image/images.png" alt='../../../image/default-profile.webp'>
-        <h1 class="title"><?php echo $userData["nome"]; ?></h1>
-        <h2 class="subtitle"><?php echo $userData["email"]; ?></h2>
+        <img src="../../../image/fotosUsuarios/<?php echo $secretarios->getImageLocal();?>" alt='../../../image/default-profile.webp'>
+        <h1 class="title"><?php echo $secretarios->getNome(); ?></h1>
+        <h2 class="subtitle"><?php echo $secretarios->getEmail(); ?></h2>
         <a href="javascript:void(0)" class="closebtn">&times;</a>
         <a href="#">Atividades</a>
         <a href="#">Agenda</a>
