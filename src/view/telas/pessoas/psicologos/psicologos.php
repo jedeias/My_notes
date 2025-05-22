@@ -37,6 +37,7 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Psicólogos</title>
+   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../../../CSS/psicologos.css">
     <link rel="stylesheet" href="../../../CSS/header.css">
@@ -51,13 +52,13 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
         <h2 class="subtitle"><?php echo $dadosPsicologo["email"]; ?></h2>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#">Atividades</a>
-        <a href="#">Pacientes</a>
-        <a href="#">Agenda</a>
+        <a href="../Agenda/agenda.php">Agenda</a>
         <a href="#">Consultas Agendadas</a>
         <a href="#">Contato</a>
         <a href="../sair.php">sair</a>
         <a href="../config.php"><i class="fa-solid fa-gear"></i></a> 
     </div>
+
     <article class="pacientes">
         <h2 class="pacientes-title">Lista de Pacientes</h2>
         
@@ -90,6 +91,7 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
 
 
     </article>
+    
 
     <main>
 
@@ -107,19 +109,19 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
             <section class="anotacao-content">
                 
                 <section hidden="true" id="listaDeAnotacoesDoPaciente" class="listaDeAnotacoesDoPaciente">
-                    <button onclick="hiddenListaDeAnotacoes()">fechar lista</button>
+                    <button class="anotacoes" onclick="hiddenListaDeAnotacoes()">Fechar lista</button>
                 </section>
 
-                <button onclick="ligarVisibilidadeDasAnotacoes()">mostra lista de anotacoes</button>
+                <button class="anotacoes" onclick="ligarVisibilidadeDasAnotacoes()">Lista de Anotações</button>
             </section>
 
         </article>
         
-        <article class="agenda" hidden>
-            <h1>Agenda</h1>
+           <article class="agenda"  hidden>
+                <h1>Agenda</h1>
+                <button class="ArrayTrigger">Teste</button>
+            </article>
 
-            Falta subir o full_calender para implementar essa parte do código
-        </article>
         
         <article class="atividadesRecomendadas" hidden>
             <h1 class="atividades-title">Atividades Recomendadas</h1>
@@ -138,21 +140,27 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
                 <button type="submit" class="btn-submit">Enviar</button>
                 
             </form>
-            <button onclick="ligarVisibilidadeDasAtividades()">lista De Ativiades atual do paciente</button>
+            <button class="listAtividade" onclick="ligarVisibilidadeDasAtividades()">Lista De Atividades</button>
             
             <section hidden="true" id="listaDeAtividadesDoPaciente" class="listaDeAtividadesDoPaciente">
             
-                <button onclick="hiddenListaDeAtividades()">fechar lista</button>
+                <button class="listAtividade" onclick="hiddenListaDeAtividades()">Fechar lista</button>
                 
             </section>
         </article>
     
     </main>
 
+    
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script src="../../../JS/psicologos.js"></script>
     <script src="../../../JS/psicologosDadosPacientes.js"></script>
     <script src="../../../JS/menu.js"></script>
+    <script src="../../../JS/agenda.js"></script>
+    <script src="../../../JS/ajax.js"></script>
+
+
 </body>
 </html>

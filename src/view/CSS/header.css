@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
 .sidenav {
@@ -11,7 +12,8 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-image: linear-gradient(50deg, #1a3a50,#000,#1a3a50);
+    background: transparent;
+    border-right: 5px solid #000;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -22,7 +24,7 @@
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #fff;
+    color: #000;
     display: block;
     transition: 0.3s;
     text-align: left; /* Centralizar texto */
@@ -41,15 +43,13 @@
 .sidenav .closebtn:hover{
     background-color: transparent;
     border: none;
-    padding: 0;
     box-shadow: none;
-
 }
 .sidenav .closebtn {
     position: absolute;
     top: 1%;
     right: 25px;
-    font-size: 42px;
+    font-size: 50px;
     margin-left: 50px;
     color: red;
 
@@ -89,7 +89,7 @@
     top: 25%;
     left: 50%;
     transform: translateX(-50%);
-    color: white;
+    color: #000;
     text-align: center;
     width: 100%;
 }
@@ -99,7 +99,7 @@
     top: 30%;
     left: 50%;
     transform: translateX(-50%);
-    color: white;
+    color: #000;
     text-align: center;
     width: 100%;
 }
