@@ -28,7 +28,7 @@ class RepositorioAnotacoesPsicologos implements IrepositoryAnotacoesPsicologos {
             $prepare = $this->MySql->getConnect()->prepare("CALL findAnotacoesPsicologosByPkAnotacoesPacientes(:pk);");
             $prepare->bindValue(":pk", $pk);
             $prepare->execute();
-            $data = $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
+            $data = $prepare->fetchAll(PDO::FETCH_ASSOC);
 
             if (empty($data)) {
                 return [];
@@ -40,6 +40,8 @@ class RepositorioAnotacoesPsicologos implements IrepositoryAnotacoesPsicologos {
             return[$erros->getMessage()];
         }
     }
+
+
     public function insert(IanotacoesPsicologos $anotacao): void{
         try {
             $prepare = $this->MySql->getConnect()->prepare("CALL insertAnotacoesPsicologos(:fkPsicolgo, :fkFlag, :fkAnotacoesPacientes, :observacao :dia);");

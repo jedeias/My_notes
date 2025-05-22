@@ -41,6 +41,33 @@ class RepositorioAnotacoesPacientes implements IrepositoryAnotacoesPacientes {
             return[$erros->getMessage()];
         }
     }
+
+        public function findAnotacaoByPk(Ipacientes|int $pkAnotacoesPacientes): array{
+        try {
+
+            if ($pkAnotacoesPacientes instanceof Ipacientes) {
+                $pk = $pkAnotacoesPacientes->getPacientesPk();
+            }
+            else {
+                $pk = $pkAnotacoesPacientes;
+            }
+
+            $prepare = $this->MySql->getConnect()->prepare("SELECT * FROM anotacoespacientes WHERE pkAnotacaoPaciente = (:pk);");
+            $prepare->bindValue(":pk", $pk);
+            $prepare->execute();
+            $data = $prepare->fetchAll(PDO::FETCH_ASSOC);
+
+            if (empty($data)) {
+                return [];
+            } else {
+                return $data;
+            }
+        } catch (PDOException $erros) {
+            echo("tivemos um erro.:");
+            return[$erros->getMessage()];
+        }
+    }
+
     public function insert(IanotacoesPacientes $anotacao): void{
         try {
             $prepare = $this->MySql->getConnect()->prepare("CALL insertAnotacoesPacientes(:fkPaciente, :dia, :anotacao);");
@@ -61,8 +88,6 @@ class RepositorioAnotacoesPacientes implements IrepositoryAnotacoesPacientes {
         // provavelmente vou remover essa função, não faz sentido o paciente poder alterar ou modificar a anotação
         return false;
     }
-
-
 }
 
 

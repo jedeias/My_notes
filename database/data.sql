@@ -727,7 +727,7 @@ SELECT	anotacoesPsicologos.pkAnotacoesPsicologo,
 			pessoas.nome,
 			anotacoespacientes.pkAnotacaoPaciente,
 			anotacoespacientes.anotacao,
-			flags.color
+			flags.*
 FROM anotacoesPsicologos
 INNER JOIN flags ON (anotacoesPsicologos.fkFlag = flags.pkFlag)
 INNER JOIN anotacoesPacientes ON (anotacoesPsicologos.fkAnotacoesPaciente = anotacoesPacientes.pkAnotacaoPaciente)
@@ -739,6 +739,7 @@ WHERE anotacoespacientes.pkAnotacaoPaciente = _pk;
         ROLLBACK;
 END $$
 DELIMITER ;
+
 
 -- procedure para encontra todos os dados de uma pessoa
 
