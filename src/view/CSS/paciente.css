@@ -47,7 +47,7 @@
     position: relative;
     display: none;
     flex-direction: column;
-    width: 45vh;;
+    width: 50vh;;
 }
 .notepad-count{
     color: #737373;

@@ -3,9 +3,8 @@ console.log("Funcionado");
 let fousPage = 0;
 
 let hashMap = {
-    0: "null", 
-    1: "anotação",
-    2: "agenda",
+    1: "agenda",
+    2: "anotação",
     3: "atividadesRecomendadas"
 }
 
@@ -32,6 +31,7 @@ function nextClick() {
 
     elemento = document.querySelector("." + hashMap[fousPage])
     elemento.removeAttribute("hidden")
+
 
 }
 
