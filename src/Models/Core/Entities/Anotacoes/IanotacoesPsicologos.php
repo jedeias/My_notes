@@ -1,7 +1,7 @@
 <?php
 
-namespace Src\Models\Core\Entities\Anotacoes;
-use Src\Models\Core\Entities\Anotacoes\IanotacoesPacientes;
+namespace src\Models\Core\Entities\Anotacoes;
+use src\Models\Core\Entities\Anotacoes\IanotacoesPacientes;
 use src\Models\Core\Entities\Pessoas\Ipsicologos;
 use Src\Models\Core\Entities\Flags\Iflags;
 
@@ -13,10 +13,6 @@ interface IanotacoesPsicologos{
     public function getFlags(): Iflags|int;
 
     public function setFlags(Iflags|int $flags): self;
-
-    public function getDescricao(): string;
-
-    public function setDescricao(string $descricao): self;
 
     public function getObservacoes(): string;
 
@@ -37,9 +33,8 @@ interface IanotacoesPsicologos{
     static function create(
         Ipsicologos|int $psicologos,
         Iflags|int $flags,
-        string $descricao,
         string $observacoes,
-        IAnotacoesPacientes|int $anotacaoPacietes
+        IAnotacoesPacientes $anotacaoPacietes
     ): AnotacoesPsicologos;
 }
 

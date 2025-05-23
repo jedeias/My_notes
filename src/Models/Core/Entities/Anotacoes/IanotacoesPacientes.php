@@ -1,7 +1,7 @@
 <?php
 
-namespace Src\Models\Core\Entities\Anotacoes;
-use Src\Models\Core\Entities\Pessoas\Ipacientes;
+namespace src\Models\Core\Entities\Anotacoes;
+use src\Models\Core\Entities\Pessoas\Ipacientes;
 
 interface IanotacoesPacientes
 {

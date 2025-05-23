@@ -1,6 +1,7 @@
 <?php
 
 namespace Src\Models\Core\Entities\Anotacoes;
+
 use src\Models\Core\Entities\Pessoas\Ipacientes;
 use src\Models\Core\Entities\Anotacoes\IanotacoesPacientes;
 
