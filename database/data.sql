@@ -67,7 +67,7 @@ CREATE TABLE secretarios(
 
 CREATE TABLE flags(
 	pkFlag INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	color VARCHAR(6) NOT NULL, -- cor em HEX
+	color VARCHAR(12) NOT NULL, -- cor em HEX
 	tituloDaFlag VARCHAR(50) NOT NULL,
 	descricao VARCHAR(120)
 )CHARACTER SET utf8;
@@ -120,7 +120,7 @@ DELIMITER $$
 
 CREATE PROCEDURE insertEndereco(
 
-    IN _rua VARCHAR(100),
+   IN _rua VARCHAR(100),
 	IN _numero INT,
 	IN _complemento VARCHAR(80),
 	IN _bairro VARCHAR(100),
@@ -267,7 +267,7 @@ DELIMITER ;
 DELIMITER $$
 
 CREATE PROCEDURE insertFlags(
-    IN _color VARCHAR(6),
+   IN _color VARCHAR(7),
 	IN _tituloDaFlag VARCHAR(50),
 	IN _descricao VARCHAR(120)
 )	
@@ -431,12 +431,12 @@ CALL insertSecretario(5);
 
 -- Flags
 
-CALL insertFlags('FF0000', 'Alerta', 'Necessita atenção urgente');
-CALL insertFlags('00FF00', 'Seguro', 'Sem riscos aparentes');
-CALL insertFlags('0000FF', 'Monitoramento', 'Requer observação periódica');
-CALL insertFlags('FF0000', 'Alerta', 'Necessita atenção urgente');
-CALL insertFlags('00FF00', 'Seguro', 'Sem riscos aparentes');
-CALL insertFlags('0000FF', 'Monitoramento', 'Requer observação periódica');
+CALL insertFlags('#FF0000', 'Alerta', 'Necessita atenção urgente');
+CALL insertFlags('#00FF00', 'Seguro', 'Sem riscos aparentes');
+CALL insertFlags('#0000FF', 'Monitoramento', 'Requer observação periódica');
+CALL insertFlags('#FF0000', 'Alerta', 'Necessita atenção urgente');
+CALL insertFlags('#00FF00', 'Seguro', 'Sem riscos aparentes');
+CALL insertFlags('#0000FF', 'Monitoramento', 'Requer observação periódica');
 
 CALL insertAnotacoesPacientes(1, '2024-02-25 14:30:00', 'Melhora significativa.');
 CALL insertAnotacoesPacientes(2, '2024-02-24 10:00:00', 'Dificuldades para dormir.');
@@ -888,8 +888,40 @@ SET 	pessoas.nome = _nome,
 END $$
 DELIMITER ;
 
+/*
 -- procedure para encontra todas atividades de um paciente
 
+DELIMITER $$
+CREATE PROCEDURE findAllADataOfPessoaByPk(
+	IN _pk INT
+)
+BEGIN
+
+SELECT 
+		pessoas.*,
+		telefones.*,
+		enderecos.*,
+		telefones.numero AS 'numeroDeTelefone',
+		enderecos.numero AS 'numeroDaCasa',
+		pacientes.*,
+		psicologos.*,
+		secretarios.*,
+		responsaveis.*
+FROM pessoas
+LEFT JOIN telefones ON (pessoas.fkTelefone = telefones.pkTelefone)
+LEFT JOIN enderecos ON (pessoas.fkEndereco = enderecos.pkEndereco)
+LEFT JOIN pacientes ON (pessoas.pkPessoa = pacientes.fkPessoa)
+LEFT JOIN psicologos ON (pessoas.pkPessoa = psicologos.fkPessoa)
+LEFT JOIN secretarios ON (pessoas.pkPessoa = secretarios.fkPessoa)
+LEFT JOIN responsaveis ON (pessoas.pkPessoa = responsaveis.fkPessoa)
+WHERE pessoas.pkPessoa = _pk;
+
+
+	COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+*/
 -- update de PacientesEsecretarios
 
 DELIMITER $$
@@ -937,6 +969,50 @@ DELIMITER ;
 	CALL insertAtividadesPaciente(4, 1);
 	
 */
+
+-- update das anotações do psicolo
+
+DELIMITER $$
+CREATE PROCEDURE updateAnotacoesPsicologo(
+IN _pk INT,
+IN _observacao TEXT,
+IN _dia DATE,
+IN _pkFlag INT
+)
+BEGIN
+
+	UPDATE anotacoespsicologos
+	SET anotacoespsicologos.fkFlag = _pkFlag,
+	anotacoespsicologos.observacao = _observacao,
+	anotacoespsicologos.diaDaObservacao = _dia
+	WHERE anotacoespsicologos.pkAnotacoesPsicologo = _pk;
+		
+	COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
+-- update das flags;
+
+DELIMITER $$
+CREATE PROCEDURE updateFlags(
+IN _pk INT,
+IN _color VARCHAR(7),
+IN _tituloDaFlag VARCHAR(50),
+IN _descricao VARCHAR(120)
+)
+BEGIN
+
+	UPDATE flags
+	SET flags.color = _color,
+	flags.tituloDaFlag = _tituloDaFlag,
+	flags.descricao = _descricao
+	WHERE flags.pkFlag = _pk;
+		
+	COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
 
 SELECT * FROM anotacoespacientes;
 SELECT * FROM anotacoespsicologos;

@@ -3,6 +3,7 @@
 include "../../../../../vendor/autoload.php";
 
 use src\Controllers\Autentificacao;
+use src\Models\Core\Entities\Flags\Flags;
 use src\Models\Core\Entities\Session\Sessions;
 use src\Models\Core\Entities\Pessoas\Psicologos;
 use src\Models\Infra\Repository\Flags\RepositorioFlag;
@@ -57,6 +58,35 @@ $allFalgs = $repositorioFlags->findAll();
 // echo "<hr>";
 // print_r($allFalgs);
 
+if($_POST){
+    echo "<pre>";
+    print_r($_POST);
+    $flag = new Flags();
+    $flag->setPkFlags($_POST['flag']);
+        
+    
+    if(!empty($observacao)){
+        $novaObservacao = new AnotacoesPsicologos();
+        $novaObservacao->setPsicologos($psicologos);
+        $novaObservacao->setAnotacaoPacietes(anotacaoPacietes: $anotacaoPaciente);
+        $novaObservacao->setPkAnotacoesPsicologos($_GET['pkAnotacaoPaciente']);
+        $novaObservacao->setFlags($flag);
+        $novaObservacao->setObservacoes($_POST['observacao']);
+        $repositoryAnotacaoPsicologo->update($novaObservacao);
+        header("location: psicologos.php");
+    }else{
+        
+        $novaObservacao = AnotacoesPsicologos::create(
+            $psicologos, 
+            $flag, 
+            $_POST['observacao'], 
+            $anotacaoPaciente
+        );
+        header("location: psicologos.php");
+        $repositoryAnotacaoPsicologo->insert($novaObservacao);
+    }
+
+}
 
 ?>
 
@@ -98,12 +128,12 @@ $allFalgs = $repositorioFlags->findAll();
 
                 <?php
                     if(!empty($observacao)){
-                        echo "<option onclick='tradeDescription()' value='{$observacao['pkFlag']}' style='background-color: {$observacao['color']};'> {$observacao['tituloDaFlag']} </option>";              
+                        echo "<option onclick='tradeDescription()' value='{$observacao['pkFlag']}' style='background-color: #{$observacao['color']};'> {$observacao['tituloDaFlag']} </option>";              
                     }
                 ?>
                 
                 <?php foreach ($allFalgs as $value) {
-                    echo "<option onclick='tradeDescription()' value='{$value['pkFlag']}' style='background-color: {$value['color']};'> {$value['tituloDaFlag']} </option>";
+                    echo "<option onclick='tradeDescription()' value='{$value['pkFlag']}' style='background-color: #{$value['color']};'> {$value['tituloDaFlag']} </option>";
                 } ?>
                 
 
@@ -112,6 +142,8 @@ $allFalgs = $repositorioFlags->findAll();
             <button type="submit"><?php echo $buttunName; ?></button>
 
         </form>
+
+        <a href="flags/flags.php"><button>Adicionar uma flag</button></a>
 
     </section>
     

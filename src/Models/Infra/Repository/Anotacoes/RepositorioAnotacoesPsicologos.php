@@ -44,13 +44,15 @@ class RepositorioAnotacoesPsicologos implements IrepositoryAnotacoesPsicologos {
 
     public function insert(IanotacoesPsicologos $anotacao): void{
         try {
-            $prepare = $this->MySql->getConnect()->prepare("CALL insertAnotacoesPsicologos(:fkPsicolgo, :fkFlag, :fkAnotacoesPacientes, :observacao :dia);");
+            $prepare = $this->MySql->getConnect()->prepare("CALL insertAnotacoesPsicologos(:fkPsicolgo, :fkFlag, :fkAnotacoesPacientes, :observacao, :dia);");
             $prepare->bindValue(":fkPsicolgo", $anotacao->getPsicologos()->getPsicologosPk());
             $prepare->bindValue(":fkFlag", $anotacao->getFlags()->getPkFlags());
+            
             $prepare->bindValue(":fkAnotacoesPacientes", $anotacao->getAnotacaoPacietes()->getPkAnotacoesPacientes());
             $prepare->bindValue(":observacao", $anotacao->getObservacoes());
+            
             $dataHora = date('Y-m-d H:i:s');
-            $prepare->bindValue(":dia",$dataHora );
+            $prepare->bindValue(":dia",$dataHora);
             $prepare->execute();
         } catch (PDOException $erros) {
             echo("tivemos um erro.:");
@@ -58,7 +60,20 @@ class RepositorioAnotacoesPsicologos implements IrepositoryAnotacoesPsicologos {
         }
     }
     public function update(IanotacoesPsicologos $anotacao): void{
-        // aqui vou fazer o update porem preciso de analizar se faço o update sobre escrevendo um update simple o com inner join
+        try {
+            $prepare = $this->MySql->getConnect()->prepare("CALL updateAnotacoesPsicologo(:pk, :observacao, :dia, :fkFlag);");
+            $prepare->bindValue(":pk", $anotacao->getPkAnotacoesPsicologos());
+            $prepare->bindValue(":fkFlag", $anotacao->getFlags()->getPkFlags());
+            $prepare->bindValue(":observacao", $anotacao->getObservacoes());
+            
+            $dataHora = date('Y-m-d H:i:s');
+            
+            $prepare->bindValue(":dia",$dataHora );
+            $prepare->execute();
+        } catch (PDOException $erros) {
+            echo("tivemos um erro.:");
+            echo($erros->getMessage());
+        }
     }
 }
 

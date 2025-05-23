@@ -3,14 +3,13 @@
 namespace Src\Models\Core\Entities\Anotacoes;
 use src\Models\Core\Entities\Pessoas\Ipsicologos;
 use src\Models\Core\Entities\Flags\Iflags;
-use Src\Models\Core\Entities\Anotacoes\IAnotacoesPacientes;
-use Src\Models\Core\Entities\Anotacoes\IanotacoesPsicologos;
+use src\Models\Core\Entities\Anotacoes\IAnotacoesPacientes;
+use src\Models\Core\Entities\Anotacoes\IanotacoesPsicologos;
 
 class AnotacoesPsicologos implements IanotacoesPsicologos{
     
     private Ipsicologos|int $psicologos;
     private Iflags|int $flags;
-    private string $descricao;
     private string $observacoes;
     private string $dia;
     private int $pkAnotacoesPsicologos;
@@ -33,16 +32,6 @@ class AnotacoesPsicologos implements IanotacoesPsicologos{
 
     public function setFlags(Iflags|int $flags): self{
         $this->flags = $flags;
-
-        return $this;
-    }
-
-    public function getDescricao(): string{
-        return $this->descricao;
-    }
-
-    public function setDescricao(string $descricao): self{
-        $this->descricao = $descricao;
 
         return $this;
     }
@@ -90,14 +79,12 @@ class AnotacoesPsicologos implements IanotacoesPsicologos{
     static function create(
         Ipsicologos|int $psicologos,
         Iflags|int $flags,
-        string $descricao,
         string $observacoes,
-        IAnotacoesPacientes|int $anotacaoPacietes
+        IAnotacoesPacientes $anotacaoPacietes
     ): AnotacoesPsicologos{
         $anotacao = new AnotacoesPsicologos();
         $anotacao->setPsicologos($psicologos);
         $anotacao->setFlags($flags);
-        $anotacao->setDescricao($descricao);
         $anotacao->setObservacoes($observacoes);
         $anotacao->setAnotacaoPacietes($anotacaoPacietes);
         return $anotacao;
