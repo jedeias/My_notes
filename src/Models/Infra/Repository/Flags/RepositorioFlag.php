@@ -32,7 +32,18 @@ class RepositorioFlag implements IrepositoryFlag {
 
     }
     function update(Iflags $flags) : void{
-        
+        try {
+            $prepare = $this->MySql->getConnect()->prepare("CALL updateFlags(:pkFlag, :color, :titulo, :descricao)");
+            $prepare->bindValue(":pkFlag", $flags->getPkFlags());	
+            $prepare->bindValue(":color", $flags->getColor());	
+            $prepare->bindValue(":titulo", $flags->getTituloDaFlag());	
+            $prepare->bindValue(":descricao", $flags->getDescricao());	
+            $prepare->execute();
+
+        } catch (PDOException $erros) {
+            
+            echo("tivemos um erro.:");
+        }
     }
 
     function findByPk(Iflags $flags) : array{

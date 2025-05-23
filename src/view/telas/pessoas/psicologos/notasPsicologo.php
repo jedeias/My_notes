@@ -143,6 +143,8 @@ if($_POST){
 
         </form>
 
+        <a href="flags/flags.php"><button>Adicionar uma flag</button></a>
+
     </section>
     
     <script>
