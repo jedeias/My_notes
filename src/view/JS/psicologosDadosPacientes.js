@@ -88,7 +88,8 @@ function showListaDeAnotacoesPaciente(array){
         descricao.innerHTML = "DESCRIÇÃO: " + element['anotacao'];
 
         let redirect = document.createElement('button');
-        redirect.innerHTML = "fazer observação";
+        redirect.className = "redirectParaAnotacao";
+        redirect.innerHTML = "Fazer observação";
 
         redirect.onclick = () => {
             window.location.href = '../psicologos/notasPsicologo.php?pkAnotacaoPaciente='+element["pkAnotacaoPaciente"];

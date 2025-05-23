@@ -1,0 +1,18 @@
+body{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #c4c4c4;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+#calendar{
+    width: 100%;
+    max-width: 1100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);   
+}
