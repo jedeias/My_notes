@@ -87,6 +87,20 @@ function showListaDeAnotacoesPaciente(array){
         descricao.descricaoDaAtividadePaciente = "tituloDaAtividadePaciente";
         descricao.innerHTML = "DESCRIÇÃO: " + element['anotacao'];
 
+        let img = document.createElement("img");
+        img.src = "../../../image/flag.png";
+
+        let flag = document.createElement("div");
+        flag.className = "falg";
+
+        flag.appendChild(img);
+
+        if(element['color']){
+            flag.style.backgroundColor = element['color'];
+        }else{
+            flag.style.backgroundColor = "gray";
+        }
+
         let redirect = document.createElement('button');
         redirect.className = "redirectParaAnotacao";
         redirect.innerHTML = "Fazer observação";
@@ -97,6 +111,7 @@ function showListaDeAnotacoesPaciente(array){
 
         divNovoItem.appendChild(dataDaAnotacao)
         divNovoItem.appendChild(descricao)
+        divNovoItem.appendChild(flag)
         divNovoItem.appendChild(redirect)
         section.appendChild(divNovoItem)
 
