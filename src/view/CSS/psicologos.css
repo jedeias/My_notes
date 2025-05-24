@@ -1,11 +1,17 @@
-body {
-    font-family: Arial, sans-serif;
+*{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+
     background-color: #eaf4f4; /* Fundo azul claro */
     color: #333;
     line-height: 1.6;
 }
+
 
 
 .pacientes {
@@ -192,6 +198,25 @@ body {
     width: 50%;
     height: 85vh;
 }
+
+.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child){
+    margin-left: 0.5rem;
+}
+
+.block{
+    display: block;
+}
+
+.displayNone{
+    display: none;
+}
+
+#calendar{
+    max-width: 1250px;
+    margin: 0 auto;
+    color: #000;
+}
+
 
 
 .button {

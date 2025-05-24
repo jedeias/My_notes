@@ -45,7 +45,7 @@ $secretarios->setPessoaPk($userData['pkPessoa']);
         <h2 class="subtitle"><?php echo $secretarios->getEmail(); ?></h2>
         <a href="javascript:void(0)" class="closebtn">&times;</a>
         <a href="#">Atividades</a>
-        <a href="#">Agenda</a>
+        <a href="../agenda/agenda.php">Agenda</a>
         <a href="#">Consultas Agendadas</a>
         <a href="#">Contato</a>
         <a href="../sair.php">sair</a>

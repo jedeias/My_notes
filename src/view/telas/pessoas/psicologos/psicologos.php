@@ -37,6 +37,8 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Psicólogos</title>
+    <script  src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.17/index.global.min.js'></script>
+    <script  src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.17/index.global.min.js'></script>
    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../../../CSS/psicologos.css">
@@ -52,7 +54,6 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
         <h2 class="subtitle"><?php echo $dadosPsicologo["email"]; ?></h2>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#">Atividades</a>
-        <a href="../Agenda/agenda.php">Agenda</a>
         <a href="#">Consultas Agendadas</a>
         <a href="#">Contato</a>
         <a href="../sair.php">sair</a>
@@ -98,12 +99,16 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
         <article class="null">
         </article>
 
+        <div class="agenda">
+            <div id="calendar"></div>
+        </div>
+
         <article class="button">
             <button class="btn-prev" onclick="prevClick()"><i class="fa-solid fa-arrow-left"></i></button>
             <button class="btn-next" onclick="nextClick()"><i class="fa-solid fa-arrow-right"></i></button>
         </article>
 
-        <article class="anotação">
+        <article class="anotação" hidden>
             <h1 class="anotacao-title">Anotação</h1>
 
             <section class="anotacao-content">
@@ -116,13 +121,7 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
             </section>
 
         </article>
-        
-           <article class="agenda"  hidden>
-                <h1>Agenda</h1>
-                <button class="ArrayTrigger">Teste</button>
-            </article>
-
-        
+                
         <article class="atividadesRecomendadas" hidden>
             <h1 class="atividades-title">Atividades Recomendadas</h1>
 
@@ -157,10 +156,8 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
 
     <script src="../../../JS/psicologos.js"></script>
     <script src="../../../JS/psicologosDadosPacientes.js"></script>
+    <script defer src="../../../JS/agenda.js"></script>
+    <script src="../../../JS/atividades.js"></script>
     <script src="../../../JS/menu.js"></script>
-    <script src="../../../JS/agenda.js"></script>
-    <script src="../../../JS/ajax.js"></script>
-
-
 </body>
 </html>
