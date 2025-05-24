@@ -695,14 +695,18 @@ CREATE PROCEDURE findAnotacoesByPkPacientes(
 	IN _pk INT
 )
 BEGIN
-	
-	SELECT 	anotacoespacientes.pkAnotacaoPaciente,
-			anotacoespacientes.anotacao,
-			pessoas.pkPessoa,
-			pacientes.pkPaciente,
-			pessoas.nome,
-			anotacoespacientes.diaDaAnotacao
+
+	SELECT	anotacoespacientes.pkAnotacaoPaciente,
+				anotacoespacientes.anotacao,
+				pessoas.pkPessoa,
+				pacientes.pkPaciente,
+				pessoas.nome,
+				anotacoespacientes.diaDaAnotacao,
+				anotacoespsicologos.*,
+				flags.color
 	FROM anotacoespacientes
+	LEFT JOIN anotacoespsicologos ON (anotacoespacientes.pkAnotacaoPaciente = anotacoespsicologos.fkAnotacoesPaciente)
+	LEFT JOIN flags ON (flags.pkFlag = anotacoespsicologos.fkFlag)
 	INNER JOIN pacientes ON (anotacoespacientes.fkPaciente = pacientes.pkPaciente)
 	INNER JOIN pessoas ON (pessoas.pkPessoa = pacientes.fkPessoa)
 	WHERE pacientes.pkPaciente = _pk
@@ -712,7 +716,6 @@ BEGIN
         ROLLBACK;
 END $$
 DELIMITER ;
-
 
 -- pega as anotacoes do psicologo pelo id da anoatacao do paciente;
 
