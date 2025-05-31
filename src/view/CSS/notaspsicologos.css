@@ -1,0 +1,135 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    display: flex;
+    background-color: #eaf4f4; /* Fundo azul claro */
+}
+
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 600px;
+    width: 90%;
+    margin: 40px auto;
+    padding: 32px 24px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1.5px 4px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 24px;
+    transition: box-shadow 0.2s;
+}
+.container:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.10);
+}
+
+h1{
+    font-size: 32px;
+    font-weight: bold;
+    color: #3a8fd8; /* Azul */
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+h2{
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.AnotacaoDoPacientes{
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    background: #f7fafc;
+    padding: 24px 18px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 12px;
+}
+
+form textarea {
+    min-height: 90px;
+    resize: vertical;
+    border-radius: 8px;
+    border: 1px solid #b5c6d6;
+    padding: 10px;
+    font-size: 1rem;
+    background: #fff;
+    transition: border 0.2s;
+}
+
+form textarea:focus {
+    border: 1.5px solid #3a8fd8;
+    outline: none;
+}
+
+form select {
+    border-radius: 8px;
+    border: 1px solid #b5c6d6;
+    padding: 8px 10px;
+    font-size: 1rem;
+    background: #fff;
+    transition: border 0.2s;
+}
+
+form select:focus {
+    border: 1.5px solid #3a8fd8;
+    outline: none;
+}
+
+form button[type="submit"] {
+    background: #3a8fd8;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 8px;
+}
+
+a button {
+    background: #3a8fd8;
+    width: 100%;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 8px;
+}
+
+form button[type="submit"]:hover {
+    background: #2563a6;
+}
+
+
+@media (max-width: 700px) {
+    .container {
+        padding: 16px 6px;
+        max-width: 98vw;
+    }
+}

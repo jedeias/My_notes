@@ -91,14 +91,14 @@ function showListaDeAnotacoesPaciente(array){
         img.src = "../../../image/flag.png";
 
         let flag = document.createElement("div");
-        flag.className = "falg";
+        flag.className = "flag";
 
         flag.appendChild(img);
 
         if(element['color']){
             flag.style.backgroundColor = element['color'];
         }else{
-            flag.style.backgroundColor = "gray";
+            flag.style.backgroundColor = "transparent";
         }
 
         let redirect = document.createElement('button');

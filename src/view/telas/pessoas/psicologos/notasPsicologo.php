@@ -95,13 +95,29 @@ if($_POST){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../CSS/header.css">
+    <link rel="stylesheet" href="../../../CSS/notaspsicologos.css">
     <title>Adicionar Anotação</title>
 </head>
 <body>
-    
-    <section id="facilitaMinhaVida">
 
-        <h1>PACIENTE:</h1>
+    <div id="menuBtn" onclick="openNav()">&#9776;</div>
+        <div id="mySidenav" class="sidenav">
+
+            <img src="../../../image/fotosUsuarios/<?php echo $psicologos->getImageLocal()?>" alt='../../../image/default-profile.webp'>
+            <h1 class="title"><?php echo $dadosPsicologo["nome"]; ?></h1>
+            <h2 class="subtitle"><?php echo $dadosPsicologo["email"]; ?></h2>
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#">Atividades</a>
+            <a href="#">Consultas Agendadas</a>
+            <a href="#">Contato</a>
+            <a href="../sair.php">sair</a>
+            <a href="../config.php"><i class="fa-solid fa-gear"></i></a> 
+        </div>
+    
+    <section id="facilitaMinhaVida" class="container">
+
+        <h1>PACIENTE</h1>
         
         <div class="AnotacaoDoPacientes">
             <p><?php echo($anotacaoParaOBS['anotacao']); ?></p>
@@ -111,7 +127,7 @@ if($_POST){
         <?php
 
             if(!empty($observacao)){
-                echo("<h2>Já existe uma observação para esta nota</h2>");
+                echo("<h2>Esta nota já possui uma observação cadastrada. Você pode editá-la abaixo.</h2>");
                 $buttunName = "Editar Observação";
             }else{
                 $buttunName = "Salvar Observação";
@@ -128,7 +144,7 @@ if($_POST){
 
                 <?php
                     if(!empty($observacao)){
-                        echo "<option onclick='tradeDescription()' value='{$observacao['pkFlag']}' style='background-color: #{$observacao['color']};'> {$observacao['tituloDaFlag']} </option>";              
+                        echo "<option  onclick='tradeDescription()' value='{$observacao['pkFlag']}' style='background-color: #{$observacao['color']};'> {$observacao['tituloDaFlag']} </option>";              
                     }
                 ?>
                 
@@ -181,5 +197,6 @@ if($_POST){
 
     </script>
 
+    <script src="../../../JS/menu.js"></script>
 </body>
 </html>
