@@ -62,6 +62,26 @@ class RepositorioPacientes implements IrepositoryPaciente{
             return[$erros->getMessage()];
         }
     }
+
+    public function findPacienteComLike(string $pacientes) : array{
+        try {
+            $prepare = $this->MySql->getConnect()->prepare("
+            SELECT * FROM pacientes
+            INNER JOIN pessoas ON pacientes.fkPessoa = pessoas.pkPessoa
+            WHERE pessoas.nome LIKE :nome;
+            ");
+            
+            $prepare->BindValue(":nome", "%$pacientes%");
+            $prepare->execute();
+
+            return $prepare->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $erros) {
+            
+            echo("tivemos um erro.:");
+            
+            return[$erros->getMessage()];
+        }
+    }
     public function findByEmail(Pacientes $pacientes) : array{
         try {
             $prepare = $this->MySql->getConnect()->prepare("CALL findPacienteByEmail(:email);");

@@ -51,12 +51,6 @@ if(!empty($observacao)){
 $repositorioFlags = new RepositorioFlag();
 $allFalgs = $repositorioFlags->findAll();  
 
-// echo "<pre>";
-// print_r($anotacaoParaOBS);
-// echo "<hr>";
-// print_r($observacao);
-// echo "<hr>";
-// print_r($allFalgs);
 
 if($_POST){
     echo "<pre>";
@@ -144,12 +138,12 @@ if($_POST){
 
                 <?php
                     if(!empty($observacao)){
-                        echo "<option  onclick='tradeDescription()' value='{$observacao['pkFlag']}' style='background-color: #{$observacao['color']};'> {$observacao['tituloDaFlag']} </option>";              
+                        echo "<option  onclick='tradeDescription()' value='{$observacao['pkFlag']}' style='background-color: {$observacao['color']};'> {$observacao['tituloDaFlag']} </option>";              
                     }
                 ?>
                 
                 <?php foreach ($allFalgs as $value) {
-                    echo "<option onclick='tradeDescription()' value='{$value['pkFlag']}' style='background-color: #{$value['color']};'> {$value['tituloDaFlag']} </option>";
+                    echo "<option onclick='tradeDescription()' value='{$value['pkFlag']}' style='background-color: {$value['color']};'> {$value['tituloDaFlag']} </option>";
                 } ?>
                 
 

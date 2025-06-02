@@ -21,8 +21,6 @@ class LoginController{
             'Secretarios',
         ];
 
-    // echo(get_class($user) . '<br>');
-
         foreach ($types as $type) {
             
             $class = 'src\Models\Core\Entities\Pessoas\\' . $type;

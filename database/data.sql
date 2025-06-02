@@ -655,12 +655,53 @@ DELIMITER $$
 CREATE PROCEDURE findAllconsultas()
 BEGIN
 
-    SELECT 	consultas.pkCosulta,
-			pessoas.nome,
-			consultas.horarioDaConsulta
+   SELECT 	*
 	FROM consultas
 	INNER JOIN pacientes on (pacientes.pkPaciente = consultas.fkPaciente)
 	INNER JOIN pessoas on (pessoas.pkPessoa = pacientes.fkPessoa);
+    
+	COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
+-- encontra as consultas de um psicologo;
+
+-- call findAllConsultasPsicologo(2);
+
+
+DELIMITER $$
+
+CREATE PROCEDURE findAllConsultasPsicologo(
+_pk INT
+)
+BEGIN
+
+   SELECT 	*
+	FROM consultas
+	INNER JOIN pacientes on (pacientes.pkPaciente = consultas.fkPaciente)
+	INNER JOIN pessoas on (pessoas.pkPessoa = pacientes.fkPessoa)
+	WHERE pacientes.fkPsicologo = _pk;
+    
+	COMMIT;
+        ROLLBACK;
+END $$
+DELIMITER ;
+
+CALL findAllConsultasPaciente(1);
+
+DELIMITER $$
+
+CREATE PROCEDURE findAllConsultasPaciente(
+_pk INT
+)
+BEGIN
+
+   SELECT 	*
+	FROM consultas
+	INNER JOIN pacientes on (pacientes.pkPaciente = consultas.fkPaciente)
+	INNER JOIN pessoas on (pessoas.pkPessoa = pacientes.fkPessoa)
+	WHERE pacientes.pkPaciente = _pk;
     
 	COMMIT;
         ROLLBACK;
@@ -675,9 +716,11 @@ CREATE PROCEDURE findByPkconsultas(
 )
 BEGIN
 
-    SELECT 	consultas.pkCosulta,
+   SELECT 	
+			consultas.pkCosulta,
 			pessoas.nome,
-			consultas.horarioDaConsulta
+			consultas.horarioDaConsulta,
+			pacientes.pkPaciente
 	FROM consultas
 	INNER JOIN pacientes on (pacientes.pkPaciente = consultas.fkPaciente)
 	INNER JOIN pessoas on (pessoas.pkPessoa = pacientes.fkPessoa)
@@ -1016,6 +1059,7 @@ BEGIN
         ROLLBACK;
 END $$
 DELIMITER ;
+
 
 SELECT * FROM anotacoespacientes;
 SELECT * FROM anotacoespsicologos;

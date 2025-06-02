@@ -18,10 +18,31 @@ class RepositorioAtividades implements IrepositoryAtividaes {
 
     function insert(Iatividades $atividades) : void{
         try {
-            $prepare = $this->MySql->getConnect()->prepare("CALL insertEndereco(:titulo, :descricao);");
+            $prepare = $this->MySql->getConnect()->prepare("CALL insertAtividades(:titulo, :descricao);");
             $prepare->bindValue(":titulo", $atividades->getTitulo());
             $prepare->bindValue(":descricao", $atividades->getDescricao());
             $prepare->execute();
+        } catch (PDOException $erros) {
+            
+            echo("tivemos um erro.:");
+            echo($erros->getMessage());
+        }
+
+    }
+    function insertAtividadesPaciente(Iatividades $atividades, int $pkPaciente) : void{
+        try {
+            $arrayAtividade = $this->findByTitle($atividades);
+
+            if(empty($arrayAtividade)){
+                $this->insert($atividades);
+                $arrayAtividade = $this->findByTitle($atividades);
+            }
+
+            $prepare = $this->MySql->getConnect()->prepare("CALL insertAtividadesPaciente(:pkAtividade, :pkPaciente);");
+            $prepare->bindValue(":pkAtividade", $arrayAtividade['pkAtividade']);
+            $prepare->bindValue(":pkPaciente", $pkPaciente);
+            $prepare->execute();
+            
         } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");
@@ -39,8 +60,13 @@ class RepositorioAtividades implements IrepositoryAtividaes {
             $prepare = $this->MySql->getConnect()->prepare("SELECT * FROM atividades WHERE titulo = :titulo;");
             $prepare->bindValue(":titulo", $atividades->getTitulo());
             $prepare->execute();
+            $data = $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
 
-            return $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
+            if (empty($data)) {
+                return [];
+            } else {
+                return $data;
+            }
         } catch (PDOException $erros) {
             
             echo("tivemos um erro.:");

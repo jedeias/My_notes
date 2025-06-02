@@ -105,6 +105,9 @@ function showListaDeAnotacoesPaciente(array){
         redirect.className = "redirectParaAnotacao";
         redirect.innerHTML = "Fazer observação";
 
+        let newNotePk = document.getElementById("pkPaciente");
+        newNotePk.value = element['pkPaciente'];
+
         redirect.onclick = () => {
             window.location.href = '../psicologos/notasPsicologo.php?pkAnotacaoPaciente='+element["pkAnotacaoPaciente"];
         };

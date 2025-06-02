@@ -1,22 +1,21 @@
 <?php
 
-namespace Src\Models\Core\Entities\Consultas;
-use Src\Models\Core\Entities\Pessoas\Ipacientes;
-use Src\Models\Core\Entities\Consultas\Iconsultas;
+namespace src\Models\Core\Entities\Consultas;
+use src\Models\Core\Entities\Pessoas\Ipacientes;
+use src\Models\Core\Entities\Consultas\Iconsultas;
 
 class Consultas implements Iconsultas {
-    private Ipacientes|int $pacientes;
-    private string $dia;
-    private string $hora;
+    private int $pacientes;
+    private string $diaEHora;
     private int $pkConsultas;
 
 
-    public function getPacientes(): Ipacientes|int{
+    public function getPacientes(): int{
         return $this->pacientes;
     }
 
 
-    public function setPacientes(Ipacientes|int $pacientes): self{
+    public function setPacientes(int $pacientes): self{
         $this->pacientes = $pacientes;
 
         return $this;
@@ -24,13 +23,12 @@ class Consultas implements Iconsultas {
 
 
     public function getDiaEHora(): string{
-        return $this->dia;
+        return $this->diaEHora;
     }
 
 
     public function setDiaEHora(string $dia): self{
-        $this->dia = $dia;
-
+        $this->diaEHora = $dia;
         return $this;
     }
 
@@ -41,12 +39,11 @@ class Consultas implements Iconsultas {
 
     public function setPkConsultas(int $pkConsultas): self{
         $this->pkConsultas = $pkConsultas;
-
         return $this;
     }
 
 
-    static function create(Ipacientes|int $paciente, string $dia, string $hora): Iconsultas{
+    static function create(int $paciente, string $dia, string $hora): Iconsultas{
         $consulta = new Consultas();
         $consulta->setPacientes($paciente);
         $consulta->setDiaEHora($dia);

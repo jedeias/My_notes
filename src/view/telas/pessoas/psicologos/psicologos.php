@@ -2,11 +2,15 @@
 
 include "../../../../../vendor/autoload.php";
 
+use src\Models\Core\Entities\Atividades\Atividades;
 use src\Models\Core\Entities\Pessoas\Psicologos;
 use src\Models\Infra\Repository\Pessoas\RepositorioPsicologos;
 use src\Controllers\NilveDeAcessos\StrategyNivelDeAcessoPsicologos;
 use src\Models\Core\Entities\Session\Sessions;
 use src\Controllers\Autentificacao;
+use src\Controllers\Atividades\ControllerAtividades;
+use src\Models\Infra\Repository\Consultas\RepositorioConsutas;
+
 
 $auth = new Autentificacao();
 $session = new Sessions();
@@ -25,8 +29,6 @@ $psicologos->setPessoaPk($dadosPsicologo['pkPessoa']);
 $listaDePacientes = new RepositorioPsicologos();
 $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
 
-
-// var_dump($psicologos->getImageLocal());
 
 
 ?>
@@ -68,7 +70,6 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
         
         <h1>Selecione um Paciente</h1>
 
-
         <div class="container">
             <?php
 
@@ -76,23 +77,20 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
                     echo "<section class='paciente-card'>";
                     echo "<p><strong>" . $paciente['nome'] . "</strong></p>";
                     echo "<p><strong>" . $paciente['email'] . "</strong></p>";
+                    if($paciente['sexo'] == "M"){
+                        echo "<p><strong> Masculino </strong></p>";
+                    }else{
+                        echo "<p><strong> Feminina </strong></p>";
+                    }
+                    echo "<p><strong> Data de nascimento  " . $paciente['dataDeNascimento'] . "</strong></p>";
                     echo "<button class='btn-next-paciente' onclick='dadosPacientes(". $paciente['pkPaciente'].")'>informações</button>";
                     echo "</section>";
                 }
             ?>
 
-            <section class="paciente-card" >
-            <p><strong>Jorge Santos</strong></p>
-            <p>Idade: 35</p>
-            <p>Última consulta: 10/02/2023</p>
-            <button class="btn-next-paciente" onclick="nextPaciente()">Próximo Paciente</button>
-            </section>
         </div>
 
-
-
     </article>
-    
 
     <main>
 
@@ -101,6 +99,32 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
 
         <div class="agenda">
             <div id="calendar"></div>
+            <?php 
+                $consultas = new RepositorioConsutas();
+                $consultasInSql = $consultas->findAllConsultasPsicologo($psicologos->getPessoaPk());
+            ?>
+            <script>
+
+                let json = <?php echo json_encode($consultasInSql); ?>;
+
+                let eventos = json.map(item => ({
+                    title: item.nome,
+                    start: item.horarioDaConsulta.replace(' ', 'T') // transforma para formato ISO 8601
+                }));
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    var calendarEl = document.getElementById('calendar');
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: 'dayGridMonth',
+                        events: eventos
+                    });
+                    calendar.render();
+                    
+                    
+                });
+            </script>
+
+
         </div>
 
         <article class="button">
@@ -128,7 +152,7 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
             <img src="" alt="Adicionar" class="add-icon">
 
             
-            <form action="" method="post" class="atividades-form">
+            <form action="../../../../Controllers/Atividades/ControllerAtividades.php" method="post" class="atividades-form">
                 
                 <label for="titulo">Título</label>
                 <input type="text" name="titulo" id="titulo" class="titulo">
@@ -136,6 +160,10 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
                 <label for="atividade">Recomendação</label>
                 <input type="text" name="atividade" id="atividade" class="atividade">
                 
+                <?php
+                    echo "<input type='hidden' name='pkPaciente' id='pkPaciente'>";
+                ?>
+
                 <button type="submit" class="btn-submit">Enviar</button>
                 
             </form>
@@ -149,14 +177,11 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
         </article>
     
     </main>
-
-    
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
     <script src="../../../JS/psicologos.js"></script>
     <script src="../../../JS/psicologosDadosPacientes.js"></script>
-    <script defer src="../../../JS/agenda.js"></script>
+    <!-- <script defer src="../../../JS/agenda.js"></script> -->
     <script src="../../../JS/atividades.js"></script>
     <script src="../../../JS/menu.js"></script>
 </body>
