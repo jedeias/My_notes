@@ -178,6 +178,32 @@ class RepositorioPsicologos implements IrepositoryPsicologos{
         }
     }
 
+    public function findAllPacientesOfPsicologoComLike(Ipsicologos $psicologos, string $nome){
+        try{
+            $prepare = $this->MySql->getConnect()->prepare("
+            SELECT * FROM pacientes
+            INNER JOIN psicologos ON(pacientes.fkPsicologo = psicologos.pkPsicologo)
+            INNER JOIN pessoas ON (pacientes.fkPessoa = pessoas.pkPessoa)
+            WHERE pessoas.nome LIKE :nome AND fkPsicologo = :pkPsicologo;
+            ");
+
+            $prepare->bindValue(":nome", "%$nome%");
+            $prepare->bindValue(":pkPsicologo", $psicologos->getPsicologosPk());
+            $prepare->execute();
+
+            $data = $prepare->fetchAll(PDO::FETCH_ASSOC);
+            if(empty($data)){
+                return [];
+            }else{
+                return $data;
+            }
+
+        }catch(PDOException $erros){
+            echo("tivemos um erro.:");
+            echo($erros->getMessage());
+        }
+    }
+
 }
 
 ?>

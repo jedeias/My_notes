@@ -26,8 +26,20 @@ $psicologos->setImageLocal($dadosPsicologo['imageLocal']);
 $psicologos->setCRP($dadosPsicologo['CRP']);
 $psicologos->setPessoaPk($dadosPsicologo['pkPessoa']);
 
-$listaDePacientes = new RepositorioPsicologos();
-$listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
+$repositorioPsicologos = new RepositorioPsicologos();
+
+if(! empty($_GET["pesquisa"])){
+    $repositorioPsicologos = new RepositorioPsicologos();
+    $listaDePacientes = $repositorioPsicologos->findAllPacientesOfPsicologoComLike($psicologos, $_GET["pesquisa"]);
+    
+}else{
+    
+    $listaDePacientes = $repositorioPsicologos->findAllPacientesOfPsicologo($psicologos);
+
+}
+
+
+// $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
 
 
 
@@ -65,9 +77,12 @@ $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
     <article class="pacientes">
         <h2 class="pacientes-title">Lista de Pacientes</h2>
         
-        <input type="text" class="search" placeholder="Pesquisar Paciente" id="searchInput">
-        <button class="btnsearch"><i class="fa-solid fa-magnifying-glass"></i></button>
-        
+        <form action="" method="get">
+
+            <input type="text" class="search" name='pesquisa' placeholder="Pesquisar Paciente" id="searchInput">
+            <button class="btnsearch"><i class="fa-solid fa-magnifying-glass"></i></button>
+            
+        </form>
         <h1>Selecione um Paciente</h1>
 
         <div class="container">

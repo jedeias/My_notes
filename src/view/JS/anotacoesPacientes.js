@@ -21,14 +21,25 @@ function nextNote(){
         valorAtual++;
         textArea.value = dados[valorAtual].anotacao;
         diaDoAno.innerHTML = dados[valorAtual].diaDaAnotacao;
+        
+        document.getElementById("send").setAttribute("hidden", true);
+
     }else if(dados.length[valorAtual] == undefined){
         valorAtual++;
         textArea.value = "insira uma nova anotação";
+        
+        let buttunHidden = document.getElementById("send");
+        buttunHidden.removeAttribute("hidden");
+
     }
     console.log(dados[valorAtual]);
 }
 
 function prevNote(){
+
+            
+    document.getElementById("send").setAttribute("hidden", true);
+
     if(valorAtual > dados.length && valorAtual > 0){
         valorAtual--;
         textArea.value = dados[valorAtual].anotacao;

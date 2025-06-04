@@ -95,7 +95,7 @@ if($_POST){
                 </article>
                 <textarea required id="textarea" placeholder="Como você está?" name="descricao"></textarea>
                 <div class="action-button-container">
-                    <button class="action-button" type="submit" onclick="modalclick()">Salvar</button>
+                    <button class="action-button" id='send' type="submit" onclick="modalclick()" hidden >Salvar</button>
                 </div>
 
             </form>
@@ -111,7 +111,7 @@ if($_POST){
 
         
         <div class="anotacoesDosPacientes">
-            <input id="quantidadeDeAnotacoes" hidden="" values="<?php echo count($dataNotes); ?>"></input/>
+            <input id="quantidadeDeAnotacoes" hidden="" values="<?php echo count($dataNotes); ?>"></input>
             <input id="jsonDeAnotacoes" hidden="" value='<?php echo json_encode($dataNotes, JSON_UNESCAPED_UNICODE); ?>'></input>;
         
     </div>

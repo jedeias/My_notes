@@ -424,6 +424,8 @@ CALL insertResponsavel(4);
 -- Pacientes (Associados a Psicólogos e Responsáveis)
 CALL insertPacientes(6, 1, NULL);
 CALL insertPacientes(7, 2, NULL);
+CALL insertPacientes(5, 1, NULL);
+CALL insertPacientes(8, 2, NULL);
 
 -- Secretários
 CALL insertSecretario(8);
@@ -688,7 +690,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL findAllConsultasPaciente(1);
+-- CALL findAllConsultasPaciente(1);
 
 DELIMITER $$
 
@@ -1060,6 +1062,50 @@ BEGIN
 END $$
 DELIMITER ;
 
+
+-- update das consultas
+
+DELIMITER $$
+
+CREATE PROCEDURE updateConsultas(
+_pkConsulta INT,
+_data dateTime
+)
+BEGIN
+	START TRANSACTION;
+	UPDATE consultas SET horarioDaConsulta = _data WHERE pkCosulta = _pkConsulta;
+	COMMIT;
+     ROLLBACK;
+END $$
+DELIMITER ;
+
+-- pesquisa pacientes usando o like
+/*  
+
+	!!!Não tive competencia para essa procedure... @~@
+	Vamo para o PHP.
+
+DELIMITER $$
+
+CREATE PROCEDURE findPacienteComLike(
+_nome VARCHAR(150)
+)
+BEGIN
+	START TRANSACTION;
+	
+	SELECT * FROM pacientes
+	INNER JOIN pessoas ON (pacientes.fkPessoa = pessoas.pkPessoa)
+	WHERE pessoas.nome LIKE "%""_nome""%";
+	
+	COMMIT;
+     ROLLBACK;
+END $$
+DELIMITER ;
+
+CALL findPacienteComLike("fer");
+
+drop PROCEDURE findPacienteComLike
+*/
 
 SELECT * FROM anotacoespacientes;
 SELECT * FROM anotacoespsicologos;
