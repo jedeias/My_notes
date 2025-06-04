@@ -65,62 +65,105 @@ $secretarios->setPessoaPk($userData['pkPessoa']);
         <div class="modal-content">
             
             <h2>Cadastrar pacientes</h2>
+
+            <script>
+                async function consultaCEP(event) {
+                    event.preventDefault();
+
+                    const form = event.target.closest("form");
+
+                    const cepInput = form.querySelector('input[name="cep"]');
+                    const ruaInput = form.querySelector('input[name="rua"]');
+                    const bairroInput = form.querySelector('input[name="bairro"]');
+                    const cidadeInput = form.querySelector('input[name="cidade"]');
+                    const estadoSelect = form.querySelector('select[name="estado"]');
+
+                    const cep = cepInput.value.replace(/\D/g, '');
+
+                    if (cep.length !== 8) {
+                        alert("CEP inválido. Deve conter 8 dígitos.");
+                        return;
+                    }
+
+                    try {
+                        const resposta = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+                        const dados = await resposta.json();
+
+                        if (dados.erro) {
+                            alert("CEP não encontrado!");
+                            return;
+                        }
+
+                        ruaInput.value = dados.logradouro || "";
+                        bairroInput.value = dados.bairro || "";
+                        cidadeInput.value = dados.localidade || "";
+                        estadoSelect.value = dados.uf || "";
+
+                    } catch (erro) {
+                        alert("Erro ao buscar o CEP.");
+                        console.error(erro);
+                    }
+                }
+            </script>
+
+
             
             <form id="fromularioDadosPessoais" action="" method="post" enctype="multipart/form-data">
                 
                 <h3>Dados pessoais</h3>
 
                 <label for="foto">Alterar Imagem:</label>
-                <input type="file" id="foto" name="imageLocal" value="" accept="image/*">
+                <input type="file" id="foto" name="imageLocal" accept="image/*">
                 
                 <label for="nome">Alterar Nome:</label>
-                <input type="text" id="nome" name="nome" placeholder="Digite seu nome" value="">
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
 
                 <label for="email">Alterar email:</label>
-                <input type="text" id="email" name="email" placeholder="Digite seu email" value="">
+                <input type="text" id="email" name="email" placeholder="Digite seu email">
                 
                 <label for="senha">Alterar senha:</label>
                 <input type="text" id="senha" name="senha" placeholder="*******">
 
                 <label for="dataDeNascimento">Alterar data de nascimento:</label>
-                <input type="date" id="dataDeNascimento" name="dataDeNascimento" placeholder="Digite seu nome" value="">
+                <input type="date" id="dataDeNascimento" name="dataDeNascimento" placeholder="Digite seu nome">
 
                 <label for="RG">Alterar RG:</label>
-                <input type="text" id="RG" name="RG" placeholder="Digite seu RG" value="">
+                <input type="text" id="RG" name="RG" placeholder="Digite seu RG">
 
                 <label for="CPF">Alterar CPF:</label>
-                <input type="text" id="CPF" name="CPF" placeholder="Digite seu CPF" value="">
+                <input type="text" id="CPF" name="CPF" placeholder="Digite seu CPF">
 
                 <label for="sexo">sexo:</label>
                 <select name="sexo" id="sexo">
-                    <option value=""></option>
+                    <option></option>
                     <option value="M">Male</option>
                     <option value="F">Famele</option>
                 </select>
 
                 <h3>Endereco</h3>
+                
+                <label for="cep">Alterar CEP:</label>
+                <input type="text" id="cep" name="cep" placeholder="Digite seu cep">
+                <button type="button" onclick="consultaCEP(event)">Buscar CEP</button>   
 
                 <label for="rua">Alterar Rua:</label>
-                <input type="text" id="rua" name="rua" placeholder="Digite seu rua" value="">
+                <input type="text" id="rua" name="rua" placeholder="Digite seu rua">
 
                 <label for="numero">Alterar Numero:</label>
-                <input type="text" id="numero" name="numeroDaCasa" placeholder="Digite seu numero" value="">
+                <input type="text" id="numero" name="numeroDaCasa" placeholder="Digite seu numero">
 
                 <label for="complemento">Alterar Complemento:</label>
-                <input type="text" id="complemento" name="complemento" placeholder="Digite seu complemento" value="">
+                <input type="text" id="complemento" name="complemento" placeholder="Digite seu complemento">
 
                 <label for="bairro">Alterar Bairro:</label>
-                <input type="text" id="bairro" name="bairro" placeholder="Digite seu bairro" value="">
-
-                <label for="cep">Alterar CEP:</label>
-                <input type="text" id="cep" name="cep" placeholder="Digite seu cep" value="">
-
+                <input type="text" id="bairro" name="bairro" placeholder="Digite seu bairro">
+                
                 <label for="cidade">Alterar Cidade:</label>
-                <input type="text" id="cidade" name="cidade" placeholder="Digite seu cidade" value="">
+                <input type="text" id="cidade" name="cidade" placeholder="Digite seu cidade">
 
                 <label for="estado">Alterar Estado:</label>
                 <select name="estado" id="estado">
-                    <option value=""></option>
+                    <option></option>
                     <option value="AC">Acre</option>
                     <option value="AL">Alagoas</option>
                     <option value="AP">Amapá</option>
@@ -152,15 +195,16 @@ $secretarios->setPessoaPk($userData['pkPessoa']);
                 <h3>Telefone</h3>
 
                 <label for="DD">Alterar DD:</label>
-                <input type="text" id="DD" name="DD" placeholder="Digite seu DD" value="">
+                <input type="text" id="DD" name="DD" placeholder="Digite seu DD">
 
                 <label for="numero">Alterar Numero:</label>
-                <input type="text" id="numero" name="numeroDeTelefone" placeholder="Digite seu numero" value="">
+                <input type="text" id="numero" name="numeroDeTelefone" placeholder="Digite seu numero">
 
             
 
                 <button type="submit">Salvar Alterações</button>
             </form>
+
 
         </div>
         </div>
@@ -176,56 +220,57 @@ $secretarios->setPessoaPk($userData['pkPessoa']);
                 <h3>Dados pessoais</h3>
 
                 <label for="foto">Alterar Imagem:</label>
-                <input type="file" id="foto" name="imageLocal" value="" accept="image/*">
+                <input type="file" id="foto" name="imageLocal" accept="image/*">
                 
                 <label for="nome">Alterar Nome:</label>
-                <input type="text" id="nome" name="nome" placeholder="Digite seu nome" value="">
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
 
                 <label for="email">Alterar email:</label>
-                <input type="text" id="email" name="email" placeholder="Digite seu email" value="">
+                <input type="text" id="email" name="email" placeholder="Digite seu email">
                 
                 <label for="senha">Alterar senha:</label>
                 <input type="text" id="senha" name="senha" placeholder="*******">
 
                 <label for="dataDeNascimento">Alterar data de nascimento:</label>
-                <input type="date" id="dataDeNascimento" name="dataDeNascimento" placeholder="Digite seu nome" value="">
+                <input type="date" id="dataDeNascimento" name="dataDeNascimento" placeholder="Digite seu nome">
 
                 <label for="RG">Alterar o CRM:</label>
-                <input type="text" id="CRM" name="CRM" placeholder="Digite o CRM" value="">
+                <input type="text" id="CRM" name="CRM" placeholder="Digite o CRM">
 
                 <label for="CPF">Alterar CPF:</label>
-                <input type="text" id="CPF" name="CPF" placeholder="Digite seu CPF" value="">
+                <input type="text" id="CPF" name="CPF" placeholder="Digite seu CPF">
 
                 <label for="sexo">sexo:</label>
                 <select name="sexo" id="sexo">
-                    <option value=""></option>
+                    <option></option>
                     <option value="M">Male</option>
                     <option value="F">Famele</option>
                 </select>
 
                 <h3>Endereco</h3>
+                
+                <label for="cep">Alterar CEP:</label>
+                <input type="text" id="cep" name="cep" placeholder="Digite seu cep">
+                <button type="button" onclick="consultaCEP(event)">Buscar CEP</button> 
 
                 <label for="rua">Alterar Rua:</label>
-                <input type="text" id="rua" name="rua" placeholder="Digite seu rua" value="">
-
+                <input type="text" id="rua" name="rua" placeholder="Digite seu rua">
+                
                 <label for="numero">Alterar Numero:</label>
-                <input type="text" id="numero" name="numeroDaCasa" placeholder="Digite seu numero" value="">
-
+                <input type="text" id="numero" name="numeroDaCasa" placeholder="Digite seu numero">
+                
                 <label for="complemento">Alterar Complemento:</label>
-                <input type="text" id="complemento" name="complemento" placeholder="Digite seu complemento" value="">
-
+                <input type="text" id="complemento" name="complemento" placeholder="Digite seu complemento">
+                
                 <label for="bairro">Alterar Bairro:</label>
-                <input type="text" id="bairro" name="bairro" placeholder="Digite seu bairro" value="">
-
-                <label for="cep">Alterar CEP:</label>
-                <input type="text" id="cep" name="cep" placeholder="Digite seu cep" value="">
-
+                <input type="text" id="bairro" name="bairro" placeholder="Digite seu bairro">
+                
                 <label for="cidade">Alterar Cidade:</label>
-                <input type="text" id="cidade" name="cidade" placeholder="Digite seu cidade" value="">
+                <input type="text" id="cidade" name="cidade" placeholder="Digite seu cidade">
 
                 <label for="estado">Alterar Estado:</label>
                 <select name="estado" id="estado">
-                    <option value=""></option>
+                    <option></option>
                     <option value="AC">Acre</option>
                     <option value="AL">Alagoas</option>
                     <option value="AP">Amapá</option>
@@ -257,15 +302,56 @@ $secretarios->setPessoaPk($userData['pkPessoa']);
                 <h3>Telefone</h3>
 
                 <label for="DD">Alterar DD:</label>
-                <input type="text" id="DD" name="DD" placeholder="Digite seu DD" value="">
+                <input type="text" id="DD" name="DD" placeholder="Digite seu DD">
 
                 <label for="numero">Alterar Numero:</label>
-                <input type="text" id="numero" name="numeroDeTelefone" placeholder="Digite seu numero" value="">
+                <input type="text" id="numero" name="numeroDeTelefone" placeholder="Digite seu numero">
 
             
 
                 <button type="submit">Salvar Alterações</button>
             </form>
+
+                <script>
+                    async function consultaCEP(event) {
+                        event.preventDefault();
+
+                        const form = event.target.closest("form");
+
+                        const cepInput = form.querySelector('input[name="cep"]');
+                        const ruaInput = form.querySelector('input[name="rua"]');
+                        const bairroInput = form.querySelector('input[name="bairro"]');
+                        const cidadeInput = form.querySelector('input[name="cidade"]');
+                        const estadoSelect = form.querySelector('select[name="estado"]');
+
+                        const cep = cepInput.value.replace(/\D/g, '');
+
+                        if (cep.length !== 8) {
+                            alert("CEP inválido. Deve conter 8 dígitos.");
+                            return;
+                        }
+
+                        try {
+                            const resposta = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+                            const dados = await resposta.json();
+
+                            if (dados.erro) {
+                                alert("CEP não encontrado!");
+                                return;
+                            }
+
+                            ruaInput.value = dados.logradouro || "";
+                            bairroInput.value = dados.bairro || "";
+                            cidadeInput.value = dados.localidade || "";
+                            estadoSelect.value = dados.uf || "";
+
+                        } catch (erro) {
+                            alert("Erro ao buscar o CEP.");
+                            console.error(erro);
+                        }
+                    }
+                </script>
+
 
         </div>
         </div>
