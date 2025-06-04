@@ -26,7 +26,7 @@ class RepositorioPacientes implements IrepositoryPaciente{
         try {
 
             $pacientes->setPessoaPk($this->cheackedPessoas($pacientes));
-            $pacientes->setPsicologo($this->cheackedPsicologo($pacientes->getPsicologo()));
+            // $pacientes->setPsicologo($this->cheackedPsicologo($pacientes->getPsicologo()));
 
             $prepare = $this->MySql->getConnect()->prepare("CALL insertPacientes(:fkPessoas, :fkPsicologo, :fkResponsavel);");
             

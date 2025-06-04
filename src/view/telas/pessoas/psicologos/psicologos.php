@@ -68,7 +68,7 @@ if(! empty($_GET["pesquisa"])){
         <h2 class="subtitle"><?php echo $dadosPsicologo["email"]; ?></h2>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#">Atividades</a>
-        <a href="#">Consultas Agendadas</a>
+        <a href="../agenda/agenda.php">Consultas Agendadas</a>
         <a href="#">Contato</a>
         <a href="../sair.php">sair</a>
         <a href="../config.php"><i class="fa-solid fa-gear"></i></a> 
@@ -116,15 +116,15 @@ if(! empty($_GET["pesquisa"])){
             <div id="calendar"></div>
             <?php 
                 $consultas = new RepositorioConsutas();
-                $consultasInSql = $consultas->findAllConsultasPsicologo($psicologos->getPessoaPk());
+                $consultasInSql = $consultas->findAllConsultasPsicologo($psicologos->getPsicologosPk());
             ?>
             <script>
 
                 let json = <?php echo json_encode($consultasInSql); ?>;
-
+                console.log(json)
                 let eventos = json.map(item => ({
                     title: item.nome,
-                    start: item.horarioDaConsulta.replace(' ', 'T') // transforma para formato ISO 8601
+                    start: item.horarioDaConsulta.replace(' ', 'T')
                 }));
 
                 document.addEventListener('DOMContentLoaded', function() {

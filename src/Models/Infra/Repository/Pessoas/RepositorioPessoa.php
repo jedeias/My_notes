@@ -46,9 +46,9 @@ class RepositorioPessoa implements IrepositoryPessoas{
             $prepare->bindValue(":senha", $pessoa->getSenha());
             $prepare->bindValue(":dataNasc", $pessoa->getDataDeNascimento());
             $prepare->bindValue(":RG", $pessoa->getRG());
-            $prepare->bindValue(":CPF", $pessoa->getNome());
+            $prepare->bindValue(":CPF", $pessoa->getCPF());
             $prepare->bindValue(":sexo", $pessoa->getSexo());
-            $prepare->bindValue(":image", $pessoa->getImageLocal());
+            $prepare->bindValue(":image", "DEFAULT");
             $prepare->bindValue(":fkTelefone", $pessoa->getTelefone()->getPkTelefone());
             $prepare->bindValue(":fkEndereco", $pessoa->getEndereco()->getPkEndereco());
             $prepare->execute();
@@ -133,6 +133,7 @@ class RepositorioPessoa implements IrepositoryPessoas{
             $prepare->execute();
 
             $data = $prepare->fetchAll(PDO::FETCH_ASSOC)[0];
+
             if(empty($data)){
                 return [];
             }else{

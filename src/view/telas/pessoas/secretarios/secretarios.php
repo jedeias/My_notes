@@ -3,9 +3,18 @@
 include "../../../../../vendor/autoload.php";
 
 use src\Controllers\NilveDeAcessos\StrategyNivelDeAcessoSecretarios;
+use src\Models\Core\Entities\Pessoas\Pacientes;
 use src\Models\Core\Entities\Pessoas\Secretarios;
+use src\Models\Core\Entities\Pessoas\Psicologos;
+use src\Models\Core\Entities\Telefones\Telefones;
+use src\Models\Core\Entities\Enderecos\Enderecos;
 use src\Models\Core\Entities\Session\Sessions;
 use src\Controllers\Autentificacao;
+use src\Models\Infra\Repository\Enderecos\RepositorioEndereco;
+use src\Models\Infra\Repository\Pessoas\RepositorioPessoa;
+use src\Models\Infra\Repository\Pessoas\RepositorioPacientes;
+use src\Models\Infra\Repository\Pessoas\RepositorioPsicologos;
+use src\Models\Infra\Repository\Telefones\RepositorioTelefone;
 
 
 $auth = new Autentificacao();
@@ -21,6 +30,166 @@ $secretarios->setNome($userData['nome']);
 $secretarios->setEmail($userData['email']);
 $secretarios->setImageLocal($userData['imageLocal']);
 $secretarios->setPessoaPk($userData['pkPessoa']);
+
+$repositorioPsicologos = new RepositorioPsicologos();
+$allPsicologos = $repositorioPsicologos->findAll();
+
+if(! empty($_POST)){
+    if(isset($_POST['CRM'])){
+
+        //insert de teste
+        $_POST = [
+            'nome' => 'Marcia',
+            'email' => 'marciaReges@email.com',
+            'senha' => 'senha',
+            'dataDeNascimento' => '1990-06-12',
+            'RG' => '113456789',
+            'CPF' => '11245678900',
+            'sexo' => 'F',
+            'cep' => '01101000',
+            'rua' => 'Rua das Flores',
+            'numeroDaCasa' => '123',
+            'complemento' => 'Apto 45',
+            'bairro' => 'Centro',
+            'cidade' => 'São Paulo',
+            'estado' => 'SP',
+            'DD' => '11',
+            'numeroDeTelefone' => '912345678',
+            'CRM' => '2'
+        ];
+
+
+        // inserte de psigologo;
+        
+        $telefone = new Telefones();
+        $telefone->setDDD($_POST['DD']);
+        $telefone->setNumero($_POST['numeroDeTelefone']);
+        
+        $endereco = new Enderecos();
+        $endereco->setCep($_POST['cep']);
+        $endereco->setRua($_POST['rua']);
+        $endereco->setNumero($_POST['numeroDaCasa']);
+        $endereco->setComplemento($_POST['complemento']);
+        $endereco->setBairro($_POST['bairro']);
+        $endereco->setCidade($_POST['cidade']);
+        $endereco->setEstado($_POST['estado']);
+
+        $psicologos = new Psicologos();
+        $psicologos->setNome($_POST['nome']);
+        $psicologos->setEmail($_POST['email']);
+        $psicologos->setSenha($_POST['senha']);
+        $psicologos->setDataDeNascimento($_POST['dataDeNascimento']);
+        $psicologos->setRG($_POST['RG']);
+        $psicologos->setCPF($_POST['CPF']);
+        $psicologos->setCRP($_POST['CRM']);
+        $psicologos->setSexo($_POST['sexo']);
+        $psicologos->setEndereco($endereco);
+        $psicologos->setTelefone($telefone);
+
+
+        $repositorioTelefone = new RepositorioTelefone();
+        $repositorioEndereco = new RepositorioEndereco();
+        $repositorioPessoas = new RepositorioPessoa();
+        $repositorioPsicologos = new RepositorioPsicologos();
+        
+        $repositorioTelefone->insert($psicologos->getTelefone());
+        $dadosTelefone = $repositorioTelefone->findByNumero($psicologos->getTelefone());
+        $psicologos->getTelefone()->setPkTelefone($dadosTelefone['pkTelefone']);
+
+        $repositorioEndereco->insert($psicologos->getEndereco());
+        $dadosEndereco = $repositorioEndereco->findByRuaAndNumero($psicologos->getEndereco());
+        $psicologos->getEndereco()->setPkEndereco($dadosEndereco['pkEndereco']);
+
+        $repositorioPessoas->insert($psicologos);
+        $dadosPessoas = $repositorioPessoas->findByEmail($psicologos);
+        $psicologos->setPessoaPk($dadosPessoas['pkPessoa']);
+
+        $repositorioPsicologos->insert($psicologos);
+        // $repositoriopsicologos->insert($psicologos);
+
+
+
+        echo"<pre>";
+        print_r($_POST);
+    }else if(isset($_POST['psicologos'])){
+        $pkPsicologo = $_POST['psicologos'];
+        //insert de teste
+        $_POST = [
+            'nome' => 'João da Silva',
+            'email' => 'joao.silva.teste@example.com',
+            'senha' => 'SenhaForte123!',
+            'dataDeNascimento' => '1990-05-12',
+            'RG' => '123456789',
+            'CPF' => '11145678900',
+            'sexo' => 'M',
+            'cep' => '01001000',
+            'rua' => 'Rua das Flores',
+            'numeroDaCasa' => '123',
+            'complemento' => 'Apto 45',
+            'bairro' => 'Centro',
+            'cidade' => 'São Paulo',
+            'estado' => 'SP',
+            'DD' => '11',
+            'numeroDeTelefone' => '912345678',
+            'psicologos' => $pkPsicologo
+        ];
+
+        //paciente
+        echo"<pre>";
+        print_r($_POST);
+
+        $telefone = new Telefones();
+        $telefone->setDDD($_POST['DD']);
+        $telefone->setNumero($_POST['numeroDeTelefone']);
+
+        $endereco = new Enderecos();
+        $endereco->setCep($_POST['cep']);
+        $endereco->setRua($_POST['rua']);
+        $endereco->setNumero($_POST['numeroDaCasa']);
+        $endereco->setComplemento($_POST['complemento']);
+        $endereco->setBairro($_POST['bairro']);
+        $endereco->setCidade($_POST['cidade']);
+        $endereco->setEstado($_POST['estado']);
+        
+        $psicologos = new Psicologos();
+        $psicologos->setPsicologosPk($_POST['psicologos']);
+
+        $pacientes = new Pacientes();
+        $pacientes->setNome($_POST['nome']);
+        $pacientes->setEmail($_POST['email']);
+        $pacientes->setSenha($_POST['senha']);
+        $pacientes->setDataDeNascimento($_POST['dataDeNascimento']);
+        $pacientes->setRG($_POST['RG']);
+        $pacientes->setCPF($_POST['CPF']);
+        $pacientes->setSexo($_POST['sexo']);
+        $pacientes->setEndereco($endereco);
+        $pacientes->setTelefone($telefone);
+        $pacientes->setPsicologo($psicologos);
+
+        $repositorioTelefone = new RepositorioTelefone();
+        $repositorioEndereco = new RepositorioEndereco();
+        $repositorioPessoas = new RepositorioPessoa();
+        $repositorioPacientes = new RepositorioPacientes();
+        
+        $repositorioTelefone->insert($pacientes->getTelefone());
+        $dadosTelefone = $repositorioTelefone->findByNumero($pacientes->getTelefone());
+        $pacientes->getTelefone()->setPkTelefone($dadosTelefone['pkTelefone']);
+
+        $repositorioEndereco->insert($pacientes->getEndereco());
+        $dadosEndereco = $repositorioEndereco->findByRuaAndNumero($pacientes->getEndereco());
+        $pacientes->getEndereco()->setPkEndereco($dadosEndereco['pkEndereco']);
+
+        $repositorioPessoas->insert($pacientes);
+        $dadosPessoas = $repositorioPessoas->findByEmail($pacientes);
+        $pacientes->setPessoaPk($dadosPessoas['pkPessoa']);
+
+        $repositorioPacientes->insert($pacientes);
+
+
+    }else{
+        "slc num compensa";
+    }
+}
 
 ?>
 
@@ -112,25 +281,25 @@ $secretarios->setPessoaPk($userData['pkPessoa']);
                 
                 <h3>Dados pessoais</h3>
 
-                <label for="foto">Alterar Imagem:</label>
+                <label for="foto">Imagem:</label>
                 <input type="file" id="foto" name="imageLocal" accept="image/*">
                 
-                <label for="nome">Alterar Nome:</label>
+                <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
 
-                <label for="email">Alterar email:</label>
+                <label for="email">email:</label>
                 <input type="text" id="email" name="email" placeholder="Digite seu email">
                 
-                <label for="senha">Alterar senha:</label>
+                <label for="senha">senha:</label>
                 <input type="text" id="senha" name="senha" placeholder="*******">
 
-                <label for="dataDeNascimento">Alterar data de nascimento:</label>
+                <label for="dataDeNascimento">data de nascimento:</label>
                 <input type="date" id="dataDeNascimento" name="dataDeNascimento" placeholder="Digite seu nome">
 
-                <label for="RG">Alterar RG:</label>
+                <label for="RG">RG:</label>
                 <input type="text" id="RG" name="RG" placeholder="Digite seu RG">
 
-                <label for="CPF">Alterar CPF:</label>
+                <label for="CPF">CPF:</label>
                 <input type="text" id="CPF" name="CPF" placeholder="Digite seu CPF">
 
                 <label for="sexo">sexo:</label>
@@ -142,26 +311,26 @@ $secretarios->setPessoaPk($userData['pkPessoa']);
 
                 <h3>Endereco</h3>
                 
-                <label for="cep">Alterar CEP:</label>
+                <label for="cep">CEP:</label>
                 <input type="text" id="cep" name="cep" placeholder="Digite seu cep">
                 <button type="button" onclick="consultaCEP(event)">Buscar CEP</button>   
 
-                <label for="rua">Alterar Rua:</label>
+                <label for="rua">Rua:</label>
                 <input type="text" id="rua" name="rua" placeholder="Digite seu rua">
 
-                <label for="numero">Alterar Numero:</label>
+                <label for="numero">Numero:</label>
                 <input type="text" id="numero" name="numeroDaCasa" placeholder="Digite seu numero">
 
-                <label for="complemento">Alterar Complemento:</label>
+                <label for="complemento">Complemento:</label>
                 <input type="text" id="complemento" name="complemento" placeholder="Digite seu complemento">
 
-                <label for="bairro">Alterar Bairro:</label>
+                <label for="bairro">Bairro:</label>
                 <input type="text" id="bairro" name="bairro" placeholder="Digite seu bairro">
                 
-                <label for="cidade">Alterar Cidade:</label>
+                <label for="cidade">Cidade:</label>
                 <input type="text" id="cidade" name="cidade" placeholder="Digite seu cidade">
 
-                <label for="estado">Alterar Estado:</label>
+                <label for="estado">Estado:</label>
                 <select name="estado" id="estado">
                     <option></option>
                     <option value="AC">Acre</option>
@@ -193,16 +362,31 @@ $secretarios->setPessoaPk($userData['pkPessoa']);
                     <option value="TO">Tocantins</option>
                 </select>
                 <h3>Telefone</h3>
-
-                <label for="DD">Alterar DD:</label>
+                
+                <label for="DD">DD:</label>
                 <input type="text" id="DD" name="DD" placeholder="Digite seu DD">
-
-                <label for="numero">Alterar Numero:</label>
+                
+                <label for="numero">Numero:</label>
                 <input type="text" id="numero" name="numeroDeTelefone" placeholder="Digite seu numero">
+                
+                
+                
+                <h3>psicologos</h3>
 
+                <label for="psicologo">psicologo:</label>
+                <select name="psicologos" id="">
+
+                    <?php 
+                        
+                        foreach ($allPsicologos as $psicologos) {
+                            echo "<option value='{$psicologos['pkPsicologo']}'> {$psicologos['nome']} </option>";
+                        }
+
+                    ?>
+                </select>                
             
 
-                <button type="submit">Salvar Alterações</button>
+                <button type="submit">Salvar</button>
             </form>
 
 
@@ -219,25 +403,25 @@ $secretarios->setPessoaPk($userData['pkPessoa']);
                 
                 <h3>Dados pessoais</h3>
 
-                <label for="foto">Alterar Imagem:</label>
+                <label for="foto">Imagem:</label>
                 <input type="file" id="foto" name="imageLocal" accept="image/*">
                 
-                <label for="nome">Alterar Nome:</label>
+                <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
 
-                <label for="email">Alterar email:</label>
+                <label for="email">email:</label>
                 <input type="text" id="email" name="email" placeholder="Digite seu email">
                 
-                <label for="senha">Alterar senha:</label>
+                <label for="senha">senha:</label>
                 <input type="text" id="senha" name="senha" placeholder="*******">
 
-                <label for="dataDeNascimento">Alterar data de nascimento:</label>
+                <label for="dataDeNascimento">data de nascimento:</label>
                 <input type="date" id="dataDeNascimento" name="dataDeNascimento" placeholder="Digite seu nome">
 
-                <label for="RG">Alterar o CRM:</label>
+                <label for="RG">o CRM:</label>
                 <input type="text" id="CRM" name="CRM" placeholder="Digite o CRM">
 
-                <label for="CPF">Alterar CPF:</label>
+                <label for="CPF">CPF:</label>
                 <input type="text" id="CPF" name="CPF" placeholder="Digite seu CPF">
 
                 <label for="sexo">sexo:</label>
@@ -249,26 +433,26 @@ $secretarios->setPessoaPk($userData['pkPessoa']);
 
                 <h3>Endereco</h3>
                 
-                <label for="cep">Alterar CEP:</label>
+                <label for="cep">CEP:</label>
                 <input type="text" id="cep" name="cep" placeholder="Digite seu cep">
                 <button type="button" onclick="consultaCEP(event)">Buscar CEP</button> 
 
-                <label for="rua">Alterar Rua:</label>
+                <label for="rua">Rua:</label>
                 <input type="text" id="rua" name="rua" placeholder="Digite seu rua">
                 
-                <label for="numero">Alterar Numero:</label>
+                <label for="numero">Numero:</label>
                 <input type="text" id="numero" name="numeroDaCasa" placeholder="Digite seu numero">
                 
-                <label for="complemento">Alterar Complemento:</label>
+                <label for="complemento">Complemento:</label>
                 <input type="text" id="complemento" name="complemento" placeholder="Digite seu complemento">
                 
-                <label for="bairro">Alterar Bairro:</label>
+                <label for="bairro">Bairro:</label>
                 <input type="text" id="bairro" name="bairro" placeholder="Digite seu bairro">
                 
-                <label for="cidade">Alterar Cidade:</label>
+                <label for="cidade">Cidade:</label>
                 <input type="text" id="cidade" name="cidade" placeholder="Digite seu cidade">
 
-                <label for="estado">Alterar Estado:</label>
+                <label for="estado">Estado:</label>
                 <select name="estado" id="estado">
                     <option></option>
                     <option value="AC">Acre</option>
@@ -301,13 +485,11 @@ $secretarios->setPessoaPk($userData['pkPessoa']);
                 </select>
                 <h3>Telefone</h3>
 
-                <label for="DD">Alterar DD:</label>
+                <label for="DD">DD:</label>
                 <input type="text" id="DD" name="DD" placeholder="Digite seu DD">
 
-                <label for="numero">Alterar Numero:</label>
+                <label for="numero">Numero:</label>
                 <input type="text" id="numero" name="numeroDeTelefone" placeholder="Digite seu numero">
-
-            
 
                 <button type="submit">Salvar Alterações</button>
             </form>
@@ -351,15 +533,13 @@ $secretarios->setPessoaPk($userData['pkPessoa']);
                         }
                     }
                 </script>
-
-
-        </div>
+            </div>
         </div>
         
 
     </article>
 
-    <article id="consultasSection" style="display: none;">
+    <!-- <article id="consultasSection" style="display: none;">
         <div class="summerFroms">
             <h1>Bem-vindo ao Sistema de Cadastro</h1>
             <p>Escolha uma das opções acima para cadastrar pacientes ou psicólogos.</p>
@@ -395,7 +575,7 @@ $secretarios->setPessoaPk($userData['pkPessoa']);
             </table>
         </section>
         <button id="cadastrarNovamenteBtn" class="cadastrar-novamente">Cadastrar Novamente</button>
-    </article>
+    </article> -->
 
 <script defer src="../../../JS/secretario.js"></script>
 <script defer src="../../../JS/fromPessoas.js"></script>

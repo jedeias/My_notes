@@ -424,8 +424,8 @@ CALL insertResponsavel(4);
 -- Pacientes (Associados a Psicólogos e Responsáveis)
 CALL insertPacientes(6, 1, NULL);
 CALL insertPacientes(7, 2, NULL);
-CALL insertPacientes(5, 1, NULL);
-CALL insertPacientes(8, 2, NULL);
+-- CALL insertPacientes(5, 1, NULL);
+-- CALL insertPacientes(8, 2, NULL);
 
 -- Secretários
 CALL insertSecretario(8);

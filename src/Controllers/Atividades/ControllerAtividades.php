@@ -38,6 +38,9 @@ class ControllerAtividades{
 
 if(!empty($_POST)){
     
+    var_dump($_POST);
+
+
     if(isset($_POST['titulo']) && isset($_POST['atividade'])){
         $controllerAtividades = new ControllerAtividades();
         $controllerAtividades->getAtividades()->setTitulo($_POST['titulo'])->setDescricao($_POST["atividade"]);
@@ -45,7 +48,6 @@ if(!empty($_POST)){
         header("location: ../../view/telas/pessoas/psicologos/psicologos.php");
     }
 
-    var_dump($_POST);
 
 }
 
