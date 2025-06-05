@@ -403,14 +403,14 @@ CALL insertTelefone(31, 912345428);
 
 -- A senha é a palavra ("*_ 'senha' _*") em md5, e8d95a51f3af4a3b134bf6bb680a213a
 
-CALL insertPessoa('Ana Souza', 'ana@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1995-06-30', '44332211', '12345678900', 'F', DEFAULT, 1, 1);
-CALL insertPessoa('Pedro Lima', 'pedro@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1988-11-12', '66778899', '09876543211', 'M', DEFAULT, 2, 2);
-CALL insertPessoa('Mariana Costa', 'mariana@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '2002-09-05', '22334455', '11223344556', 'F', DEFAULT, 3, 3);
-CALL insertPessoa('Ricardo Almeida', 'ricardo@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1993-04-20', '77889900', '22334455667', 'M', DEFAULT, 4, 1);
-CALL insertPessoa('Juliana Mendes', 'juliana@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1980-07-18', '33445566', '33445566778', 'F', DEFAULT, 5, 2);
-CALL insertPessoa('Fernando Rocha', 'fernando@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1997-03-25', '55667788', '44556677889', 'M', DEFAULT, 6, 3);
-CALL insertPessoa('Lucas Martins', 'lucas@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1992-02-14', '99887766', '55667788990', 'M', DEFAULT, 1, 1);
-CALL insertPessoa('Camila Ferreira', 'camila@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1999-10-08', '11221133', '66778899000', 'F', DEFAULT, 2, 2);
+CALL insertPessoa('Ana Souza', 'ana@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1995-06-30', '44332211', '12345678900', 'F', 'default-profile.webp', 1, 1);
+CALL insertPessoa('Pedro Lima', 'pedro@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1988-11-12', '66778899', '09876543211', 'M', 'default-profile.webp', 2, 2);
+CALL insertPessoa('Mariana Costa', 'mariana@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '2002-09-05', '22334455', '11223344556', 'F', 'default-profile.webp', 3, 3);
+CALL insertPessoa('Ricardo Almeida', 'ricardo@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1993-04-20', '77889900', '22334455667', 'M', 'default-profile.webp', 4, 1);
+CALL insertPessoa('Juliana Mendes', 'juliana@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1980-07-18', '33445566', '33445566778', 'F', 'default-profile.webp', 5, 2);
+CALL insertPessoa('Fernando Rocha', 'fernando@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1997-03-25', '55667788', '44556677889', 'M', 'default-profile.webp', 6, 3);
+CALL insertPessoa('Lucas Martins', 'lucas@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1992-02-14', '99887766', '55667788990', 'M', 'default-profile.webp', 1, 1);
+CALL insertPessoa('Camila Ferreira', 'camila@email.com', 'e8d95a51f3af4a3b134bf6bb680a213a', '1999-10-08', '11221133', '66778899000', 'F', 'default-profile.webp', 2, 2);
 
 
 -- Psicólogos
