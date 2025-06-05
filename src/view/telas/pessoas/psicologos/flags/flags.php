@@ -84,7 +84,7 @@ if($_POST){
         <section class="listOfFlags">
             <?php
                 foreach ($allFalgs as  $value) {
-                    echo "<div class='flagInList'>";
+                    echo "<div class='flagInList' style='border-left: 6px solid {$value['color']}' >";
                     echo "<p class='colorOfFlag' style='background-color: {$value['color']};'> {$value['color']}</p>";
                     echo "<p class='tituloDaFlagInList'> {$value['tituloDaFlag']} </p>";
                     echo "<p class='descricaoDaFlagInList'> {$value['descricao']} </p>";

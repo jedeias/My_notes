@@ -113,7 +113,7 @@ form button[type="submit"]:hover {
     transition: box-shadow 0.2s, transform 0.2s;
     width: 100%;
     box-sizing: border-box;
-    border-left: 6px solid #3a8fd8;
+    /* border-left: 6px solid #3a8fd8; */
     margin-bottom: 8px;
     position: relative;
 }

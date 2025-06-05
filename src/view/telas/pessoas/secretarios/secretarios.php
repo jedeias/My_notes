@@ -213,8 +213,7 @@ if(! empty($_POST)){
         <a href="javascript:void(0)" class="closebtn">&times;</a>
         <a href="#">Atividades</a>
         <a href="../agenda/agenda.php">Agenda</a>
-        <a href="#">Consultas Agendadas</a>
-        <a href="#">Contato</a>
+        <a href="../agenda/agendarConsulta.php">Consultas Agendadas</a>
         <a href="../sair.php">sair</a>
         <a href="../config.php"><i class="fa-solid fa-gear"></i></a> 
     </div>
@@ -224,7 +223,6 @@ if(! empty($_POST)){
         <div class="buttons">
             <button class="paci">pacientes</button>
             <button class="psico">psicologos</button>
-            <button id="consultasBtn" class="consultas">Consultas</button>
         </div>
 
         <!-- Modal para Pacientes -->
