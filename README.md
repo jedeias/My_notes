@@ -3,7 +3,7 @@
 ## Tecnologia em Análise e Desenvolvimento de Sistemas
 
 <p align="center">
-<img width="470" src="src\view\image\Capa_readme.jpeg">
+<img width="470" src="https://avidaplena.com.br/wp-content/uploads/2023/07/Libbs_A_Vida_Plena_Psicoterapia_780x450.png">
 </p>
 
 ### **My Notes:** Gestão de clínicas psicológicas
