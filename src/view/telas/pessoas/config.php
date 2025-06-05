@@ -31,6 +31,9 @@ if($session->get('user') == null) {
     Aqui da para aplica um Strategy legal para cada usuarios que precisa de update, mas estou sem tempo para isso.
 */
 
+// var_dump($userData);
+            
+
 if($_POST){
 
     $foto = $_FILES['imageLocal']['name'];
@@ -76,9 +79,6 @@ if($_POST){
         
         $repositorioPessoas->update($pessoa);
 
-        
-        header("Location: pacientes/pacientes.php");
-
     }else if($userData['pkPsicologo'] != null){
         
         $pessoa = new Psicologos();
@@ -116,8 +116,6 @@ if($_POST){
         
         $repositorioPsicologos = new RepositorioPsicologos();
         $repositorioPsicologos->update($pessoa);
-        
-        header("Location: psicologos/psicologos.php");
 
     }else if($userData['pkSecretario'] != null){
         $pessoa = new Secretarios();
@@ -154,8 +152,8 @@ if($_POST){
         
         $repositorioPessoas->update($pessoa);
         
-        header("Location: secretarios/secretarios.php");
     }
+    header("Location: sair.php");
 }
 
 ?>
@@ -177,10 +175,19 @@ if($_POST){
         <h1 class="title"><?php echo $userData["nome"]; ?></h1>
         <h2 class="subtitle"><?php echo $userData["email"]; ?></h2>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Atividades</a>
-        <a href="#">Agenda</a>
-        <a href="#">Consultas Agendadas</a>
-        <a href="#">Contato</a>
+
+        <?php 
+            if($userData["pkSecretario"] !== NULL){
+                echo "<a href='secretarios/secretarios.php'>home</a>";
+            }else if($userData["pkPsicologo"] !== NULL){
+                echo "<a href='psicologos/psicologos.php'>home</a>";
+            }
+            if($userData["pkPaciente"] !== NULL){
+                echo "<a href='pacientes/pacientes.php'>home</a>";
+            }
+        ?>
+        <a href="agenda/agendarConsulta.php">Agenda</a>
+        <a href="agenda/agenda.php">Consultas Agendadas</a>
         <a href="#"><i class="fa-solid fa-right-from-bracket"></i></a> 
         
     </div>

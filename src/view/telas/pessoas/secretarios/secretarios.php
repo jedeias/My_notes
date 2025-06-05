@@ -35,28 +35,28 @@ $repositorioPsicologos = new RepositorioPsicologos();
 $allPsicologos = $repositorioPsicologos->findAll();
 
 if(! empty($_POST)){
-    if(isset($_POST['CRM'])){
+    if(isset($_POST['CRP'])){
 
         //insert de teste
-        $_POST = [
-            'nome' => 'Marcia',
-            'email' => 'marciaReges@email.com',
-            'senha' => 'senha',
-            'dataDeNascimento' => '1990-06-12',
-            'RG' => '113456789',
-            'CPF' => '11245678900',
-            'sexo' => 'F',
-            'cep' => '01101000',
-            'rua' => 'Rua das Flores',
-            'numeroDaCasa' => '123',
-            'complemento' => 'Apto 45',
-            'bairro' => 'Centro',
-            'cidade' => 'São Paulo',
-            'estado' => 'SP',
-            'DD' => '11',
-            'numeroDeTelefone' => '912345678',
-            'CRM' => '2'
-        ];
+        // $_POST = [
+        //     'nome' => 'Marcia',
+        //     'email' => 'marciaReges@email.com',
+        //     'senha' => 'senha',
+        //     'dataDeNascimento' => '1990-06-12',
+        //     'RG' => '113456789',
+        //     'CPF' => '11245678900',
+        //     'sexo' => 'F',
+        //     'cep' => '01101000',
+        //     'rua' => 'Rua das Flores',
+        //     'numeroDaCasa' => '123',
+        //     'complemento' => 'Apto 45',
+        //     'bairro' => 'Centro',
+        //     'cidade' => 'São Paulo',
+        //     'estado' => 'SP',
+        //     'DD' => '11',
+        //     'numeroDeTelefone' => '912345678',
+        //     'CRP' => '2'
+        // ];
 
 
         // inserte de psigologo;
@@ -81,7 +81,7 @@ if(! empty($_POST)){
         $psicologos->setDataDeNascimento($_POST['dataDeNascimento']);
         $psicologos->setRG($_POST['RG']);
         $psicologos->setCPF($_POST['CPF']);
-        $psicologos->setCRP($_POST['CRM']);
+        $psicologos->setCRP($_POST['CRP']);
         $psicologos->setSexo($_POST['sexo']);
         $psicologos->setEndereco($endereco);
         $psicologos->setTelefone($telefone);
@@ -105,38 +105,35 @@ if(! empty($_POST)){
         $psicologos->setPessoaPk($dadosPessoas['pkPessoa']);
 
         $repositorioPsicologos->insert($psicologos);
-        // $repositoriopsicologos->insert($psicologos);
+        
+        header("Refresh:0");
 
-
-
-        echo"<pre>";
-        print_r($_POST);
     }else if(isset($_POST['psicologos'])){
         $pkPsicologo = $_POST['psicologos'];
         //insert de teste
-        $_POST = [
-            'nome' => 'João da Silva',
-            'email' => 'joao.silva.teste@example.com',
-            'senha' => 'SenhaForte123!',
-            'dataDeNascimento' => '1990-05-12',
-            'RG' => '123456789',
-            'CPF' => '11145678900',
-            'sexo' => 'M',
-            'cep' => '01001000',
-            'rua' => 'Rua das Flores',
-            'numeroDaCasa' => '123',
-            'complemento' => 'Apto 45',
-            'bairro' => 'Centro',
-            'cidade' => 'São Paulo',
-            'estado' => 'SP',
-            'DD' => '11',
-            'numeroDeTelefone' => '912345678',
-            'psicologos' => $pkPsicologo
-        ];
+        // $_POST = [
+        //     'nome' => 'João da Silva',
+        //     'email' => 'joao.silva.teste@example.com',
+        //     'senha' => 'SenhaForte123!',
+        //     'dataDeNascimento' => '1990-05-12',
+        //     'RG' => '123456789',
+        //     'CPF' => '11145678900',
+        //     'sexo' => 'M',
+        //     'cep' => '01001000',
+        //     'rua' => 'Rua das Flores',
+        //     'numeroDaCasa' => '123',
+        //     'complemento' => 'Apto 45',
+        //     'bairro' => 'Centro',
+        //     'cidade' => 'São Paulo',
+        //     'estado' => 'SP',
+        //     'DD' => '11',
+        //     'numeroDeTelefone' => '912345678',
+        //     'psicologos' => $pkPsicologo
+        // ];
 
-        //paciente
-        echo"<pre>";
-        print_r($_POST);
+        // //paciente
+        // echo"<pre>";
+        // print_r($_POST);
 
         $telefone = new Telefones();
         $telefone->setDDD($_POST['DD']);
@@ -185,6 +182,7 @@ if(! empty($_POST)){
 
         $repositorioPacientes->insert($pacientes);
 
+        header("Refresh:0");
 
     }else{
         "slc num compensa";
@@ -281,26 +279,23 @@ if(! empty($_POST)){
                 
                 <h3>Dados pessoais</h3>
 
-                <label for="foto">Imagem:</label>
-                <input type="file" id="foto" name="imageLocal" accept="image/*">
-                
                 <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
+                <input type="text" id="nome" name="nome" value="João da Silva" placeholder="Digite seu nome">
 
                 <label for="email">email:</label>
-                <input type="text" id="email" name="email" placeholder="Digite seu email">
+                <input type="text" id="email" name="email" value="joao.silva.teste@example.com" placeholder="Digite seu email">
                 
                 <label for="senha">senha:</label>
-                <input type="text" id="senha" name="senha" placeholder="*******">
+                <input type="text" id="senha" name="senha" value='senha' placeholder="*******">
 
                 <label for="dataDeNascimento">data de nascimento:</label>
-                <input type="date" id="dataDeNascimento" name="dataDeNascimento" placeholder="Digite seu nome">
+                <input type="date" id="dataDeNascimento" name="dataDeNascimento" value="1990-05-12" placeholder="Digite seu nome">
 
                 <label for="RG">RG:</label>
-                <input type="text" id="RG" name="RG" placeholder="Digite seu RG">
+                <input type="text" id="RG" name="RG" value="123456789" placeholder="Digite seu RG">
 
                 <label for="CPF">CPF:</label>
-                <input type="text" id="CPF" name="CPF" placeholder="Digite seu CPF">
+                <input type="text" id="CPF" name="CPF" value='11145678900' placeholder="Digite seu CPF">
 
                 <label for="sexo">sexo:</label>
                 <select name="sexo" id="sexo">
@@ -364,17 +359,17 @@ if(! empty($_POST)){
                 <h3>Telefone</h3>
                 
                 <label for="DD">DD:</label>
-                <input type="text" id="DD" name="DD" placeholder="Digite seu DD">
+                <input type="text" id="DD" name="DD" value="11" placeholder="Digite seu DD">
                 
                 <label for="numero">Numero:</label>
-                <input type="text" id="numero" name="numeroDeTelefone" placeholder="Digite seu numero">
+                <input type="text" id="numero" name="numeroDeTelefone" value='912345678' placeholder="Digite seu numero">
                 
                 
                 
                 <h3>psicologos</h3>
 
                 <label for="psicologo">psicologo:</label>
-                <select name="psicologos" id="">
+                <select name="psicologos" id="pkPsicologos">
 
                     <?php 
                         
@@ -403,26 +398,26 @@ if(! empty($_POST)){
                 
                 <h3>Dados pessoais</h3>
 
-                <label for="foto">Imagem:</label>
-                <input type="file" id="foto" name="imageLocal" accept="image/*">
-                
                 <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
+                <input type="text" id="nome" name="nome" value='Marcia' placeholder="Digite seu nome">
 
                 <label for="email">email:</label>
-                <input type="text" id="email" name="email" placeholder="Digite seu email">
+                <input type="text" id="email" name="email" value='marciaReges@email.com' placeholder="Digite seu email">
                 
                 <label for="senha">senha:</label>
-                <input type="text" id="senha" name="senha" placeholder="*******">
+                <input type="text" id="senha" name="senha" value='senha' placeholder="*******">
 
                 <label for="dataDeNascimento">data de nascimento:</label>
-                <input type="date" id="dataDeNascimento" name="dataDeNascimento" placeholder="Digite seu nome">
+                <input type="date" id="dataDeNascimento" name="dataDeNascimento" value="1990-06-12" placeholder="Digite seu nome">
 
-                <label for="RG">o CRM:</label>
-                <input type="text" id="CRM" name="CRM" placeholder="Digite o CRM">
+                <label for="RG">RG:</label>
+                <input type="text" id="RG" name="RG" value='113456789' placeholder="Digite o RG">
+
+                <label for="CRP">CRP:</label>
+                <input type="text" id="CRP" name="CRP" value='033300' placeholder="Digite o CRP">
 
                 <label for="CPF">CPF:</label>
-                <input type="text" id="CPF" name="CPF" placeholder="Digite seu CPF">
+                <input type="text" id="CPF" name="CPF" value="11245678900"  placeholder="Digite seu CPF">
 
                 <label for="sexo">sexo:</label>
                 <select name="sexo" id="sexo">
@@ -486,10 +481,10 @@ if(! empty($_POST)){
                 <h3>Telefone</h3>
 
                 <label for="DD">DD:</label>
-                <input type="text" id="DD" name="DD" placeholder="Digite seu DD">
+                <input type="text" id="DD" name="DD" value="99" placeholder="Digite seu DD">
 
                 <label for="numero">Numero:</label>
-                <input type="text" id="numero" name="numeroDeTelefone" placeholder="Digite seu numero">
+                <input type="text" id="numero" name="numeroDeTelefone" value="912345678" placeholder="Digite seu numero">
 
                 <button type="submit">Salvar Alterações</button>
             </form>

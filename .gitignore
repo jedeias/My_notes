@@ -1,8 +1,9 @@
-teste.html
-/test
-/test/*
-fotosUsuarios/*
-/fotosUsuarios/*
 /fotosUsuarios/.png
 /fotosUsuarios/.jpg
-src/view/image/
+fotosUsuarios/.png
+fotosUsuarios/.jpg
+
+src/view/image/fotosUsuarios/*.jpg
+src/view/image/fotosUsuarios/*.png
+
+# src/view/image/
