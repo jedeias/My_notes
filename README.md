@@ -1,20 +1,41 @@
-# Sistema desenvolvido com finalidades acadêmicas para a obtenção de notas na instituição Uninove (Universidade Nove de Julho).
+# **Uninove - Campus Santo Amaro**
 
-## Informações do projeto:
-O projeto consiste na criação de uma empresa fictícia e na implementação de um software desenvolvido para solucinar determindo problema.
+## Tecnologia em Análise e Desenvolvimento de Sistemas
 
-## Nome da emprea:
-"Ps notes" psychological notes.
+![Capa do Projeto](src/view/image/Capa_readme.jpeg)
 
-## Ramo de atuação:
-Gestão de clínicas psicológicas.
+### **My Notes:** Gestão de clínicas psicológicas
 
-### Menbros que contribuiram para o projeto:
+---
 
-|          RA           |           Nome                |
-|-----------------------|-------------------------------|
-|2224104153             |Jedeias Luiz Da Silva Filho    |
-|2224106378             |Luiz Felipe Gonçalves da Silva |
-|2323200037             |Lorrayne Santos                |
-|2224100845             |Vitor Zillig Martins           |
-|2224103305             |Wendell Paranhos Da Mata       |
+## Problemas sanados pelo projeto:
+
+1. O projeto Anote-me auxiliará na construção de uma compreensão mais rica sobre como o cliente se sente em determinadas situações.  
+2. O projeto também fornece uma forma de os pacientes registrarem seu sentimento principal ao longo do dia, o que contribui para uma análise mais efetiva de possíveis distúrbios.  
+3. O sistema também contará com uma funcionalidade de agendamento de consultas, facilitando a gestão geral do consultório.  
+4. O projeto contribuirá para a construção de um relacionamento melhor entre psicólogos e pacientes.  
+5. Alguns pacientes sentem-se mais à vontade para expressar seus sentimentos por escrito. Além disso, essa prática beneficia o paciente, ajudando-o, de forma natural, a organizar ideias e a conhecer melhor seus próprios sentimentos.
+
+---
+
+### Membros que contribuíram para o projeto:
+
+| RA          | Nome                             |
+|-------------|----------------------------------|
+| 2224104153  | Jedeias Luiz da Silva Filho      |
+| 2224106378  | Luiz Felipe Gonçalves da Silva   |
+| 2224100845  | Vitor Zillig Martins             |
+| 2224103305  | Wendell Paranhos da Mata         |
+
+---
+
+### Tecnologias utilizadas:
+
+| Tecnologia   | Versão     |
+|--------------|------------|
+| PHP          | 8.1.10     |
+| MySQL        | 8.0.30     |
+| HTML         | HTML5      |
+| CSS          | CSS3       |
+| JavaScript   | ECMAScript 6 |
+
