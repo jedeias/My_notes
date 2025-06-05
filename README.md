@@ -2,7 +2,9 @@
 
 ## Tecnologia em Análise e Desenvolvimento de Sistemas
 
-![Capa do Projeto](src/view/image/Capa_readme.jpeg)
+<p align="center">
+<img width="470" src="src\view\image\Capa_readme.jpeg">
+</p>
 
 ### **My Notes:** Gestão de clínicas psicológicas
 
@@ -37,5 +39,6 @@
 | MySQL        | 8.0.30     |
 | HTML         | HTML5      |
 | CSS          | CSS3       |
-| JavaScript   | ECMAScript 6 |
-
+| JavaScript   | ECMAScript 6|
+| Composer     | 8.1.10     |
+| JQuery       | 3.7.5      |
