@@ -8,6 +8,7 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 use src\Models\Core\Entities\Atividades\Atividades;
 use src\Models\Infra\Repository\Atividades\RepositorioAtividades;
 
+
 class ControllerAtividades{
     private Atividades $atividades;
     private RepositorioAtividades $repositorio;
