@@ -12,7 +12,6 @@ use src\Models\Infra\Repository\Pessoas\RepositorioPsicologos;
 use src\Models\Core\Entities\Enderecos\Enderecos;
 use src\Models\Core\Entities\Telefones\Telefones;
 
-
 $auth = new Autentificacao();
 
 $session = new Sessions();
@@ -27,14 +26,16 @@ if($session->get('user') == null) {
     header("Location: ../../../../index.php");
 }
 
-/*
-    Aqui da para aplica um Strategy legal para cada usuarios que precisa de update, mas estou sem tempo para isso.
-*/
-
-// var_dump($userData);
-            
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}           
 
 if($_POST){
+
+    if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf'])) {
+        session_destroy();
+        header("Location: sair.php");    
+    }
 
     $foto = $_FILES['imageLocal']['name'];
 
@@ -199,6 +200,8 @@ if($_POST){
             <form id="fromularioDadosPessoais" action="" method="post" enctype="multipart/form-data">
                 
                 <h3>Dados pessoais</h3>
+
+                <input type="text" name="csrf" id="csrf" value="<?php echo $_SESSION['csrf_token']; ?>" hidden>
 
                 <label for="foto">Alterar Imagem:</label>
                 <input type="file" id="foto" name="imageLocal" value="<?php echo $userData['imageLocal'] ?>" accept="image/*">
