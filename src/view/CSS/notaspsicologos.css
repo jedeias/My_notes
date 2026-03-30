@@ -1,135 +1,227 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* =======================================================
+   1. VARIÁVEIS DO SISTEMA (Premium Dashboard)
+   ======================================================= */
+:root {
+    --bg-app: #f1f5f9;          
+    --surface: #ffffff;         
+    --primary: #4f46e5;         
+    --primary-hover: #4338ca;
+    
+    /* Menu Lateral Escuro */
+    --sidebar-bg: #0f172a;
+    --sidebar-text: #cbd5e1;
+    --sidebar-hover: #1e293b;
+
+    /* Textos */
+    --text-dark: #0f172a;       
+    --text-muted: #64748b;      
+    --border-soft: #e2e8f0;
+    
+    /* Formas mais arredondadas e flutuantes */
+    --radius-box: 24px;
+    --radius-btn: 50px;
+    --radius-input: 12px;
+    
+    /* Sombras Premium */
+    --shadow-premium: 0 20px 40px -15px rgba(0,0,0,0.05);
+    --shadow-hover: 0 25px 50px -12px rgba(79, 70, 229, 0.15);
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-body{
-    width: 100%;
+body {
+    background-color: var(--bg-app);
+    color: var(--text-dark);
     display: flex;
-    background-color: #eaf4f4; /* Fundo azul claro */
+    justify-content: center; /* Centraliza a caixa na tela */
+    align-items: center;
+    min-height: 100vh;
 }
 
-.container{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 600px;
-    width: 90%;
-    margin: 40px auto;
-    padding: 32px 24px;
-    background: #fff;
-    border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1.5px 4px rgba(0,0,0,0.08);
+/* =======================================================
+   2. CONTAINER PRINCIPAL (A Caixa Flutuante)
+   ======================================================= */
+.container {
+    background: var(--surface);
+    width: 100%;
+    max-width: 800px;
+    padding: 50px;
+    border-radius: var(--radius-box);
+    box-shadow: var(--shadow-premium);
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    gap: 24px;
-    transition: box-shadow 0.2s;
-}
-.container:hover {
-    box-shadow: 0 8px 32px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.10);
+    gap: 30px; /* Espaço uniforme entre os elementos */
+    margin-left: 50px; /* Espaço para não grudar no botão do menu */
 }
 
-h1{
-    font-size: 32px;
-    font-weight: bold;
-    color: #3a8fd8; /* Azul */
-    text-align: center;
-    margin-bottom: 16px;
+.container h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: -0.5px;
+    border-bottom: 2px solid var(--border-soft);
+    padding-bottom: 15px;
 }
 
-h2{
-    font-size: 28px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 16px;
+.container h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background-color: #f8fafc;
+    padding: 15px 20px;
+    border-radius: var(--radius-input);
+    border-left: 4px solid var(--primary);
 }
 
-.AnotacaoDoPacientes{
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
+/* =======================================================
+   3. ÁREA DA ANOTAÇÃO DO PACIENTE (Leitura)
+   ======================================================= */
+.AnotacaoDoPacientes {
+    background: var(--bg-app);
+    padding: 25px;
+    border-radius: var(--radius-input);
+    border: 1px solid var(--border-soft);
 }
 
+.AnotacaoDoPacientes p:first-child {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    
+}
+
+.AnotacaoDoPacientes p:last-child {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-align: right;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* =======================================================
+   4. FORMULÁRIO DO PSICÓLOGO (Edição)
+   ======================================================= */
 form {
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    background: #f7fafc;
-    padding: 24px 18px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    margin-bottom: 12px;
+    gap: 20px;
 }
 
-form textarea {
-    min-height: 90px;
-    resize: vertical;
-    border-radius: 8px;
-    border: 1px solid #b5c6d6;
-    padding: 10px;
-    font-size: 1rem;
-    background: #fff;
-    transition: border 0.2s;
-}
-
-form textarea:focus {
-    border: 1.5px solid #3a8fd8;
-    outline: none;
-}
-
-form select {
-    border-radius: 8px;
-    border: 1px solid #b5c6d6;
-    padding: 8px 10px;
-    font-size: 1rem;
-    background: #fff;
-    transition: border 0.2s;
-}
-
-form select:focus {
-    border: 1.5px solid #3a8fd8;
-    outline: none;
-}
-
-form button[type="submit"] {
-    background: #3a8fd8;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 0;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s;
-    margin-top: 8px;
-}
-
-a button {
-    background: #3a8fd8;
+/* Área de Texto (Textarea) */
+textarea {
     width: 100%;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 15px 0;
-    font-size: 1.1rem;
-    font-weight: bold;
+    min-height: 180px;
+    padding: 20px;
+    border: 2px solid transparent;
+    border-radius: var(--radius-input);
+    background: #f8fafc;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-dark);
+    resize: vertical; /* Permite aumentar só a altura */
+    transition: all 0.3s;
+    outline: none;
+}
+
+textarea:focus {
+    background: var(--surface);
+    border-color: var(--primary);
+    box-shadow: 0 10px 20px rgba(79, 70, 229, 0.1);
+}
+
+/* Select de Flags */
+select {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid var(--border-soft);
+    border-radius: var(--radius-input);
+    background: var(--surface);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
     cursor: pointer;
-    transition: background 0.2s;
-    margin-top: 8px;
+    outline: none;
+    transition: 0.3s;
+    appearance: none; /* Remove a setinha padrão feia do navegador */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%234f46e5%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 20px top 50%;
+    background-size: 12px auto;
 }
 
-form button[type="submit"]:hover {
-    background: #2563a6;
+select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
 }
 
+/* As options com cor do PHP vão herdar o estilo, mas no Mac/iOS as cores de option nem sempre pegam. Isso é normal do HTML. */
 
-@media (max-width: 700px) {
-    .container {
-        padding: 16px 6px;
-        max-width: 98vw;
-    }
+/* =======================================================
+   5. BOTÕES
+   ======================================================= */
+/* Agrupamento dos botões no final */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
 }
+
+button {
+    background: var(--primary);
+    color: white;
+    padding: 14px 32px;
+    border: none;
+    border-radius: var(--radius-btn);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+    width: max-content;
+}
+
+button:hover {
+    background: var(--primary-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+}
+
+/* Botão Secundário (Adicionar Flag) */
+a button {
+    background: transparent;
+    color: var(--text-dark);
+    border: 2px solid var(--border-soft);
+    box-shadow: none;
+    padding: 12px 24px;
+}
+
+a button:hover {
+    background: var(--bg-app);
+    border-color: var(--text-muted);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-premium);
+}
+
+/* =======================================================
+   6. DESCRIÇÃO DA FLAG (Gerada via JS)
+   ======================================================= */
+.descricao {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-style: italic;
+    background-color: #f8fafc;
+    padding: 15px;
+    border-radius: var(--radius-input);
+    margin-top: -10px; /* Puxa para perto do Select */
+}
+

@@ -49,3 +49,4 @@ function prevClick() {
 
 // Opcional: Garantir que a tela inicie no estado correto
 // atualizarTela();
+

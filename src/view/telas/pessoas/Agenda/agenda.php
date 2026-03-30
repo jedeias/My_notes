@@ -41,7 +41,7 @@ if($pessoas['pkSecretario'] != null || $pessoas['pkPsicologo'] != null){
     <?php 
 
       if($tipoPessoa){
-        echo "<a href='agendarConsulta.php'><button>Agendar Consultas</button></a>";
+        echo "<a class='btn-agenda' href='agendarConsulta.php'><button>Agendar Consultas</button></a>";
         
       }
 

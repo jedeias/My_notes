@@ -1,21 +1,47 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* =======================================================
-   1. VARIÁVEIS DO SISTEMA 
+   1. VARIÁVEIS DO SISTEMA - REFINADAS
    ======================================================= */
 :root {
-    --bg-app: #f1f5f9;          
-    --surface: #ffffff;         
-    --primary: #4f46e5;         /* Azul mais elegante */
+    /* Cores Base */
+    --bg-app: #f8fafc;
+    --surface: #ffffff;
+    --primary: #4f46e5;
     --primary-hover: #4338ca;
-    --secondary: #e2e8f0;       /* Cor para botões secundários */
+    --primary-light: #6366f1;
+    --secondary: #e2e8f0;
     --secondary-hover: #cbd5e1;
-    --text-dark: #0f172a;       
-    --text-muted: #64748b;      
+    
+    /* Text */
+    --text-dark: #0f172a;
+    --text-muted: #64748b;
+    --text-light: #94a3b8;
     --border-soft: #e2e8f0;
-    --radius-lg: 24px;
+    
+    /* Estados */
+    --danger: #ef4444;
+    --danger-hover: #dc2626;
+    --success: #10b981;
+    --warning: #f59e0b;
+    
+    /* Sombras */
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    
+    /* Arredondamentos */
+    --radius-sm: 8px;
     --radius-md: 12px;
-    --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.08);
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
+    
+    /* Transições */
+    --transition-fast: all 0.15s ease-out;
+    --transition-normal: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -29,15 +55,20 @@ body {
     background-color: var(--bg-app);
     color: var(--text-dark);
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-[hidden] { display: none !important; }
+[hidden] {
+    display: none !important;
+}
 
-/* Remove a imagem quebrada do HTML */
-.add-icon { display: none !important; }
+.add-icon {
+    display: none !important;
+}
 
 /* =======================================================
-   2. MENU LATERAL E BOTÃO
+   2. MENU LATERAL
    ======================================================= */
 #menuBtn {
     position: fixed;
@@ -52,27 +83,35 @@ body {
     justify-content: center;
     font-size: 24px;
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-sm);
     cursor: pointer;
     z-index: 900;
-    transition: 0.2s;
+    transition: var(--transition-fast);
 }
 
-#menuBtn:hover { 
-    transform: scale(1.05); 
+#menuBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-light);
+}
+
+#menuBtn:active {
+    transform: translateY(0);
 }
 
 .sidenav {
     height: 100vh;
-    width: 0; 
+    width: 0;
     position: fixed;
     z-index: 1000;
     top: 0;
     left: 0;
     background-color: var(--surface);
-    box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+    border-right: 1px solid var(--border-soft);
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.06);
     overflow-x: hidden;
-    transition: width 0.3s ease;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
 }
@@ -84,6 +123,13 @@ body {
     font-size: 30px;
     text-decoration: none;
     color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.sidenav .closebtn:hover {
+    color: var(--danger);
+    transform: rotate(90deg);
 }
 
 .sidenav-profile {
@@ -98,34 +144,51 @@ body {
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 15px;
-    box-shadow: 0 0 0 4px var(--bg-app), 0 0 0 6px var(--primary); 
+    box-shadow: 0 0 0 3px var(--bg-app), 0 0 0 5px var(--primary);
+    border: 2px solid var(--surface);
+    transition: var(--transition-normal);
 }
 
-.sidenav-profile .title { 
-    font-weight: 700; 
-    font-size: 1.1rem; 
-}
-.sidenav-profile .subtitle { 
-    font-size: 0.85rem; color: var(--text-muted); 
-    margin-top: 5px; 
+.sidenav-profile img:hover {
+    transform: scale(1.03);
 }
 
-.sidenav-links { padding: 20px 0; }
+.sidenav-profile .title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+}
+
+.sidenav-profile .subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+.sidenav-links {
+    padding: 20px 0;
+    flex: 1;
+}
+
 .sidenav-links a {
-    padding: 15px 30px;
+    padding: 14px 30px;
     text-decoration: none;
     color: var(--text-muted);
     display: flex;
     align-items: center;
     gap: 15px;
     font-weight: 600;
-    transition: 0.2s;
+    transition: var(--transition-normal);
+    position: relative;
+    margin: 4px 8px;
+    border-radius: var(--radius-md);
 }
 
 .sidenav-links a:hover {
     color: var(--primary);
-    background: var(--bg-app);
+    background: rgba(79, 70, 229, 0.06);
     border-right: 4px solid var(--primary);
+    padding-right: 26px;
 }
 
 /* =======================================================
@@ -135,70 +198,91 @@ body {
     position: fixed;
     top: 0;
     right: 0;
-    width: 350px; 
+    width: 350px;
     height: 100vh;
     background-color: var(--surface);
     border-left: 1px solid var(--border-soft);
     padding: 30px 25px;
     overflow-y: auto;
     z-index: 100;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.04);
 }
 
-.pacientes::-webkit-scrollbar { 
-    width: 6px; 
+.pacientes::-webkit-scrollbar {
+    width: 6px;
 }
+
 .pacientes::-webkit-scrollbar-thumb {
-     background: #cbd5e1; border-radius: 10px; 
+    background: var(--border-soft);
+    border-radius: 10px;
+    transition: var(--transition-fast);
 }
 
-.pacientes-title { 
+.pacientes::-webkit-scrollbar-thumb:hover {
+    background: var(--text-light);
+}
+
+.pacientes-title {
     font-size: 1.4rem;
     font-weight: 700;
     margin-bottom: 25px;
-    color: var(--text-dark); 
+    color: var(--primary);
 }
 
-.pacientes form { 
-    display: flex; 
-    gap: 10px; 
-    margin-bottom: 30px; 
+.pacientes form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
 }
 
-.search { 
-    flex: 1; 
-    padding: 12px 16px; 
-    border: 1px solid var(--border-soft); 
-    border-radius: var(--radius-md); 
-    background: var(--bg-app); 
-    outline: none; 
-    transition: 0.2s; 
+.search {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    background: var(--bg-app);
+    outline: none;
+    transition: var(--transition-normal);
+    font-size: 0.95rem;
 }
 
-.search:focus { border-color: var(--primary); 
-    background: var(--surface); 
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); 
+.search:focus {
+    border-color: var(--primary);
+    background: var(--surface);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
-.btnsearch { 
+.btnsearch {
     background: var(--primary);
     color: white;
-    border: none; 
-    width: 48px; 
-    border-radius: var(--radius-md); 
-    cursor: pointer; 
-    transition: 0.2s; 
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
 }
 
-.btnsearch:hover { 
-    background: var(--primary-hover); 
+.btnsearch:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
-.pacientes h1 { 
-    font-size: 1rem; 
-    color: var(--text-muted); 
-    margin-bottom: 15px; 
-    font-weight: 600; 
-    text-transform: uppercase; 
+.btnsearch:active {
+    transform: translateY(0);
+}
+
+.pacientes h1 {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
@@ -208,91 +292,105 @@ body {
     border-radius: var(--radius-md);
     padding: 20px;
     margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    transition: 0.2s;
-}
-.paciente-card:hover { 
-    border-color: var(--primary); 
-    transform: translateY(-2px); 
-    box-shadow: var(--shadow-soft); 
-}
-.paciente-card p { 
-    font-size: 0.85rem; 
-    color: var(--text-muted); 
-    margin-bottom: 6px; 
+    box-shadow: var(--shadow-xs);
+    transition: var(--transition-normal);
+    cursor: pointer;
 }
 
-.paciente-card p:first-child strong { 
-    font-size: 1.1rem; 
-    color: var(--text-dark); 
+.paciente-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.paciente-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.paciente-card p:first-child strong {
+    font-size: 1.1rem;
+    color: var(--text-dark);
 }
 
 .btn-next-paciente {
-    width: 100%; 
-    margin-top: 15px; 
-    padding: 10px; 
-    background: var(--bg-app); 
-    color: var(--primary); 
-    border: 1px solid transparent; 
-    border-radius: 8px; 
-    font-weight: 600; 
-    cursor: pointer; 
-    transition: 0.2s;
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    background: var(--bg-app);
+    color: var(--primary);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    font-size: 0.9rem;
 }
-.btn-next-paciente:hover { 
-    background: var(--primary); 
-    color: white; 
+
+.btn-next-paciente:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-1px);
 }
 
 /* =======================================================
    4. ÁREA CENTRAL (Mesa de Trabalho)
    ======================================================= */
 main {
-    margin-right: 350px; /* Mantém distância da barra direita */
+    margin-right: 350px;
     padding: 40px;
     min-height: 100vh;
     display: flex;
-    align-items: center; /* Centraliza verticalmente */
-    justify-content: center; /* Centraliza horizontalmente */
-    position: relative; /* FUNDAMENTAL para as setas funcionarem */
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
 /* =======================================================
-   5. SETAS DO CARROSSEL (O grande conserto!)
+   5. SETAS DO CARROSSEL
    ======================================================= */
 .button {
-    position: absolute; /* Tira as setas do fluxo para não empurrar as caixas */
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    max-width: 1080px; /* Mais largo que as caixas brancas */
+    max-width: 1080px;
     display: flex;
     justify-content: space-between;
-    pointer-events: none; /* Deixa o mouse clicar no que está atrás do espaço vazio */
+    pointer-events: none;
     z-index: 50;
 }
 
 .btn-prev, .btn-next {
-    pointer-events: auto; /* Reativa o clique nas setas */
+    pointer-events: auto;
     background: var(--surface);
     color: var(--primary);
-    border: none;
+    border: 1px solid var(--border-soft);
     width: 55px;
     height: 55px;
     border-radius: 50%;
     font-size: 1.2rem;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: 0.3s;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-normal);
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: 700;
 }
-.btn-prev:hover, .btn-next:hover { 
-    background: var(--primary); 
-    color: white; 
-    transform: scale(1.1); 
+
+.btn-prev:hover, .btn-next:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-prev:active, .btn-next:active {
+    transform: scale(1.05);
 }
 
 /* =======================================================
@@ -301,36 +399,52 @@ main {
 .agenda, .anotação, .atividadesRecomendadas {
     background: var(--surface);
     width: 100%;
-    max-width: 900px; /* Tamanho fixo do cartão */
-    padding: 50px 60px; /* Mais respiro interno */
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-soft);
+    max-width: 900px;
+    padding: 50px 60px;
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-md);
     border: 1px solid var(--border-soft);
-    text-align: left; /* Alinhamento profissional */
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .anotacao-title, .atividades-title {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 35px;
+    color: var(--primary);
+    margin-bottom: 10px;
 }
 
 /* =======================================================
-   7. FORMULÁRIOS E BOTÕES INTERNOS (Adeus, empilhados!)
+   7. FORMULÁRIOS E BOTÕES INTERNOS
    ======================================================= */
-.atividades-form { 
-    display: grid; /* Grid deixa os inputs lindos e organizados */
-    grid-template-columns: 1fr; 
-    gap: 20px; 
-    margin-bottom: 30px; 
+.atividades-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 30px;
 }
 
-.atividades-form label { 
-    font-size: 0.95rem; 
-    font-weight: 600; 
-    color: var(--text-dark); 
-    margin-bottom: -10px; 
+.atividades-form label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    display: block;
 }
 
 .atividades-form input {
@@ -339,32 +453,23 @@ main {
     border-radius: var(--radius-md);
     background: var(--bg-app);
     outline: none;
-    transition: 0.2s;
+    transition: var(--transition-normal);
     font-size: 1rem;
 }
-.atividades-form input:focus { 
-    border-color: var(--primary); 
-    background: var(--surface); 
+
+.atividades-form input:focus {
+    border-color: var(--primary);
+    background: var(--surface);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
-/* Organização em linha dos botões */
-.anotacao-content, .atividadesRecomendadas > div {
+.anotacao-content {
     display: flex;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap; /* Se faltar espaço, joga pra linha de baixo elegantemente */
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* O Container oculto de botões precisa do Flex também */
-.listaDeAnotacoesDoPaciente, .listaDeAtividadesDoPaciente {
-    display: flex !important; /* Força o flex quando remover o hidden */
-    gap: 15px;
-}
-.listaDeAnotacoesDoPaciente[hidden], .listaDeAtividadesDoPaciente[hidden] {
-    display: none !important;
-}
-
-.btn-submit, .anotacoes, .listAtividade {
+.btn-submit, button.anotacoes, button.listAtividade {
     background: var(--primary);
     color: white;
     padding: 12px 24px;
@@ -372,41 +477,538 @@ main {
     border-radius: var(--radius-md);
     font-weight: 600;
     cursor: pointer;
-    transition: 0.2s;
-    width: fit-content; /* Não estica na tela toda */
+    transition: var(--transition-normal);
+    width: fit-content;
+    align-self: flex-start;
+    box-shadow: var(--shadow-sm);
+    font-size: 0.95rem;
 }
-.btn-submit:hover, .anotacoes:hover, .listAtividade:hover { 
-    background: var(--primary-hover); 
-    transform: translateY(-2px); 
-    box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3); 
+
+.btn-submit:hover, button.anotacoes:hover, button.listAtividade:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-submit:active, button.anotacoes:active, button.listAtividade:active {
+    transform: translateY(0);
 }
 
 /* =======================================================
-   8. FULLCALENDAR 
+   8. FULLCALENDAR
    ======================================================= */
-#calendar { 
-    font-family: 'Inter', sans-serif; 
-}
-.fc-theme-standard th { 
-    padding: 12px 0; 
-    background: var(--bg-app); 
-    color: var(--text-muted); 
-    text-transform: uppercase; 
-    font-size: 0.8rem; 
-    border: none; 
+#calendar {
+    font-family: 'Inter', sans-serif;
 }
 
-.fc-theme-standard td, .fc-theme-standard th { 
-    border-color: var(--border-soft); 
+.fc-theme-standard th {
+    padding: 14px 0;
+    background: var(--bg-app);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    border: none;
+    border-bottom: 1px solid var(--border-soft);
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
-.fc .fc-button-primary { 
+.fc-theme-standard td, .fc-theme-standard th {
+    border-color: var(--border-soft);
+}
+
+.fc .fc-button-primary {
     background-color: var(--primary);
-    border: none; 
-    border-radius: 8px; 
-    font-weight: 600; 
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
     text-transform: capitalize;
+    box-shadow: var(--shadow-xs);
 }
-.fc .fc-button-primary:hover { 
-    background-color: var(--primary-hover); 
+
+.fc .fc-button-primary:hover {
+    background-color: var(--primary-hover);
+    box-shadow: var(--shadow-sm);
+}
+
+/* =======================================================
+   9. LISTA DE ANOTAÇÕES - GRID REFINADO
+   ======================================================= */
+#listaDeAnotacoesDoPaciente {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 25px;
+    background: var(--bg-app);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-soft);
+    width: 100%;
+}
+
+#listaDeAnotacoesDoPaciente[hidden] {
+    display: none !important;
+}
+
+#listaDeAnotacoesDoPaciente > button.anotacoes {
+    grid-column: 1 / -1;
+    justify-self: flex-end;
+    align-self: center;
+    background-color: transparent;
+    color: var(--danger);
+    border: 1px solid var(--danger);
+    margin-bottom: 10px;
+    box-shadow: none;
+    margin: 0 auto;
+    transition: var(--transition-normal);
+}
+
+#listaDeAnotacoesDoPaciente > button.anotacoes:hover {
+    background-color: var(--danger);
+    color: white;
+    transform: translateY(-1px);
+}
+
+.anotacoesItem {
+    background: var(--surface);
+    border-radius: 15px;
+    padding: 20px;
+    position: relative;
+    box-shadow: var(--shadow-xs);
+    border: 1px solid var(--border-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: var(--transition-normal);
+    animation: cardEntrance 0.4s ease-out backwards;
+}
+
+.anotacoesItem:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-light);
+}
+
+.dataDaAnotacaoPaciente {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.anotacoesItem p:nth-of-type(2) {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    line-height: 1.5;
+    margin: 5px 0 15px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.flag {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-normal);
+    background: rgba(79, 70, 229, 0.1);
+}
+
+.flag img {
+    width: 18px;
+    height: 18px;
+    filter: brightness(0) invert(1);
+}
+
+.anotacoesItem:hover .flag {
+    transform: scale(1.1) rotate(10deg);
+    background: rgba(79, 70, 229, 0.15);
+}
+
+.redirectParaAnotacao {
+    background-color: var(--bg-app);
+    color: var(--primary);
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    margin-top: auto;
+}
+
+.redirectParaAnotacao:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateY(-1px);
+}
+
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.anotacoesItem:nth-child(1) { animation-delay: 0.1s; }
+.anotacoesItem:nth-child(2) { animation-delay: 0.15s; }
+.anotacoesItem:nth-child(3) { animation-delay: 0.2s; }
+.anotacoesItem:nth-child(4) { animation-delay: 0.25s; }
+
+/* =======================================================
+   10. ATIVIDADES RECOMENDADAS - BENTO BOX + SLIDER
+   ======================================================= */
+
+/* Container principal - Bento Box Grid */
+#listaDeAtividadesDoPaciente {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    width: 100%;
+    margin-top: 20px;
+    animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s backwards;
+}
+
+#listaDeAtividadesDoPaciente[hidden] {
+    display: none !important;
+}
+
+/* Item do Bento Box - Item grande (destaque) */
+.atividadeItem {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-soft);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: var(--transition-normal);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-height: 160px;
+}
+
+/* Primeiro item: Grande (2 colunas, 2 linhas) */
+.atividadeItem:first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+    min-height: auto;
+    border: 2px solid var(--primary);
+    padding: 32px;
+}
+
+/* Hover effect */
+.atividadeItem:hover {
+    border-color: var(--primary-light);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+}
+
+.atividadeItem:first-child:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-6px);
+}
+
+/* Animação de entrada */
+.atividadeItem {
+    animation: bentoEntrance 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+.atividadeItem:nth-child(1) { animation-delay: 0.05s; }
+.atividadeItem:nth-child(2) { animation-delay: 0.1s; }
+.atividadeItem:nth-child(3) { animation-delay: 0.15s; }
+.atividadeItem:nth-child(4) { animation-delay: 0.2s; }
+.atividadeItem:nth-child(5) { animation-delay: 0.25s; }
+.atividadeItem:nth-child(6) { animation-delay: 0.3s; }
+
+@keyframes bentoEntrance {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Ícone do card */
+.atividadeItem-icon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 24px;
+    opacity: 0.3;
+    transition: var(--transition-normal);
+}
+
+.atividadeItem:hover .atividadeItem-icon {
+    opacity: 0.6;
+    transform: scale(1.1);
+}
+
+.atividadeItem:first-child .atividadeItem-icon {
+    font-size: 32px;
+    opacity: 0.15;
+}
+
+/* Títulos e descrições */
+.tituloDaAtividadePaciente {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+    display: block;
+}
+
+.atividadeItem:first-child .tituloDaAtividadePaciente {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.descricaoDaAtividadePaciente {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    line-height: 1.5;
+    margin: 0;
+    display: block;
+}
+
+.atividadeItem:first-child .descricaoDaAtividadePaciente {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+/* Detalhes do primeiro card */
+.atividadeItem:first-child > div {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.atividadeItem-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--primary);
+    color: white;
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.atividadeItem-badge.secondary {
+    background: var(--warning);
+}
+
+.atividadeItem-badge.success {
+    background: var(--success);
+}
+
+/* Botão de ação */
+.atividadeItem-action {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    width: fit-content;
+    margin-top: auto;
+}
+
+.atividadeItem-action:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.atividadeItem:first-child .atividadeItem-action {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    width: 100%;
+    margin-top: 16px;
+}
+
+/* Box "Adicionar nova atividade" */
+.atividadeItem-add {
+    border: 2px dashed var(--border-soft);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.atividadeItem-add:hover {
+    border-color: var(--primary);
+    background: rgba(79, 70, 229, 0.03);
+    color: var(--primary);
+}
+
+/* =======================================================
+   11. SLIDER MOBILE (≤768px) - Substitui Bento Box
+   ======================================================= */
+
+@media (max-width: 768px) {
+    /* Grid vira carousel */
+    #listaDeAtividadesDoPaciente {
+        display: none;
+    }
+
+    #listaDeAtividadesDoPaciente.mobile-mode {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 0;
+        scroll-behavior: smooth;
+        padding: 0;
+        margin-top: 20px;
+        border-radius: 0;
+    }
+
+    .atividadeItem {
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+        border-radius: var(--radius-lg);
+        min-height: 400px;
+        margin: 0;
+        padding: 24px;
+        grid-column: span 1 !important;
+        grid-row: span 1 !important;
+    }
+
+    .atividadeItem:first-child {
+        grid-column: span 1 !important;
+        grid-row: span 1 !important;
+    }
+
+    /* Slider controls */
+    .slider-controls {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+        align-items: center;
+    }
+
+    .slider-dots {
+        display: flex;
+        gap: 8px;
+    }
+
+    .slider-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--border-soft);
+        cursor: pointer;
+        transition: var(--transition-fast);
+    }
+
+    .slider-dot.active {
+        background: var(--primary);
+        width: 24px;
+        border-radius: 4px;
+    }
+
+    .slider-arrow {
+        background: var(--surface);
+        border: 1px solid var(--border-soft);
+        color: var(--primary);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: var(--transition-normal);
+        font-weight: 700;
+    }
+
+    .slider-arrow:hover {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+}
+
+/* =======================================================
+   12. RESPONSIVIDADE GERAL
+   ======================================================= */
+@media (max-width: 1200px) {
+    .agenda, .anotação, .atividadesRecomendadas {
+        max-width: 100%;
+        padding: 40px;
+    }
+
+    main {
+        margin-right: 280px;
+        padding: 20px;
+    }
+
+    .pacientes {
+        width: 280px;
+    }
+
+    #listaDeAtividadesDoPaciente {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        margin-right: 0;
+        padding: 20px;
+    }
+
+    .pacientes {
+        width: 100%;
+        max-width: 100%;
+        position: absolute;
+        top: 0;
+    }
+
+    .agenda, .anotação, .atividadesRecomendadas {
+        padding: 30px 20px;
+    }
+
+    .anotacao-title, .atividades-title {
+        font-size: 1.5rem;
+    }
+
+    #listaDeAnotacoesDoPaciente {
+        grid-template-columns: 1fr;
+    }
 }

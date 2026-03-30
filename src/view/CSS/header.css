@@ -96,9 +96,35 @@
     border-left: 4px solid var(--primary); /* Barrinha azul na esquerda */
 }
 
+/* 1. Estado inicial dos links (escondidos e deslocados) */
+.sidenav-links a {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.4s ease, transform 0.4s ease, background-color 0.2s ease, border-left 0.2s ease;
+}
 
-.sidenav .sair:hover{
-    border-left: 4px solid red;
+/* 2. Quando o menu estiver com largura (aberto), os links aparecem */
+/* O seletor abaixo detecta se a largura é maior que 0 */
+.sidenav[style*="width: 300px"] a, 
+.sidenav[style*="width: 250px"] a { 
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* 3. Efeito de cascata (um link aparece depois do outro) */
+.sidenav-links a:nth-child(1) { transition-delay: 0.1s; }
+.sidenav-links a:nth-child(2) { transition-delay: 0.15s; }
+.sidenav-links a:nth-child(3) { transition-delay: 0.2s; }
+.sidenav-links a:nth-child(4) { transition-delay: 0.25s; }
+.sidenav-links a:nth-child(5) { transition-delay: 0.3s; }
+
+
+.sidenav .sair:hover {
+    background-color: #e8c9c9; /* Um fundo avermelhado bem clarinho */
+    color: var(--danger);
+    border-left: 4px solid var(--danger);
+    border-right: 4px solid var(--danger); /* Barrinha vermelha na direita também */
+    padding-left: 35px; /* Dá um "pulinho" para a direita no hover */
 }
 
 /* --- Botão de Fechar --- */
@@ -131,8 +157,15 @@
     border-radius: 8px;
     z-index: 90;
     transition: transform 0.2s;
+    animation: pulseShadow 3s infinite;
 }
 
 #menuBtn:hover {
     transform: scale(1.05);
+}
+
+@keyframes pulseShadow {
+    0% { box-shadow: 0 0 0 0 rgba(30, 64, 175, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(30, 64, 175, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(30, 64, 175, 0); }
 }
