@@ -18,7 +18,7 @@
 
             <div class="logo-text">
                 <div class="logo-main">
-                    <h1>My-Notes</h1>
+                    <h1>Minhas-Anotações</h1>
                 </div>
                 <p>Organize seus pensamentos, transforme sua vida.</p>
 
@@ -40,6 +40,7 @@
             
                 <?php
                     // OBS ISSO É TRANPO QUE DAVA PARA FAZER NO JS.
+                    // Se for validação posso fazer, mas se for algo de status assim da não
 
                     if (isset($_GET['status'])) {
                         $status = $_GET['status'];

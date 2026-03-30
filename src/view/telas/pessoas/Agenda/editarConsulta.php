@@ -43,32 +43,47 @@ if($_POST){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../CSS/header.css">
-    <title>editar</title>
+    <link rel="stylesheet" href="../../../CSS/EditarConsulta.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Editar Consulta</title>
 </head>
 <body>
 
-    <div id="menuBtn" onclick="openNav()">&#9776;</div>
-    <div id="mySidenav" class="sidenav">
-        <img src="../../../image/fotosUsuarios/<?php echo $pessoas["imageLocal"] ?>" alt="../../image/default-profile.webp">
+    <div id="menuBtn" onclick="openNav()">
+    <i class="fa-solid fa-bars"></i>
+</div>
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <div class="sidenav-profile">
+        <img src="../../../image/fotosUsuarios/<?php echo $pessoas["imageLocal"] ?>" 
+             onerror="this.src='../../image/default-profile.webp'" 
+             alt="Foto do Usuário">
         <h1 class="title"><?php echo $pessoas["nome"]; ?></h1>
         <h2 class="subtitle"><?php echo $pessoas["email"]; ?></h2>
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    </div>
 
+    <div class="sidenav-links">
         <?php 
             if($pessoas["pkSecretario"] !== NULL){
-                echo "<a href='../secretarios/secretarios.php'>home</a>";
+                echo "<a href='../secretarios/secretarios.php'><i class='fa-solid fa-house'></i> Home</a>";
             }else if($pessoas["pkPsicologo"] !== NULL){
-                echo "<a href='../psicologos/psicologos.php'>home</a>";
+                echo "<a href='../psicologos/psicologos.php'><i class='fa-solid fa-house'></i> Home</a>";
             }
             if($pessoas["pkPaciente"] !== NULL){
-                echo "<a href='../pacientes/pacientes.php'>home</a>";
+                echo "<a href='../pacientes/pacientes.php'><i class='fa-solid fa-house'></i> Home</a>";
             }
         ?>
-        <a href="agenda/agendarConsulta.php">Agenda</a>
-        <a href="agenda/agenda.php">Consultas Agendadas</a>
-        <a href="#"><i class="fa-solid fa-right-from-bracket"></i></a> 
         
+        <a href="agenda/agendarConsulta.php"><i class="fa-solid fa-calendar-plus"></i> Agenda</a>
+        <a href="agenda/agenda.php"><i class="fa-solid fa-calendar-check"></i> Consultas Agendadas</a>
+        
+        <a href="#" class="sair-btn sair" style="margin-top: auto; color: var(--danger);">
+            <i class="fa-solid fa-right-from-bracket"></i> Sair
+        </a> 
     </div>
+</div>
 
 
     <form action="" method="post">

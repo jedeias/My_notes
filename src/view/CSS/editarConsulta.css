@@ -1,0 +1,121 @@
+/* =======================================================
+   1. VARIÁVEIS (Mantendo o padrão do sistema)
+   ======================================================= */
+   :root {
+    --bg-app: #f1f5f9;          
+    --surface: #ffffff;         
+    --primary: #4f46e5;         
+    --primary-hover: #4338ca;
+    --text-dark: #0f172a;       
+    --text-muted: #64748b;      
+    --border-soft: #e2e8f0;
+    --radius-lg: 24px;
+    --radius-md: 12px;
+    --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.08);
+}
+
+body {
+    background-color: var(--bg-app);
+    color: var(--text-dark);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    /* Usa o Flexbox no body para centralizar o formulário perfeitamente na tela toda */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* =======================================================
+   2. O CARTÃO DO FORMULÁRIO (Edição de Consulta)
+   ======================================================= */
+/* Pegando direto a tag form que está solta no HTML */
+body > form[method="post"] {
+    background: var(--surface);
+    width: 100%;
+    max-width: 450px; /* Tamanho contido e elegante */
+    padding: 50px 40px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+    /* Animação suave ao entrar na tela */
+    animation: slideUp 0.4s ease-out;
+}
+
+/* O primeiro label (Nome do Paciente) funciona como um Título */
+body > form[method="post"] > label:first-of-type {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+/* O label "Nova data da consulta" */
+body > form[method="post"] > label[for="novaData"] {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: -10px; /* Puxa o input para mais perto do texto */
+}
+
+/* O campo de Data/Hora */
+input[type="datetime-local"] {
+    padding: 16px;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    background: var(--bg-app);
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+input[type="datetime-local"]:focus {
+    border-color: var(--primary);
+    background: var(--surface);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* O botão "Enviar" */
+button[type="submit"] {
+    margin-top: 15px;
+    background: var(--primary);
+    color: white;
+    padding: 16px;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+}
+
+/* =======================================================
+   3. ANIMAÇÃO
+   ======================================================= */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

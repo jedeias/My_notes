@@ -200,23 +200,36 @@ if(! empty($_POST)){
     <link rel="stylesheet" href="../../../CSS/header.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <title>secretario</title>
+    <title>Secretario</title>
 </head>
 <body>
 
-    <div id="menuBtn">&#9776;</div>
-    <div id="mySidenav" class="sidenav">
+    <div id="menuBtn" onclick="openNav()">
+    <i class="fa-solid fa-bars"></i>
+</div>
 
-        <img src="../../../image/fotosUsuarios/<?php echo $secretarios->getImageLocal();?>" alt='../../../image/default-profile.webp'>
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <div class="sidenav-profile">
+        <img src="../../../image/fotosUsuarios/<?php echo $secretarios->getImageLocal(); ?>" 
+             onerror="this.src='../../../image/default-profile.webp'" 
+             alt="Foto do Perfil">
         <h1 class="title"><?php echo $secretarios->getNome(); ?></h1>
         <h2 class="subtitle"><?php echo $secretarios->getEmail(); ?></h2>
-        <a href="javascript:void(0)" class="closebtn">&times;</a>
-        <a href="#">Atividades</a>
-        <a href="../agenda/agenda.php">Agenda</a>
-        <a href="../agenda/agendarConsulta.php">Consultas Agendadas</a>
-        <a href="../sair.php">sair</a>
-        <a href="../config.php"><i class="fa-solid fa-gear"></i></a> 
     </div>
+
+    <div class="sidenav-links">
+        <a href="#"><i class="fa-solid fa-clipboard-list"></i> Atividades</a>
+        <a href="../agenda/agenda.php"><i class="fa-solid fa-calendar-days"></i> Agenda</a>
+        <a href="../agenda/agendarConsulta.php"><i class="fa-solid fa-calendar-plus"></i> Consultas Agendadas</a>
+        <a href="../config.php"><i class="fa-solid fa-gear"></i> Configurações</a> 
+        
+        <a href="../sair.php" class="sair-btn" style="margin-top: auto; color: var(--danger);">
+            <i class="fa-solid fa-right-from-bracket"></i> Sair
+        </a>
+    </div>
+</div>
 
     <article>
 

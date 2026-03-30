@@ -1,64 +1,51 @@
-console.log("Funcionado");
+console.log("Sistema de navegação carregado!");
 
-let fousPage = 0;
+// Usar um Array é muito melhor e mais limpo que um Objeto com números
+const telas = ["agenda", "anotação", "atividadesRecomendadas"];
 
-let hashMap = {
-    1: "agenda",
-    2: "anotação",
-    3: "atividadesRecomendadas"
+// Começamos no índice 0 (que equivale a 'agenda' no array)
+let telaAtual = 0; 
+
+// Função central que faz o trabalho de mostrar/esconder
+function atualizarTela() {
+    telas.forEach((classeTela, index) => {
+        const elemento = document.querySelector("." + classeTela);
+        
+        if (!elemento) return; // Proteção: se não achar o elemento, não dá erro
+        
+        if (index === telaAtual) {
+            // Se for o índice atual, mostra a tela
+            elemento.removeAttribute("hidden");
+        } else {
+            // Se não for, esconde
+            elemento.setAttribute("hidden", true);
+        }
+    });
 }
 
+// Botão de Próximo
 function nextClick() {
-    fousPage += 1;
-
-    for(let key in hashMap){
-        elemento = document.querySelector("." + hashMap[key]);
-
-        console.log(elemento);
-
-        if (key != fousPage) {
-            elemento = document.querySelector("." + hashMap[key]);
-            elemento.setAttribute("hidden", true);
-
-            console.log(elemento)
-        }
-
+    telaAtual += 1;
+    
+    // Se passar do limite do Array, volta pro índice 0 (primeira tela)
+    if (telaAtual >= telas.length) {
+        telaAtual = 0;
     }
-
-    if(fousPage > 3){
-        fousPage = 1;
-    }
-
-    elemento = document.querySelector("." + hashMap[fousPage])
-    elemento.removeAttribute("hidden")
-
-
+    
+    atualizarTela();
 }
 
+// Botão de Voltar
 function prevClick() {
-
-    if(fousPage > 1){
-        fousPage -= 1;
-    }else{
-        fousPage = 3;
+    telaAtual -= 1;
+    
+    // Se voltar antes do 0, vai para a última tela do Array
+    if (telaAtual < 0) {
+        telaAtual = telas.length - 1;
     }
-    for(let key in hashMap){
-        elemento = document.querySelector("." + hashMap[key]);
-
-        console.log(elemento);
-
-        if (key != fousPage) {
-            elemento = document.querySelector("." + hashMap[key]);
-            elemento.setAttribute("hidden", true);
-
-            console.log(elemento)
-        }
-
-    }
-    elemento = document.querySelector("." + hashMap[fousPage])
-    elemento.removeAttribute("hidden")
-
+    
+    atualizarTela();
 }
 
-
-
+// Opcional: Garantir que a tela inicie no estado correto
+// atualizarTela();

@@ -1,70 +1,126 @@
+/* =========================================
+   1. RESET & VARIÁVEIS (Mantendo o padrão v2)
+   ========================================= */
+:root {
+    --bg-main: #fdfbf6;       /* Fundo da tela (off-white) */
+    --bg-paper: #ffffff;      /* Fundo do formulário (branco puro) */
+    --primary: #1e40af;       /* Azul moderno (substituindo o #130c7e) */
+    --primary-hover: #1d4ed8;
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --border-color: #d1d5db;  /* Cor suave para bordas dos inputs */
+    --shadow-lg: 0 20px 45px rgba(0, 0, 0, 0.12); /* Sombra flutuante */
+    --transition: all 0.2s ease-in-out;
+    --danger: #ef4444;        /* Vermelho Alerta para Descartar */
+    --danger-hover: #dc2626;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Montserrat', 'Segoe UI', sans-serif;
 }
 
+/* =========================================
+   2. CENTRALIZAÇÃO DA TELA (Adeus position: absolute)
+   ========================================= */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #eaf4f4; 
-    height: 100vh;
-}
-
-
-.modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fefefe;
-    padding: 50px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-    border-radius: 10px;
-    overflow: scroll;
-    max-height: 80vh;
-}
-
-
-#fromularioDadosPessoais {
+    background-color: var(--bg-main);
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    padding: 20px;           /* Evita colar nas bordas no celular */
+    color: var(--text-main);
 }
 
-#fromularioDadosPessoais label {
-    margin-top: 10px;
+/* =========================================
+   3. O MODAL FLUTUANTE
+   ========================================= */
+.modal-content {
+    background-color: var(--bg-paper);
+    width: 100%;
+    max-width: 500px;
+    padding: 40px;
+    border-radius: 16px; /* Bordas arredondadas e modernas */
+    box-shadow: var(--shadow-lg); /* Efeito flutuante */
+    max-height: 90vh; /* Ocupa no máximo 90% da altura da tela */
+    overflow-y: auto; /* Scroll apenas se o conteúdo passar do limite */
 }
 
-#fromularioDadosPessoais input[type="text"],
-#fromularioDadosPessoais input[type="file"],
-#fromularioDadosPessoais input[type="date"]{
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    outline: none;
+/* Estilizando a barra de rolagem (Scrollbar moderna) */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
 }
-
-#fromularioDadosPessoais button {
-    margin-top: 20px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #130c7e;
-    color: white;
-    cursor: pointer;
-}
-
-select{
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    outline: none;
+.modal-content::-webkit-scrollbar-track {
     background: transparent;
 }
+.modal-content::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 10px;
+}
 
-#fromularioDadosPessoais button:hover {
-    background-color: #110d42;
+/* =========================================
+   4. ESTRUTURA DO FORMULÁRIO E INPUTS
+   ========================================= */
+#formularioDadosPessoais {
+    display: flex;
+    flex-direction: column;
+    gap: 18px; /* Cria um espaço uniforme entre todos os elementos */
+}
+
+#formularioDadosPessoais label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: -10px; /* Aproxima a label do input */
+}
+
+/* Seleciona todos os tipos de input do seu formulário */
+#formularioDadosPessoais input[type="text"],
+#formularioDadosPessoais input[type="file"],
+#formularioDadosPessoais input[type="date"],
+#formularioDadosPessoais select {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: #f9fafb; /* Cinza bem clarinho no fundo do input */
+    color: var(--text-main);
+    font-size: 15px;
+    outline: none;
+    transition: var(--transition);
+}
+
+/* Efeito de Foco (Quando clica para digitar) - SUPER IMPORTANTE PARA UX */
+#formularioDadosPessoais input:focus,
+#formularioDadosPessoais select:focus {
+    border-color: var(--primary);
+    background-color: var(--bg-paper);
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15); /* "Anel" azul brilhante */
+}
+
+/* =========================================
+   5. BOTÃO DE ENVIO
+   ========================================= */
+#formularioDadosPessoais button {
+    margin-top: 10px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary);
+    color: white;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+#formularioDadosPessoais button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px); /* Efeito de afundar/subir ao passar o mouse */
+    box-shadow: 0 4px 10px rgba(30, 64, 175, 0.3);
 }

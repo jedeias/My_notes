@@ -1,0 +1,226 @@
+/* =======================================================
+   1. VARIÁVEIS (Mantendo o padrão do sistema)
+   ======================================================= */
+:root {
+    --bg-app: #f1f5f9;          
+    --surface: #ffffff;         
+    --primary: #4f46e5;         
+    --primary-hover: #4338ca;
+    --text-dark: #0f172a;       
+    --text-muted: #64748b;      
+    --border-soft: #e2e8f0;
+    --radius-lg: 24px;
+    --radius-md: 12px;
+    --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.08);
+}
+
+body {
+    background-color: var(--bg-app);
+    color: var(--text-dark);
+    font-family: 'Inter', sans-serif;
+}
+
+[hidden] { display: none !important; }
+
+/* =======================================================
+   2. LAYOUT PRINCIPAL (Afastado do menu lateral)
+   ======================================================= */
+section {
+    max-width: 900px;
+    margin: 100px auto 50px; /* Dá espaço para o botão do menu no topo */
+    padding: 0 20px;
+}
+
+/* =======================================================
+   3. BARRA DE PESQUISA
+   ======================================================= */
+section form[method="get"] {
+    background: var(--surface);
+    padding: 25px 30px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    align-items: flex-end; /* Alinha o input e o botão pela base */
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+section form[method="get"] label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-transform: capitalize;
+}
+
+section form[method="get"] input {
+    flex: 1; /* Ocupa o espaço que sobrar */
+    padding: 14px 20px;
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    background: var(--bg-app);
+    font-size: 1rem;
+    outline: none;
+    transition: 0.2s;
+}
+
+section form[method="get"] input:focus {
+    border-color: var(--primary);
+    background: var(--surface);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+section form[method="get"] button {
+    background: var(--primary);
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+section form[method="get"] button:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+/* =======================================================
+   4. CARTÕES DE PACIENTES (A lista gerada pelo PHP)
+   ======================================================= */
+/* Seleciona as divs filhas diretas da section, ignorando a div de cadastro */
+section > div:not(.cadastro) {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    padding: 20px 25px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.2s;
+}
+
+section > div:not(.cadastro):hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-soft);
+    transform: translateY(-2px);
+}
+
+/* Nome do Paciente */
+section > div:not(.cadastro) p:first-of-type {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+/* Email do Paciente */
+section > div:not(.cadastro) p:last-of-type {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Botão "Agendar Consulta" no cartão */
+section > div:not(.cadastro) button {
+    background: var(--bg-app);
+    color: var(--primary);
+    border: 1px solid transparent;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+section > div:not(.cadastro) button:hover {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
+}
+
+/* =======================================================
+   5. MODAL DE AGENDAMENTO (Pop-up)
+   ======================================================= */
+.cadastro:not([hidden]) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.6); /* Fundo escuro transparente */
+    backdrop-filter: blur(4px); /* Borra o fundo (efeito Apple) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+.cadastro form {
+    background: var(--surface);
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cadastro label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: -10px;
+}
+
+.cadastro input[type="datetime-local"] {
+    padding: 15px;
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    background: var(--bg-app);
+    font-size: 1rem;
+    color: var(--text-dark);
+    outline: none;
+    transition: 0.2s;
+}
+
+.cadastro input[type="datetime-local"]:focus {
+    border-color: var(--primary);
+    background: var(--surface);
+}
+
+.cadastro button[type="submit"] {
+    background: var(--primary);
+    color: white;
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 10px;
+}
+
+.cadastro button[type="submit"]:hover { background: var(--primary-hover); }
+
+/* Botão Fechar Modal (Opcional, mas recomendado) */
+.btn-fechar {
+    background: transparent !important;
+    color: #ef4444 !important;
+    border: 1px solid #ef4444 !important;
+    margin-top: -10px;
+}
+.btn-fechar:hover {
+    background: #fef2f2 !important;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}

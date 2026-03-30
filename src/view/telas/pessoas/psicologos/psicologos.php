@@ -59,17 +59,32 @@ if(! empty($_GET["pesquisa"])){
     <link rel="stylesheet" href="../../../CSS/header.css">
 </head>
 <body>
-    
+
     <div id="menuBtn" onclick="openNav()">&#9776;</div>
+
     <div id="mySidenav" class="sidenav">
 
-        <img src="../../../image/fotosUsuarios/<?php echo $psicologos->getImageLocal()?>" alt='../../../image/default-profile.webp'>
-        <h1 class="title"><?php echo $dadosPsicologo["nome"]; ?></h1>
-        <h2 class="subtitle"><?php echo $dadosPsicologo["email"]; ?></h2>
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="../agenda/agenda.php">agenda</a>
-        <a href="../sair.php">sair</a>
-        <a href="../config.php"><i class="fa-solid fa-gear"></i></a> 
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <div class="sidenav-profile">
+        <img src="../../../image/fotosUsuarios/<?php echo $psicologos->getImageLocal(); ?>" 
+                onerror="this.src='../../../image/default-profile.webp'" 
+                alt="Foto de Perfil">
+        
+        <div class="title"><?php echo $dadosPsicologo["nome"]; ?></div>
+        <div class="subtitle"><?php echo $dadosPsicologo["email"]; ?></div>
+    </div>
+
+    <div class="sidenav-links">
+        
+        <a href="../agenda/agenda.php"><i class="fa-solid fa-calendar-days"></i> Agenda</a>
+        <a href="../config.php"><i class="fa-solid fa-gear"></i> Configurações</a> 
+        
+        <a href="../sair.php" class="sair" style="margin-top: auto; color: var(--danger);">
+            <i class="fa-solid fa-right-from-bracket"></i> Sair
+        </a> 
+        
+    </div>
     </div>
 
     <article class="pacientes">

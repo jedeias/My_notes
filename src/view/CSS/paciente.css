@@ -1,246 +1,331 @@
+/* =========================================
+   1. RESET & VARIÁVEIS (Boas Práticas v2)
+   ========================================= */
+:root {
+    /* Cores do Tema v2 */
+    --bg-main: #fdfbf6;        /* Off-white suave e rico */
+    --bg-paper: #ffffff;     /* Branco puro para a nota */
+    --primary: #1e40af;       /* Azul Safira Profundo e Moderno */
+    --primary-hover: #1d4ed8;
+    --danger: #ef4444;        /* Vermelho Alerta para Descartar */
+    --danger-hover: #dc2626;
+    
+    /* Cores de Texto e Linhas v2 */
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --line-color: #e5e7eb;    /* Cor das linhas do caderno */
+    
+    /* Efeitos v2 */
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 20px 45px rgba(0, 0, 0, 0.12); /* Sombra mais profunda */
+    --transition: all 0.2s ease-in-out;
+}
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Montserrat', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* Fonte base mais moderna */
 }
 
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+}
 
-
+/* =========================================
+   2. CONTAINERS E ESTRUTURA v2
+   ========================================= */
 .notepad-container{
     width: 100%;
-    display: flex;
-    background-color: #eaf4f4; /* Fundo azul claro */
     height: 100vh;
-}
-.notepad-container .notepad-content{
-    align-content: center;
-}
-.notepad-content{
-    position: relative;
     display: flex;
+    justify-content: center; /* Centralização Flexbox CORRETA v2 */
     align-items: center;
-    justify-content: center;
-    margin-left: 50%;
-    transform: translate(-50%);
-
+    padding: 20px;
 }
 
-
-.action-button-container{
+.notepad-content{
     display: flex;
-    justify-content: space-around;
-}
-.action-button{
-    width: 90%;
-    height: 45px;
-    font-size: 24px;
-    border-radius: 7px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-.action-button:hover{
-    background-color: #3f566e;
-}
-.notepad{
-    position: relative;
-    display: none;
     flex-direction: column;
-    width: 50vh;;
+    align-items: center;
+    width: 100%;
 }
-.notepad-count{
-    color: #737373;
-    position: absolute;
-    top: 82%;
-    right: 75px;
-    user-select: none;
 
+/* =========================================
+   3. O BLOCO DE NOTAS (Estilo Limpo) v2
+   ========================================= */
+.notepad{
+    /* Estado Inicial (oculto) */
+    display: none; 
+
+    position: relative;
+    flex-direction: column;
+    width: 100%;
+    max-width: 650px; /* Largura máxima agradável */
+    background-color: var(--bg-paper);
+    border-radius: 18px; /* Bordas mais suaves v2 */
+    box-shadow: var(--shadow-lg); /* Profundidade v2 */
+    overflow: hidden;
+    padding-bottom: 60px; /* Espaço para o contador */
 }
+
+/* Centraliza o contador de notas e melhora a UX v2 */
+.notepad-count{
+    color: var(--text-muted);
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    user-select: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* =========================================
+   4. HEADER (Data e Relógio) v2
+   ========================================= */
 .notepad-header {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between; /* Nas extremidades */
     align-items: center;
-    margin: 10px;
-    
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--line-color);
+    background-color: #fafafa;
 }
 
-
-
-.notepad-clock {
-    margin-left: 15px;
-    font-size: 20px;
-    color: #000;
+.notepad-clock, .notepad-date {
+    font-family: 'Playfair Display', serif; /* Fonte serifada sofisticada v2 */
+    font-size: 16px;
+    color: var(--text-main);
+    font-weight: 600;
 }
 
-.notepad-date {
-    margin-right: 15px;
-    font-size: 20px;
-    color: #000;
-}
-
+/* =========================================
+   5. TEXTAREA (Efeito Limpo) v2
+   ========================================= */
 .notepad textarea{
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
     border: none;
-    background-position-y: 33px;
-    line-height: 35px;
-    padding: 30px;
-    margin: 7px;
-    font-size: 25px;
-    font-weight: 500;
-    width: 90%;
-    height: 68vh;
-    border-radius: 7px;
-    resize: none;
-    overflow: auto;
     outline: none;
-    background-color: #f5f5f5; /* Cor melhorada */
-    color: #333; /* Cor do texto */
-    margin-left: 5%;
+    resize: none;
+    
+    width: 100%;
+    height: 60vh; /* Altura baseada na tela */
+    max-height: 500px;
+    padding: 40px; /* Mais respiro v2 */
+    
+    font-size: 18px; /* Tamanho mais equilibrado para leitura v2 */
+    line-height: 35px; /* Altura da linha batendo com o fundo v2 */
+    color: var(--text-main);
+    background-color: var(--bg-paper);
 }
+
+/* =========================================
+   6. BOTÕES E AÇÕES v2
+   ========================================= */
+.action-button-container{
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espaço entre botões */
+    margin-top: 20px;
+    width: 90%;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+/* Estilo Base dos Botões Grandes v2 */
+.action-button{
+    flex: 1; /* Dividem o espaço */
+    height: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase; /* Mais profissional */
+    letter-spacing: 1px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-md);
+    color: white;
+}
+
+/* Botão Primário (Salvar) v2 */
+.action-button {
+    background-color: var(--primary);
+}
+.action-button:hover{
+    background-color: var(--primary-hover);
+    transform: translateY(-2px); /* Efeito de flutuar */
+}
+
+/* Botão de Alerta (Descartar) - UX Melhorada v2 */
 .prev-note-descartar{
-    margin-top: 3px;
-    width: 96%;
-
-
+    margin-top: 0; /* Reseta margin anterior v2 */
+}
+.prev-note-descartar .action-button {
+    background-color: var(--danger);
+}
+.prev-note-descartar .action-button:hover {
+    background-color: var(--danger-hover);
+    transform: translateY(-2px);
 }
 
+/* Formulário de deletar container */
 .delete-form{
     display: flex;
     justify-content: center;
     width: 100%;
 }
+
+/* Botões de Navegação (Setas) v2 */
 .prev-button, .next-button{
-    width: 50px;
-    height: 50px;
-    border-radius: 7px;
-    background-color:  #007bff;
-    color: white;
-    border: none;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%; /* Botões redondos modernos v2 */
+    background-color: var(--primary); /* Fundo sólido v2 */
+    color: white; /* Texto branco v2 */
+    border: none; /* Sem bordas v2 */
     cursor: pointer;
+    transition: var(--transition);
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
 }
 
+
+
+.next-button{
+    margin-top: 15px;
+}
+
+.prev-button {
+    margin-bottom: 15px;
+}
+
 .prev-button:hover, .next-button:hover{
-    background-color: #3f566e;
+    background-color: var(--primary-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px); /* Efeito de flutuar v2 */
 }
 
-.janela-modal.abrir{
-    display: inline-block;
-}
-
+/* =========================================
+   7. CLASSES DE ESTADO (JS)
+   ========================================= */
 .hidden{
-    display: none;
-    opacity: 0;
+    display: none !important;
 }
 
 .active{
+    display: flex !important;
+}
+
+/* Janela Modal básica limpa */
+.janela-modal{
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+.janela-modal.abrir{
     display: flex;
 }
 
+/* =========================================
+   8. MENU MOBILE (Burger) v2
+   ========================================= */
 i#burger{
-    display: none;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
+    display: none; /* Escondido no desktop */
+    color: var(--primary);
+    font-size: 2.5rem;
     cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 5;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
 }
 
+/* =========================================
+   9. RESPONSIVIDADE (Mobile) v2
+   ========================================= */
 @media(max-width: 768px) {
-
-    html{
-        height: calc(100vh - 70px);
+    .notepad-container {
+        padding: 10px;
+        align-items: flex-start; /* Começa no topo no mobile */
+        padding-top: 80px; /* Espaço para o burger */
     }
-    body{ 
-        height: 100vh;  
-    }  
-    .notepad textarea {
+
+    .notepad {
         max-width: 100%;
-        width: 94%;
-        height: 459px;
+        border-radius: 12px;
+        box-shadow: var(--shadow-md);
     }
 
-    .notepad-container{
-        height: 100%;
-        
+    .notepad textarea {
+        height: 50vh; /* Ajuste de altura no mobile */
+        padding: 20px;
+        font-size: 16px;
     }
 
-    .notepad-container{
-        display: block;
-        
-    }
-   
-    .notepad-content{
-        margin-left: 0;
-        top: 15%;
+    .notepad-header {
+        padding: 10px 15px;
     }
 
-    .notepad-count{
-        left: 50%;
-        top: 88%;
+    /* Ajuste dos botões no mobile */
+    .action-button-container {
+        flex-direction: column; /* Empilha botões */
+        gap: 10px;
+        padding: 0 10px;
     }
-   
-    .emoji-content{
+    
+    .action-button {
         width: 100%;
     }
 
-
+    /* Menu Burger e Animação */
     i#burger{
         display: block;
-        border-radius: 7px;
-        background: transparent;
-        font-size: 3rem;
-
     }
 
     .menu-container{
-        background: none;
-        position: absolute;
-        width: 100%;
-        border-radius: 5px;
-        animation: abrirMenu 1s ease;
-        z-index: 2;
-    }   
-    .header-container{
-        padding-left: 10px;
-        padding-right: 10px;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.9);
+        display: none; /* Controlado pelo JS */
+        justify-content: center;
+        align-items: center;
+        z-index: 4;
     }
 
-   
+    .menu {
+        list-style: none;
+        text-align: center;
+        animation: abrirMenu 0.4s ease forwards;
+    }
 
     .menu li{
-        background: none;
-        padding: 30px;
-        border-bottom: 1px solid #333333;
-        border-radius: 7px;
-        margin: 0;
+        padding: 20px;
+        border-bottom: 1px solid #333;
     }
-  
-
-    .menu{
-        margin: 10px;
-        background-color: #1a1a1a;
-        box-shadow: 0 0 10px rgba(0,0,0,0.3);
-        border-radius: 7px;
-        
+    
+    .menu li a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-weight: 600;
     }
-
-
 }
 
-
+/* Animação de Menu mais suave */
 @keyframes abrirMenu {
-    0% {
-   opacity: 0;
-   transform: translateX(-100%);
- }
- 50% {
-   opacity: 1;
-   transform: translateX(50%);
- }
- 100% {
-   transform: translateX(0%);
- }
-
-
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
 }

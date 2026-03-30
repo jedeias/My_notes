@@ -60,20 +60,34 @@ if($_POST){
 
 </head>
 <body>
-    <div id="menuBtn" onclick="openNav()">&#9776;</div>
-    <div id="mySidenav" class="sidenav">
+        <div id="menuBtn" onclick="openNav()">&#9776;</div>
 
-        <img src="../../../image/fotosUsuarios/<?php echo $pacientes->getImageLocal(); ?>" alt="../../../image/default-profile.webp">
-        <h1 class="title"><?php echo $dadosPacientes["nome"]; ?></h1>
-        <h2 class="subtitle"><?php echo $dadosPacientes["email"]; ?></h2>
+        <div id="mySidenav" class="sidenav">
+
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="atividades.php">Atividades</a>
-        <a href="#">Consultas Agendadas</a>
-        <a href="#">Contato</a>
-        <a href="#">Agenda</a>
-        <a href="../sair.php">sair</a>
-        <a href="../config.php"><i class="fa-solid fa-gear"></i></a> 
-    </div>
+
+        <div class="sidenav-profile">
+            <img src="../../../image/fotosUsuarios/<?php echo $pacientes->getImageLocal(); ?>" 
+                    onerror="this.src='../../../image/default-profile.webp'" 
+                    alt="Foto de Perfil">
+                    
+            <div class="title"><?php echo $dadosPacientes["nome"]; ?></div>
+            <div class="subtitle"><?php echo $dadosPacientes["email"]; ?></div>
+        </div>
+
+        <div class="sidenav-links">
+            <a href="atividades.php"><i class="fa-solid fa-clipboard-list"></i> Atividades</a>
+            <a href="../Agenda/agendarConsulta.php"><i class="fa-solid fa-calendar-check"></i> Consultas</a>
+            <a href="#"><i class="fa-solid fa-address-book"></i> Contato</a>
+            <a href="../Agenda/agenda.php"><i class="fa-solid fa-calendar-days"></i> Agenda</a>
+            <a href="../config.php"><i class="fa-solid fa-gear"></i> Configurações</a>
+            
+            <a href="../sair.php" class="sair" style="margin-top: auto; color: var(--danger);">
+                <i class="fa-solid fa-right-from-bracket"></i> Sair
+            </a>
+        </div>
+
+        </div>
 
     <section class="notepad-container">
         <section class="notepad-content">

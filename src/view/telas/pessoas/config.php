@@ -170,34 +170,49 @@ if($_POST){
     <title>Configurações</title>
 </head>
 <body>
-    <div id="menuBtn" onclick="openNav()">&#9776;</div>
-    <div id="mySidenav" class="sidenav">
-        <img src="../../image/fotosUsuarios/<?php echo $userData["imageLocal"] ?>" alt="../../image/default-profile.webp">
-        <h1 class="title"><?php echo $userData["nome"]; ?></h1>
-        <h2 class="subtitle"><?php echo $userData["email"]; ?></h2>
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+   <div id="menuBtn" onclick="openNav()">&#9776;</div>
 
+<div id="mySidenav" class="sidenav">
+    
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <div class="sidenav-profile">
+        <img src="../../image/fotosUsuarios/<?php echo $userData["imageLocal"] ?>" 
+             onerror="this.src='../../image/default-profile.webp'" 
+             alt="Foto de Perfil">
+        
+        <div class="title"><?php echo $userData["nome"]; ?></div>
+        <div class="subtitle"><?php echo $userData["email"]; ?></div>
+    </div>
+
+    <div class="sidenav-links">
+        
         <?php 
             if($userData["pkSecretario"] !== NULL){
-                echo "<a href='secretarios/secretarios.php'>home</a>";
-            }else if($userData["pkPsicologo"] !== NULL){
-                echo "<a href='psicologos/psicologos.php'>home</a>";
+                echo "<a href='secretarios/secretarios.php'><i class='fa-solid fa-house'></i> Início</a>";
+            } else if($userData["pkPsicologo"] !== NULL){
+                echo "<a href='psicologos/psicologos.php'><i class='fa-solid fa-house'></i> Início</a>";
             }
             if($userData["pkPaciente"] !== NULL){
-                echo "<a href='pacientes/pacientes.php'>home</a>";
+                echo "<a href='pacientes/pacientes.php'><i class='fa-solid fa-house'></i> Início</a>";
             }
         ?>
-        <a href="agenda/agendarConsulta.php">Agenda</a>
-        <a href="agenda/agenda.php">Consultas Agendadas</a>
-        <a href="#"><i class="fa-solid fa-right-from-bracket"></i></a> 
+        
+        <a href="agenda/agendarConsulta.php"><i class="fa-solid fa-calendar-plus"></i> Agendar Consulta</a>
+        <a href="agenda/agenda.php"><i class="fa-solid fa-calendar-check"></i> Consultas Agendadas</a>
+        
+        <a href="#" class="sair" style="margin-top: auto; color: var(--danger);">
+            <i class="fa-solid fa-right-from-bracket"></i> Sair
+        </a> 
         
     </div>
+</div>
 
         <div class="modal-content">
             
             <h2>Configurações</h2>
             
-            <form id="fromularioDadosPessoais" action="" method="post" enctype="multipart/form-data">
+            <form id="formularioDadosPessoais" action="" method="post" enctype="multipart/form-data">
                 
                 <h3>Dados pessoais</h3>
 

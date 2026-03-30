@@ -1,114 +1,138 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+/* =========================================
+   SIDENAV (Menu Lateral Sofisticado)
+   ========================================= */
+:root {
+    --bg-main: #fdfbf6;       
+    --bg-paper: #ffffff;      
+    --primary: #1e40af;       
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --line-color: #e5e7eb;
+    --danger: #ef4444;
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 45px rgba(0, 0, 0, 0.12);
 }
 
 .sidenav {
-    height: 100%;
-    width: 0;
+    height: 100vh; /* Ocupa a tela toda */
+    width: 0; /* Inicia fechado (o JS muda isso) */
     position: fixed;
-    z-index: 1;
+    z-index: 100; /* Fica por cima de tudo */
     top: 0;
     left: 0;
-    background: transparent;
-    border-right: 5px solid #000;
+    background-color: var(--bg-paper); /* Fundo branco puro da nossa paleta */
+    box-shadow: var(--shadow-lg); /* Sombra suave no lugar da borda preta */
     overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-    text-align: center; /* Centralizar texto */
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Animação mais natural */
+    
+    /* Flexbox salva vidas aqui */
+    display: flex;
+    flex-direction: column;
 }
 
-.sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #000;
-    display: block;
-    transition: 0.3s;
-    text-align: left; /* Centralizar texto */
-    position: relative;
-    top: 30%;
-    margin-top: 35px;
+/* --- Cabeçalho do Perfil --- */
+.sidenav-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px 30px; /* Espaço em cima para não colar no botão de fechar */
+    border-bottom: 1px solid var(--line-color);
+    white-space: nowrap; /* Evita quebra de linha feia quando fechando */
 }
 
-.sidenav a:hover {
-    background-color: rgba(0, 0, 0, 0.850);
-    border-bottom: 5px solid #fff;
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
-    padding: 15px;
-}
-
-.sidenav .closebtn:hover{
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-}
-.sidenav .closebtn {
-    position: absolute;
-    top: 1%;
-    right: 25px;
-    font-size: 50px;
-    margin-left: 50px;
-    color: red;
-
-}
-
-.sidenav a i{
-    position: relative; /* Ajustar posição */
-    margin-top: 15%;
-    left: 0; /* Centralizar ícone */
-
-}
-
-.sidenav a:last-child{
-    border: none;
-    padding: 0;
-}
-
-.sidenav img{
-    width: 100px;
-    height: 100px;
+.sidenav-profile img {
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
+    object-fit: cover;
+    border: 3px solid var(--primary); /* Borda azul elegante */
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
 }
 
-.sidenav img:hover{
+.sidenav-profile img:hover {
     cursor: pointer;
-    transform: scale(1.5) rotate(10deg);
-    left: 30%;
-    transition: transform 0.5s ease, left 0.5s ease;
+    transform: scale(1.08); /* Apenas um zoom suave, sem girar */
 }
 
 .sidenav .title {
-    position: absolute;
-    top: 25%;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #000;
-    text-align: center;
-    width: 100%;
+    font-family: 'Playfair Display', serif; /* Mesma fonte elegante da data */
+    color: var(--text-main);
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 5px;
 }
 
 .sidenav .subtitle {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #000;
-    text-align: center;
-    width: 100%;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 500;
 }
 
+/* --- Links de Navegação --- */
+.sidenav-links {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    flex-grow: 1; /* Ocupa o resto do espaço */
+}
+
+.sidenav a {
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 18px;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espaço entre o ícone (se tiver) e o texto */
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    border-left: 4px solid transparent; /* Preparando para o hover */
+}
+
+.sidenav a:hover {
+    background-color: var(--bg-main); /* Off-white de fundo */
+    color: var(--primary); /* Texto fica azul */
+    border-left: 4px solid var(--primary); /* Barrinha azul na esquerda */
+}
+
+
+.sidenav .sair:hover{
+    border-left: 4px solid red;
+}
+
+/* --- Botão de Fechar --- */
+.sidenav .closebtn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 40px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    line-height: 1;
+}
+
+.sidenav .closebtn:hover {
+    color: var(--danger); /* Fica vermelho só quando passa o mouse */
+    background: transparent;
+    border: none;
+}
+
+/* --- Botão de Abrir (Hambúrguer) --- */
 #menuBtn {
     font-size: 30px;
     cursor: pointer;
     position: fixed;
-    top: 15px;
-    left: 15px;
-    color: #000;
+    top: 20px;
+    left: 20px;
+    color: var(--primary);
+    padding: 8px 12px;
+    border-radius: 8px;
+    z-index: 90;
+    transition: transform 0.2s;
+}
+
+#menuBtn:hover {
+    transform: scale(1.05);
 }
