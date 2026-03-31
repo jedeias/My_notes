@@ -51,7 +51,4 @@ echo json_encode([
     'atividades' => $atividadesPaciente
 ], JSON_UNESCAPED_UNICODE);
 
-// echo "<pre>";
-// var_dump($_POST);
-
 ?>

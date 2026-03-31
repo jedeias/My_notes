@@ -206,11 +206,11 @@ if(! empty($_GET["pesquisa"])){
     
     </main>
     
+    <script src="../../../JS/atividades.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../../../JS/psicologos.js"></script>
     <script src="../../../JS/psicologosDadosPacientes.js"></script>
     <!-- <script defer src="../../../JS/agenda.js"></script> -->
-    <script src="../../../JS/atividades.js"></script>
     <script src="../../../JS/menu.js"></script>
 </body>
 </html>

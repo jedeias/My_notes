@@ -10,6 +10,15 @@ function dadosPacientes(pk){
                 
                 console.log(response.anotacoes);
 
+                let itensAtividades = document.getElementsByClassName("atividadeItem");
+                while (itensAtividades.length > 0) {
+                    itensAtividades[0].remove();
+                }
+
+                let itensAnotacoes = document.getElementsByClassName("anotacoesItem");
+                while (itensAnotacoes.length > 0) {
+                    itensAnotacoes[0].remove();
+                }
 
                 showListaDeAtividadesPaciente(response.atividades);
                 showListaDeAnotacoesPaciente(response.anotacoes);

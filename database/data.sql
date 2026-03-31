@@ -735,33 +735,39 @@ DELIMITER ;
 
 -- selciona todas as anotacoesPacientes de um paciente
 
+-- depois o bruno precisa padronizar isso com as outras querys.
+
 DELIMITER $$
+
 CREATE PROCEDURE findAnotacoesByPkPacientes(
-	IN _pk INT
+    IN _pk INT
 )
 BEGIN
 
-	SELECT	anotacoespacientes.pkAnotacaoPaciente,
-				anotacoespacientes.anotacao,
-				pessoas.pkPessoa,
-				pacientes.pkPaciente,
-				pessoas.nome,
-				anotacoespacientes.diaDaAnotacao,
-				anotacoespsicologos.*,
-				flags.color
-	FROM anotacoespacientes
-	LEFT JOIN anotacoespsicologos ON (anotacoespacientes.pkAnotacaoPaciente = anotacoespsicologos.fkAnotacoesPaciente)
-	LEFT JOIN flags ON (flags.pkFlag = anotacoespsicologos.fkFlag)
-	INNER JOIN pacientes ON (anotacoespacientes.fkPaciente = pacientes.pkPaciente)
-	INNER JOIN pessoas ON (pessoas.pkPessoa = pacientes.fkPessoa)
-	WHERE pacientes.pkPaciente = _pk
-	ORDER BY anotacoesPacientes.diaDaAnotacao;
-    
-	COMMIT;
-        ROLLBACK;
-END $$
-DELIMITER ;
+    SELECT 
+        ap.pkAnotacaoPaciente,
+        ap.anotacao,
+        pe.pkPessoa,
+        pa.pkPaciente,
+        pe.nome,
+        ap.diaDaAnotacao,
+        aps.*,
+        f.color
+    FROM anotacoespacientes ap
+    LEFT JOIN anotacoespsicologos aps 
+        ON ap.pkAnotacaoPaciente = aps.fkAnotacoesPaciente
+    LEFT JOIN flags f 
+        ON f.pkFlag = aps.fkFlag
+    INNER JOIN pacientes pa 
+        ON ap.fkPaciente = pa.pkPaciente
+    INNER JOIN pessoas pe 
+        ON pe.pkPessoa = pa.fkPessoa
+    WHERE pa.pkPaciente = _pk
+    ORDER BY ap.diaDaAnotacao;
 
+END $$
+
+DELIMITER ;
 -- pega as anotacoes do psicologo pelo id da anoatacao do paciente;
 
 DELIMITER $$
