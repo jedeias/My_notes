@@ -195,7 +195,7 @@ if(! empty($_GET["pesquisa"])){
                 <button type="submit" class="btn-submit">Enviar</button>
                 
             </form>
-            <button class="listAtividade" onclick="ligarVisibilidadeDasAtividades()">Lista De Atividades</button>
+            <!-- <button class="listAtividade" onclick="ligarVisibilidadeDasAtividades()">Lista De Atividades</button> -->
             
             <section hidden="true" id="listaDeAtividadesDoPaciente" class="listaDeAtividadesDoPaciente">
             
