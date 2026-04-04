@@ -20,7 +20,7 @@
                 <div class="logo-main">
                     <h1>Minhas-Anotações</h1>
                 </div>
-                <p>Organize seus pensamentos, transforme sua vida.</p>
+                <p>Organize seus pensamentos. Transforme sua vida.</p>
 
             </div>
 

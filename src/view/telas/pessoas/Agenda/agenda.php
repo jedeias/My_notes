@@ -38,15 +38,6 @@ if($pessoas['pkSecretario'] != null || $pessoas['pkPsicologo'] != null){
     <link rel="stylesheet" href="../../../CSS/header.css">
     <link rel="stylesheet" href="../../../CSS/agenda.css">
 
-    <?php 
-
-      if($tipoPessoa){
-        echo "<a class='btn-agenda' href='agendarConsulta.php'><button>Agendar Consultas</button></a>";
-        
-      }
-
-    ?>
-
     
     <script>
 
@@ -89,6 +80,8 @@ if($pessoas['pkSecretario'] != null || $pessoas['pkPsicologo'] != null){
         
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
+
+
         <div class="sidenav-profile">
             <img src="../../../image/fotosUsuarios/<?php echo $pessoas["imageLocal"]; ?>" 
                 onerror="this.src='../../image/default-profile.webp'" 
@@ -113,6 +106,15 @@ if($pessoas['pkSecretario'] != null || $pessoas['pkPsicologo'] != null){
             
             <a href="agenda/agendarConsulta.php"><i class="fa-solid fa-calendar-plus"></i> Agenda</a>
             <a href="agenda/agenda.php"><i class="fa-solid fa-calendar-check"></i> Consultas Agendadas</a>
+
+            <?php 
+
+              if($tipoPessoa){
+                echo "<a href='agendarConsulta.php'><i class='fa-solid fa-calendar-plus'></i> Agendar Consultas</a>";
+                
+              }
+
+            ?>
             
             <a href="#" style="margin-top: auto; color: var(--danger);">
                 <i class="fa-solid fa-right-from-bracket"></i> Sair

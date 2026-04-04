@@ -109,7 +109,7 @@ if($_POST){
         </section>
     </div>
 
-    <script src="../../../../JS/menu.js"></script>
+    <script defer src="../../../../JS/menu.js"></script>
 
 </body>
 </html>

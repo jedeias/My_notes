@@ -78,7 +78,6 @@ if($_POST){
         <div class="sidenav-links">
             <a href="atividades.php"><i class="fa-solid fa-clipboard-list"></i> Atividades</a>
             <a href="../Agenda/agendarConsulta.php"><i class="fa-solid fa-calendar-check"></i> Consultas</a>
-            <a href="#"><i class="fa-solid fa-address-book"></i> Contato</a>
             <a href="../Agenda/agenda.php"><i class="fa-solid fa-calendar-days"></i> Agenda</a>
             <a href="../config.php"><i class="fa-solid fa-gear"></i> Configurações</a>
             
