@@ -34,6 +34,15 @@ $secretarios->setPessoaPk($userData['pkPessoa']);
 $repositorioPsicologos = new RepositorioPsicologos();
 $allPsicologos = $repositorioPsicologos->findAll();
 
+if($session->get('user') == null) {
+    header("Location: ../../../../index.php");
+}
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}           
+
+
 if(! empty($_POST)){
     if(isset($_POST['CRP'])){
 
@@ -64,6 +73,12 @@ if(! empty($_POST)){
         $telefone = new Telefones();
         $telefone->setDDD($_POST['DD']);
         $telefone->setNumero($_POST['numeroDeTelefone']);
+        
+
+        if((string)$_POST["cep"]){
+            $_POST["cep"] = preg_replace('/-/', '', $_POST["cep"]);
+            $_POST['cep'] = (int)$_POST['cep'];
+        }
         
         $endereco = new Enderecos();
         $endereco->setCep($_POST['cep']);
@@ -290,6 +305,8 @@ if(! empty($_POST)){
                 
                 <h3>Dados pessoais</h3>
 
+                <input type="text" name="csrf" id="csrf" value="<?php echo $_SESSION['csrf_token']; ?>" hidden>
+
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" value="João da Silva" placeholder="Digite seu nome">
 
@@ -408,6 +425,8 @@ if(! empty($_POST)){
             <form id="fromularioDadosPessoais" action="" method="post" enctype="multipart/form-data">
                 
                 <h3>Dados pessoais</h3>
+
+                <input type="text" name="csrf" id="csrf" value="<?php echo $_SESSION['csrf_token']; ?>" hidden>
 
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" value='Marcia' placeholder="Digite seu nome">

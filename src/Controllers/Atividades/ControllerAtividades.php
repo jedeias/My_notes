@@ -38,6 +38,15 @@ class ControllerAtividades{
 }
 
 if(!empty($_POST)){
+
+    foreach($_POST as $key => $value){
+        if(empty($_POST[$_key])){
+            echo "O campo $key é obrigatório.";
+            header("Refresh: 3; url=../../view/telas/pessoas/psicologos/psicologos.php");
+            exit;
+            die();
+        }   
+    }
     
     var_dump($_POST);
 
