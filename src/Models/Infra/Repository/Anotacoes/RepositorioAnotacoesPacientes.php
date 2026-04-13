@@ -5,15 +5,18 @@ namespace src\Models\Infra\Repository\Anotacoes;
 use src\Models\Core\Repository\Anotacoes\IrepositoryAnotacoesPacientes;
 use src\Models\Core\Entities\Anotacoes\IanotacoesPacientes;
 use src\Models\Core\Entities\Pessoas\Ipacientes;
+use src\Models\Infra\Security\AES\CryptoService;
 use src\Models\Infra\Data\Sql;
 use PDOException;
 use PDO;
 
 class RepositorioAnotacoesPacientes implements IrepositoryAnotacoesPacientes {
     private Sql $MySql;
+    private CryptoService $cryptoService;
 
     public function __construct() {
         $this->MySql = new Sql();
+        $this->cryptoService = new CryptoService();
     }
 
     public function findAnotacaoByPkPacientes(Ipacientes|int $pkAnotacoesPacientes): array{
@@ -34,7 +37,8 @@ class RepositorioAnotacoesPacientes implements IrepositoryAnotacoesPacientes {
             if (empty($data)) {
                 return [];
             } else {
-                return $data;
+                return $this->cryptoService->decrypt($data);
+
             }
         } catch (PDOException $erros) {
             echo("tivemos um erro.:");
@@ -69,16 +73,22 @@ class RepositorioAnotacoesPacientes implements IrepositoryAnotacoesPacientes {
     }
 
     public function insert(IanotacoesPacientes $anotacao): void{
+        
+        $dataInSecrity = $this->cryptoService->encrypt($anotacao->getAnotacao());
+
         try {
-            $prepare = $this->MySql->getConnect()->prepare("CALL insertAnotacoesPacientes(:fkPaciente, :dia, :anotacao);");
+            $prepare = $this->MySql->getConnect()->prepare("CALL insertAnotacoesPacientes(:fkPaciente, :dia, :anotacao, :iv, :tag);");
             $prepare->bindValue(":fkPaciente", $anotacao->getPacientes()->getPacientesPk());
             $dataHora = date('Y-m-d H:i:s');
             $prepare->bindValue(":dia",$dataHora );
-            $prepare->bindValue(":anotacao", $anotacao->getAnotacao());
+            $prepare->bindValue(":anotacao", $dataInSecrity['ciphertext']);
+            $prepare->bindValue(':iv', $dataInSecrity['iv']);
+            $prepare->bindValue(':tag', $dataInSecrity['tag']);
             $prepare->execute();
         } catch (PDOException $erros) {
             echo("tivemos um erro.:");
             echo($erros->getMessage());
+            die();
         }
     }
     public function update(IanotacoesPacientes $anotacao): void{

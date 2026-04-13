@@ -45,6 +45,8 @@ if($_POST){
 
     move_uploaded_file($_FILES['imageLocal']['tmp_name'], $pasta.$foto);
 
+    
+
     if($userData['pkPaciente'] != null){
         $pessoa = new Pacientes();
 

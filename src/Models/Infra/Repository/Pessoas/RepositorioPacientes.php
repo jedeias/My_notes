@@ -10,12 +10,12 @@ use src\Models\Infra\Data\Sql;
 use PDO;
 use PDOException;
 
+
 class RepositorioPacientes implements IrepositoryPaciente{
     
     private Sql $MySql;
     private RepositorioPessoa $repositorioPessoa;
     private RepositorioPsicologos $repositorioPsicologos;
-
     public function __construct() {
         $this->MySql = new Sql();
         $this->repositorioPessoa = new RepositorioPessoa();    

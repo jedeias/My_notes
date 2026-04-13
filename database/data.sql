@@ -77,8 +77,11 @@ CREATE TABLE anotacoesPacientes(
 	fkPaciente INT NOT NULL,
 	diaDaAnotacao DATETIME NOT NULL,
 	anotacao TEXT NOT NULL,
+	IV TEXT NOT NULL,
+	tag TEXT NOT NULL,
 	FOREIGN KEY (fkPaciente) REFERENCES pacientes(pkPaciente)
 )CHARACTER SET utf8;
+
 
 CREATE TABLE anotacoesPsicologos(
 	pkAnotacoesPsicologo INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -291,18 +294,22 @@ DELIMITER $$
 
 CREATE PROCEDURE insertAnotacoesPacientes(
     IN _fkPaciente INT,
-	IN _diaDaAnotacao DATETIME,
-	IN _anotacao TEXT
+    IN _diaDaAnotacao DATETIME,
+    IN _anotacao TEXT,
+    IN _IV TEXT,
+    IN _tag TEXT
 )
-
 BEGIN
 
-    INSERT INTO anotacoesPacientes (pkAnotacaoPaciente, fkPaciente, diaDaAnotacao, anotacao)
-    VALUES (DEFAULT, _fkPaciente, _diaDaAnotacao, _anotacao);
+    START TRANSACTION;
+
+    INSERT INTO anotacoesPacientes (fkPaciente, diaDaAnotacao, anotacao, IV, tag)
+    VALUES (_fkPaciente, _diaDaAnotacao, _anotacao, _IV, _tag);
 
     COMMIT;
-        ROLLBACK;
+
 END $$
+
 DELIMITER ;
 
 -- INSERT ANOTACOESPACIENTE
@@ -440,12 +447,12 @@ CALL insertFlags('#FF0000', 'Alerta', 'Necessita atenção urgente');
 CALL insertFlags('#00FF00', 'Seguro', 'Sem riscos aparentes');
 CALL insertFlags('#0000FF', 'Monitoramento', 'Requer observação periódica');
 
-CALL insertAnotacoesPacientes(1, '2024-02-25 14:30:00', 'Melhora significativa.');
-CALL insertAnotacoesPacientes(2, '2024-02-24 10:00:00', 'Dificuldades para dormir.');
+-- CALL insertAnotacoesPacientes(1, '2024-02-25 14:30:00', 'Melhora significativa.', "123544","46521");
+-- CALL insertAnotacoesPacientes(2, '2024-02-24 10:00:00', 'Dificuldades para dormir.', "1234","4566674");
 
--- PAREI
-CALL insertAnotacoesPsicologos(1, 1, 1, 'Paciente respondeu bem ao tratamento.', '2024-02-25 15:00:00');
-CALL insertAnotacoesPsicologos(2, 3, 2, 'Paciente apresentou sinais de ansiedade.', '2024-02-24 11:00:00');
+-- -- PAREI
+-- CALL insertAnotacoesPsicologos(1, 1, 1, 'Paciente respondeu bem ao tratamento.', '2024-02-25 15:00:00');
+-- CALL insertAnotacoesPsicologos(2, 3, 2, 'Paciente apresentou sinais de ansiedade.', '2024-02-24 11:00:00');
 
 CALL insertAtividades('Exercícios de Relaxamento', 'Sessão de meditação guiada para pacientes.');
 CALL insertAtividades('Treino Cognitivo', 'Atividades de memória e concentração.');
@@ -747,6 +754,8 @@ BEGIN
     SELECT 
         ap.pkAnotacaoPaciente,
         ap.anotacao,
+		ap.IV,
+		ap.tag,
         pe.pkPessoa,
         pa.pkPaciente,
         pe.nome,
@@ -771,29 +780,39 @@ DELIMITER ;
 -- pega as anotacoes do psicologo pelo id da anoatacao do paciente;
 
 DELIMITER $$
+
 CREATE PROCEDURE findAnotacoesPsicologosByPkAnotacoesPacientes(
-	IN _pk INT
+    IN _pk INT
 )
 BEGIN
 
-SELECT	anotacoesPsicologos.pkAnotacoesPsicologo,
-			anotacoespsicologos.observacao,
-			pessoas.nome,
-			anotacoespacientes.pkAnotacaoPaciente,
-			anotacoespacientes.anotacao,
-			flags.*
-FROM anotacoesPsicologos
-INNER JOIN flags ON (anotacoesPsicologos.fkFlag = flags.pkFlag)
-INNER JOIN anotacoesPacientes ON (anotacoesPsicologos.fkAnotacoesPaciente = anotacoesPacientes.pkAnotacaoPaciente)
-INNER JOIN pacientes ON (anotacoesPacientes.fkPaciente = pacientes.pkPaciente)
-INNER JOIN pessoas ON (pacientes.fkPessoa = pessoas.pkPessoa)
-WHERE anotacoespacientes.pkAnotacaoPaciente = _pk;
+    SELECT 
+        anotacoesPsicologos.pkAnotacoesPsicologo,
+        anotacoesPsicologos.observacao,
+        pessoas.nome,
+        anotacoesPacientes.pkAnotacaoPaciente,
+        anotacoesPacientes.anotacao,
+        flags.*
+        
+    FROM anotacoesPsicologos
 
-	COMMIT;
-        ROLLBACK;
+    INNER JOIN flags 
+        ON anotacoesPsicologos.fkFlag = flags.pkFlag
+
+    INNER JOIN anotacoesPacientes 
+        ON anotacoesPsicologos.fkAnotacoesPaciente = anotacoesPacientes.pkAnotacaoPaciente
+
+    INNER JOIN pacientes 
+        ON anotacoesPacientes.fkPaciente = pacientes.pkPaciente
+
+    INNER JOIN pessoas 
+        ON pacientes.fkPessoa = pessoas.pkPessoa
+
+    WHERE anotacoesPacientes.pkAnotacaoPaciente = _pk;
+
 END $$
-DELIMITER ;
 
+DELIMITER ;
 
 -- procedure para encontra todos os dados de uma pessoa
 
@@ -1127,3 +1146,5 @@ SELECT * FROM responsaveis;
 SELECT * FROM secretarios;
 SELECT * FROM telefones;
 SELECT * FROM atividadespacientes;
+
+SELECT * FROM anotacoespacientes;
