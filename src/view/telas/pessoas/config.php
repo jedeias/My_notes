@@ -11,6 +11,7 @@ use src\Models\Infra\Repository\Pessoas\RepositorioPessoa;
 use src\Models\Infra\Repository\Pessoas\RepositorioPsicologos;
 use src\Models\Core\Entities\Enderecos\Enderecos;
 use src\Models\Core\Entities\Telefones\Telefones;
+use src\Validations\Validations;
 
 $auth = new Autentificacao();
 
@@ -79,7 +80,15 @@ if($_POST){
         
         $pessoa->setEndereco($endereco);
         $pessoa->setTelefone($telefone);
-        
+
+        foreach($_POST as $key => $value){
+            if($key != "senha"){
+                if(empty($value) || $value == null){
+            echo "O campo $key não pode estar vazio.";
+            }   
+            }
+        }
+
         $repositorioPessoas->update($pessoa);
 
     }else if($userData['pkPsicologo'] != null){
@@ -116,6 +125,15 @@ if($_POST){
         
         $pessoa->setEndereco($endereco);
         $pessoa->setTelefone($telefone);
+
+        foreach($_POST as $key => $value){
+            if($key != "senha"){
+                if(empty($value) || $value == null){
+            echo "O campo $key não pode estar vazio.";
+            die();
+            }   
+            }
+        }
         
         $repositorioPsicologos = new RepositorioPsicologos();
         $repositorioPsicologos->update($pessoa);
@@ -152,11 +170,20 @@ if($_POST){
         
         $pessoa->setEndereco($endereco);
         $pessoa->setTelefone($telefone);
+
+        foreach($_POST as $key => $value){
+            if($key != "senha"){
+                if(empty($value) || $value == null){
+            echo "O campo $key não pode estar vazio.";
+            die();
+            }   
+            }
+        }
         
         $repositorioPessoas->update($pessoa);
         
     }
-    header("Location: sair.php");
+    header("Location: config.php");
 }
 
 ?>

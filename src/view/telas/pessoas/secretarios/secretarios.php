@@ -101,6 +101,14 @@ if(! empty($_POST)){
         $psicologos->setEndereco($endereco);
         $psicologos->setTelefone($telefone);
 
+        foreach($_POST as $key => $value){
+            if($key != "senha"){
+                if(empty($value) || $value == null){
+            echo "O campo $key não pode estar vazio.";
+            die();
+            }   
+            }
+        }
 
         $repositorioTelefone = new RepositorioTelefone();
         $repositorioEndereco = new RepositorioEndereco();
@@ -177,6 +185,15 @@ if(! empty($_POST)){
         $pacientes->setEndereco($endereco);
         $pacientes->setTelefone($telefone);
         $pacientes->setPsicologo($psicologos);
+
+        foreach($_POST as $key => $value){
+            if($key != "senha"){
+                if(empty($value) || $value == null){
+            echo "O campo $key não pode estar vazio.";
+            die();
+            }   
+            }
+        }
 
         $repositorioTelefone = new RepositorioTelefone();
         $repositorioEndereco = new RepositorioEndereco();
