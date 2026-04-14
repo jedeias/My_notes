@@ -7,8 +7,7 @@ function dadosPacientes(pk){
                 'pk': pk,
             },
             success:function(response){
-                
-                console.log(response.anotacoes);
+                console.log(response);
 
                 let itensAtividades = document.getElementsByClassName("atividadeItem");
                 while (itensAtividades.length > 0) {
@@ -20,8 +19,29 @@ function dadosPacientes(pk){
                     itensAnotacoes[0].remove();
                 }
 
-                showListaDeAtividadesPaciente(response.atividades);
-                showListaDeAnotacoesPaciente(response.anotacoes);
+                if (Array.isArray(response.atividades)) {
+                    showListaDeAtividadesPaciente(response.atividades);
+                } else {
+                    let section = document.getElementById("listaDeAtividadesDoPaciente");
+                    let errorDiv = document.createElement('div');
+                    errorDiv.className = "atividadeItem";
+                    errorDiv.innerHTML = response.atividades || "Nenhuma atividade encontrada.";
+                    section.appendChild(errorDiv);
+                }
+
+                if (Array.isArray(response.anotacoes)) {
+                    showListaDeAnotacoesPaciente(response.anotacoes);
+                } else {
+                    let section = document.getElementById("listaDeAnotacoesDoPaciente");
+                    let errorDiv = document.createElement('div');
+                    errorDiv.className = "anotacoesItem";
+                    errorDiv.innerHTML = response.anotacoes || "Nenhuma anotação encontrada.";
+                    section.appendChild(errorDiv);
+                }
+
+                telaAtual = 1;
+                atualizarTela();
+                ligarVisibilidadeDasAnotacoes();
             
 
                 // if(response.length){
@@ -55,6 +75,14 @@ function dadosPacientes(pk){
                 // }
             
             },
+            error: function(xhr, status, error) {
+                console.error('dadosPacientes AJAX error:', status, error);
+                console.error(xhr.responseText);
+                let section = document.getElementById("listaDeAnotacoesDoPaciente");
+                if (section) {
+                    section.innerHTML = '<div class="anotacoesItem">Erro ao carregar dados do paciente.</div>';
+                }
+            }
     });
 }
 
@@ -70,7 +98,7 @@ function showListaDeAtividadesPaciente(array){
         titulo.innerHTML = "TITULO:" + element['titulo'];
 
         let descricao = document.createElement("p");
-        descricao.descricaoDaAtividadePaciente = "tituloDaAtividadePaciente";
+        descricao.className = "descricaoDaAtividadePaciente";
         descricao.innerHTML = "DESCRIÇÃO:" + element['descricao'];
 
         divNovoItem.appendChild(titulo)
@@ -93,7 +121,7 @@ function showListaDeAnotacoesPaciente(array){
         dataDaAnotacao.innerHTML = "DATA: " + element['diaDaAnotacao'];
 
         let descricao = document.createElement("p");
-        descricao.descricaoDaAtividadePaciente = "tituloDaAtividadePaciente";
+        descricao.className = "descricaoDaAtividadePaciente";
         descricao.innerHTML = "DESCRIÇÃO: " + element['anotacao'];
 
         let img = document.createElement("img");

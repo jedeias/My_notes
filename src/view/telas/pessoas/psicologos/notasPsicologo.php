@@ -42,6 +42,7 @@ $anotacaoParaOBS = $repositorioAnotacaoPaciente->findAnotacaoByPk($anotacaoPacie
 $repositoryAnotacaoPsicologo = new RepositorioAnotacoesPsicologos();
 $observacao = $repositoryAnotacaoPsicologo->findAnotacaoPsicologosByPkAnotacaoPaciente($anotacaoPaciente->getPkAnotacoesPacientes());
 
+
 if(!empty($observacao)){
 
     $observacao = $observacao[0];
@@ -53,8 +54,7 @@ $allFalgs = $repositorioFlags->findAll();
 
 
 if($_POST){
-    echo "<pre>";
-    print_r($_POST);
+
     $flag = new Flags();
     $flag->setPkFlags($_POST['flag']);
         

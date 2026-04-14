@@ -90,6 +90,8 @@ CREATE TABLE anotacoesPsicologos(
 	fkAnotacoesPaciente INT NOT NULL,
 	observacao TEXT NOT NULL,
 	diaDaObservacao DATETIME,
+	IV TEXT NOT NULL,
+	tag TEXT NOT NULL,
 	FOREIGN KEY (fkPsicologo) REFERENCES psicologos(pkPsicologo),
 	FOREIGN KEY (fkFlag) REFERENCES flags(pkFlag),
 	FOREIGN KEY (fkAnotacoesPaciente) REFERENCES anotacoesPacientes(pkAnotacaoPaciente)
@@ -321,13 +323,15 @@ CREATE PROCEDURE insertAnotacoesPsicologos(
 	IN _fkFlag INT,
 	IN _fkAnotacoesPaciente INT,
 	IN _observacao TEXT,
-	IN _diaDaObservacao DATETIME
+	IN _diaDaObservacao DATETIME,
+	IN _IV TEXT,
+    IN _tag TEXT
 )
 
 BEGIN
 
-    INSERT INTO anotacoesPsicologos (pkAnotacoesPsicologo, fkPsicologo, fkFlag, fkAnotacoesPaciente, observacao, diaDaObservacao)
-    VALUES (DEFAULT, _fkPsicologo, _fkFlag, _fkAnotacoesPaciente, _observacao, _diaDaObservacao);
+    INSERT INTO anotacoesPsicologos (pkAnotacoesPsicologo, fkPsicologo, fkFlag, fkAnotacoesPaciente, observacao, diaDaObservacao, IV, tag)
+    VALUES (DEFAULT, _fkPsicologo, _fkFlag, _fkAnotacoesPaciente, _observacao, _diaDaObservacao, _IV, _tag);
 
     COMMIT;
         ROLLBACK;
@@ -751,32 +755,38 @@ CREATE PROCEDURE findAnotacoesByPkPacientes(
 )
 BEGIN
 
-    SELECT 
-        ap.pkAnotacaoPaciente,
-        ap.anotacao,
-		ap.IV,
-		ap.tag,
-        pe.pkPessoa,
-        pa.pkPaciente,
-        pe.nome,
-        ap.diaDaAnotacao,
-        aps.*,
-        f.color
-    FROM anotacoespacientes ap
-    LEFT JOIN anotacoespsicologos aps 
-        ON ap.pkAnotacaoPaciente = aps.fkAnotacoesPaciente
-    LEFT JOIN flags f 
-        ON f.pkFlag = aps.fkFlag
-    INNER JOIN pacientes pa 
-        ON ap.fkPaciente = pa.pkPaciente
-    INNER JOIN pessoas pe 
-        ON pe.pkPessoa = pa.fkPessoa
-    WHERE pa.pkPaciente = _pk
-    ORDER BY ap.diaDaAnotacao;
+   SELECT 
+    ap.pkAnotacaoPaciente,
+    ap.anotacao,
+    ap.IV AS ap_IV,
+    ap.tag AS ap_tag,
+    pe.pkPessoa,
+    pa.pkPaciente,
+	pa.fkPsicologo,
+    pe.nome,
+	pa.fkPsicologo AS fkPsicologoPaciente,
+    ap.diaDaAnotacao,
+
+    aps.*,
+
+    f.color
+
+FROM anotacoespacientes ap
+LEFT JOIN anotacoespsicologos aps 
+    ON ap.pkAnotacaoPaciente = aps.fkAnotacoesPaciente
+LEFT JOIN flags f 
+    ON f.pkFlag = aps.fkFlag
+INNER JOIN pacientes pa 
+    ON ap.fkPaciente = pa.pkPaciente
+INNER JOIN pessoas pe 
+    ON pe.pkPessoa = pa.fkPessoa
+WHERE pa.pkPaciente = _pk
+ORDER BY ap.diaDaAnotacao;
 
 END $$
 
 DELIMITER ;
+
 -- pega as anotacoes do psicologo pelo id da anoatacao do paciente;
 
 DELIMITER $$
@@ -789,6 +799,8 @@ BEGIN
     SELECT 
         anotacoesPsicologos.pkAnotacoesPsicologo,
         anotacoesPsicologos.observacao,
+		anotacoesPsicologos.IV,
+		anotacoesPsicologos.tag,
         pessoas.nome,
         anotacoesPacientes.pkAnotacaoPaciente,
         anotacoesPacientes.anotacao,

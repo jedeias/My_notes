@@ -40,17 +40,20 @@ class CryptoService
         }
         return $output;
     }
-
     private function decryptMethod(array $colunm): array|false{
         try{
-            // echo "<pre>";
-            // print_r($colunm);
 
-            
-            $ciphertext = base64_decode($colunm['anotacao'] ?? null);
-            $iv = base64_decode($colunm['IV'] ?? null);
-            $tag = base64_decode($colunm['tag'] ?? null);
-                
+            $ciphertext = base64_decode($colunm['anotacao'] ?? '');
+
+            // 🔥 AQUI ESTÁ A CORREÇÃO
+            $iv = base64_decode($colunm['IV'] ?? $colunm['ap_IV'] ?? '');
+            $tag = base64_decode($colunm['tag'] ?? $colunm['ap_tag'] ?? '');
+
+            // Se ainda estiver vazio, não tenta descriptografar
+            if (empty($iv) || empty($tag)) {
+                return $colunm;
+            }
+
             $texto = openssl_decrypt(
                 $ciphertext,
                 $this->chiper,
@@ -59,11 +62,15 @@ class CryptoService
                 $iv,
                 $tag
             );
+
+            if ($texto !== false) {
                 $colunm['anotacao'] = $texto;
+            }
+
             return $colunm;
+
         }catch (\Exception $e) {
-                echo "Erro na descriptografia: " . $e->getMessage();
-            return false;
+            return $colunm;
         }
     }
 }

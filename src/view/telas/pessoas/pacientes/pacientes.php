@@ -39,10 +39,6 @@ $anotacaoPacienteRepositorio = new RepositorioAnotacoesPacientes();
 
 $dataNotes = $anotacaoPacienteRepositorio->findAnotacaoByPkPacientes($pacientes);
 
-// echo "<pre>";
-//     print_r(count($dataNotes));
-// echo "</pre>";
-
 if($_POST){
     $novaAnotacao = new AnotacoesPacientes();
     $novaAnotacao->setAnotacao($_POST['descricao']);

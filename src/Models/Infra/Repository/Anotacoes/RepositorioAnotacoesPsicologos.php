@@ -5,15 +5,18 @@ namespace Src\Models\Infra\Repository\Anotacoes;
 use src\Models\Core\Repository\Anotacoes\IrepositoryAnotacoesPsicologos;
 use src\Models\Core\Entities\Anotacoes\IanotacoesPsicologos;
 use Src\Models\Core\Entities\Anotacoes\IanotacoesPacientes;
+use Src\Models\Infra\Security\AES\CryptoService;
 use src\Models\Infra\Data\Sql;
 use PDOException;
 use PDO;
 
 class RepositorioAnotacoesPsicologos implements IrepositoryAnotacoesPsicologos {
     private Sql $MySql;
+    private CryptoService $cryptoService;
 
     public function __construct() {
         $this->MySql = new Sql();
+        $this->cryptoService = new CryptoService();
     }
 
     public function findAnotacaoPsicologosByPkAnotacaoPaciente(IanotacoesPacientes|int $pkAnotacoesPsicologos): array{
@@ -44,13 +47,20 @@ class RepositorioAnotacoesPsicologos implements IrepositoryAnotacoesPsicologos {
 
     public function insert(IanotacoesPsicologos $anotacao): void{
         try {
-            $prepare = $this->MySql->getConnect()->prepare("CALL insertAnotacoesPsicologos(:fkPsicolgo, :fkFlag, :fkAnotacoesPacientes, :observacao, :dia);");
+            
+            $dataInSecrity = $this->cryptoService->encrypt($anotacao->getPkAnotacoesPsicologos());
+
+
+            
+            $prepare = $this->MySql->getConnect()->prepare("CALL insertAnotacoesPsicologos(:fkPsicolgo, :fkFlag, :fkAnotacoesPacientes, :observacao,:IV, :tag, :dia);");
             $prepare->bindValue(":fkPsicolgo", $anotacao->getPsicologos()->getPsicologosPk());
             $prepare->bindValue(":fkFlag", $anotacao->getFlags()->getPkFlags());
             
             $prepare->bindValue(":fkAnotacoesPacientes", $anotacao->getAnotacaoPacietes()->getPkAnotacoesPacientes());
-            $prepare->bindValue(":observacao", $anotacao->getObservacoes());
-            
+            $prepare->bindValue(":observacao", $dataInSecrity['ciphertext']);
+            $prepare->bindValue(":IV", $dataInSecrity['iv']);
+            $prepare->bindValue(":tag", $dataInSecrity["tag"]);
+
             $dataHora = date('Y-m-d H:i:s');
             $prepare->bindValue(":dia",$dataHora);
             $prepare->execute();
@@ -70,6 +80,8 @@ class RepositorioAnotacoesPsicologos implements IrepositoryAnotacoesPsicologos {
             
             $prepare->bindValue(":dia",$dataHora );
             $prepare->execute();
+
+            
         } catch (PDOException $erros) {
             echo("tivemos um erro.:");
             echo($erros->getMessage());

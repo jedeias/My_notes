@@ -37,7 +37,8 @@ class RepositorioAnotacoesPacientes implements IrepositoryAnotacoesPacientes {
             if (empty($data)) {
                 return [];
             } else {
-                return $this->cryptoService->decrypt($data);
+                $dataDecrypt = $this->cryptoService->decrypt($data);
+                return $dataDecrypt;
 
             }
         } catch (PDOException $erros) {
