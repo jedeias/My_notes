@@ -45,30 +45,46 @@ class RepositorioAnotacoesPsicologos implements IrepositoryAnotacoesPsicologos {
     }
 
 
-    public function insert(IanotacoesPsicologos $anotacao): void{
+    public function insert(IanotacoesPsicologos $anotacao): void {
         try {
-            
-            $dataInSecrity = $this->cryptoService->encrypt($anotacao->getPkAnotacoesPsicologos());
+            $conn = $this->MySql->getConnect();
 
+            // 🔥 CORREÇÃO AQUI
+            $dataInSecrity = $this->cryptoService
+                ->encrypt($anotacao->getObservacoes());
 
-            
-            $prepare = $this->MySql->getConnect()->prepare("CALL insertAnotacoesPsicologos(:fkPsicolgo, :fkFlag, :fkAnotacoesPacientes, :observacao,:IV, :tag, :dia);");
-            $prepare->bindValue(":fkPsicolgo", $anotacao->getPsicologos()->getPsicologosPk());
-            $prepare->bindValue(":fkFlag", $anotacao->getFlags()->getPkFlags());
-            
-            $prepare->bindValue(":fkAnotacoesPacientes", $anotacao->getAnotacaoPacietes()->getPkAnotacoesPacientes());
+            $sql = "CALL insertAnotacoesPsicologos(
+                :fkPsicologo,
+                :fkFlag,
+                :fkAnotacoesPacientes,
+                :observacao,
+                :dia,
+                :IV,
+                :tag
+            );";
+
+            $prepare = $conn->prepare($sql);
+
+            $prepare->bindValue(":fkPsicologo", $anotacao->getPsicologos()->getPsicologosPk(), PDO::PARAM_INT);
+            $prepare->bindValue(":fkFlag", $anotacao->getFlags()->getPkFlags(), PDO::PARAM_INT);
+            $prepare->bindValue(":fkAnotacoesPacientes", $anotacao->getAnotacaoPacietes()->getPkAnotacoesPacientes(), PDO::PARAM_INT);
+
             $prepare->bindValue(":observacao", $dataInSecrity['ciphertext']);
             $prepare->bindValue(":IV", $dataInSecrity['iv']);
-            $prepare->bindValue(":tag", $dataInSecrity["tag"]);
+            $prepare->bindValue(":tag", $dataInSecrity['tag']);
 
             $dataHora = date('Y-m-d H:i:s');
-            $prepare->bindValue(":dia",$dataHora);
+            $prepare->bindValue(":dia", $dataHora);
+
             $prepare->execute();
+            $prepare->closeCursor();
+
         } catch (PDOException $erros) {
-            echo("tivemos um erro.:");
-            echo($erros->getMessage());
+            echo "tivemos um erro.: ";
+            echo $erros->getMessage();
         }
     }
+
     public function update(IanotacoesPsicologos $anotacao): void{
         try {
             $prepare = $this->MySql->getConnect()->prepare("CALL updateAnotacoesPsicologo(:pk, :observacao, :dia, :fkFlag);");

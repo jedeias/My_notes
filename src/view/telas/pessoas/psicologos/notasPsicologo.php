@@ -76,8 +76,8 @@ if($_POST){
             $_POST['observacao'], 
             $anotacaoPaciente
         );
-        header("location: psicologos.php");
         $repositoryAnotacaoPsicologo->insert($novaObservacao);
+        header("location: psicologos.php");
     }
 
 }

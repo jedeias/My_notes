@@ -330,11 +330,12 @@ CREATE PROCEDURE insertAnotacoesPsicologos(
 
 BEGIN
 
+	START TRANSACTION;
+
     INSERT INTO anotacoesPsicologos (pkAnotacoesPsicologo, fkPsicologo, fkFlag, fkAnotacoesPaciente, observacao, diaDaObservacao, IV, tag)
     VALUES (DEFAULT, _fkPsicologo, _fkFlag, _fkAnotacoesPaciente, _observacao, _diaDaObservacao, _IV, _tag);
 
     COMMIT;
-        ROLLBACK;
 END $$
 DELIMITER ;
 

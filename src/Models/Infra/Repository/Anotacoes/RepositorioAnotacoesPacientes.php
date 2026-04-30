@@ -50,6 +50,8 @@ class RepositorioAnotacoesPacientes implements IrepositoryAnotacoesPacientes {
         public function findAnotacaoByPk(Ipacientes|int $pkAnotacoesPacientes): array{
         try {
 
+            
+
             if ($pkAnotacoesPacientes instanceof Ipacientes) {
                 $pk = $pkAnotacoesPacientes->getPacientesPk();
             }
@@ -61,6 +63,13 @@ class RepositorioAnotacoesPacientes implements IrepositoryAnotacoesPacientes {
             $prepare->bindValue(":pk", $pk);
             $prepare->execute();
             $data = $prepare->fetchAll(PDO::FETCH_ASSOC);
+            
+            $dataInSecrity = $this->cryptoService->decrypt($data);
+            
+            $data = $dataInSecrity;
+
+            unset($data[0]["tag"]);
+            unset($data[0]["IV"]);
 
             if (empty($data)) {
                 return [];
