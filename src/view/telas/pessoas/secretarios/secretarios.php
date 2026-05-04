@@ -224,44 +224,44 @@ if(! empty($_POST)){
 ?>
 
 <!DOCTYPE html>
-<html lang="pt_Br">
+<html lang="pt_BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script  src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.17/index.global.min.js'></script>
+    <script  src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.17/index.global.min.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../../../CSS/secretario.css">
     <link rel="stylesheet" href="../../../CSS/header.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Secretario</title>
 </head>
 <body>
 
-    <div id="menuBtn" onclick="openNav()">
-    <i class="fa-solid fa-bars"></i>
-</div>
+    <div id="menuBtn" onclick="openNav()">&#9776;</div>
 
-<div id="mySidenav" class="sidenav">
+    <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
-    <div class="sidenav-profile">
-        <img src="../../../image/fotosUsuarios/<?php echo $secretarios->getImageLocal(); ?>" 
-             onerror="this.src='../../../image/default-profile.webp'" 
-             alt="Foto do Perfil">
-        <h1 class="title"><?php echo $secretarios->getNome(); ?></h1>
-        <h2 class="subtitle"><?php echo $secretarios->getEmail(); ?></h2>
-    </div>
+        <div class="sidenav-profile">
+            <img src="../../../image/fotosUsuarios/<?php echo $secretarios->getImageLocal(); ?>" 
+                onerror="this.src='../../../image/default-profile.webp'" 
+                alt="Foto do Perfil">
+            <h1 class="title"><?php echo $secretarios->getNome(); ?></h1>
+            <h2 class="subtitle"><?php echo $secretarios->getEmail(); ?></h2>
+        </div>
 
-    <div class="sidenav-links">
-        <a href="#"><i class="fa-solid fa-clipboard-list"></i> Atividades</a>
-        <a href="../agenda/agenda.php"><i class="fa-solid fa-calendar-days"></i> Agenda</a>
-        <a href="../agenda/agendarConsulta.php"><i class="fa-solid fa-calendar-plus"></i> Consultas Agendadas</a>
-        <a href="../config.php"><i class="fa-solid fa-gear"></i> Configurações</a> 
-        
-        <a href="../sair.php" class="sair-btn" style="margin-top: auto; color: var(--danger);">
-            <i class="fa-solid fa-right-from-bracket"></i> Sair
-        </a>
+        <div class="sidenav-links">
+            <a href="../pacientes/atividades.php"><i class="fa-solid fa-clipboard-list"></i> Atividades</a>
+            <a href="../agenda/agenda.php"><i class="fa-solid fa-calendar-days"></i> Agenda</a>
+            <a href="../agenda/agendarConsulta.php"><i class="fa-solid fa-calendar-plus"></i> Consultas Agendadas</a>
+            <a href="../config.php"><i class="fa-solid fa-gear"></i> Configurações</a> 
+            
+            <a href="../sair.php" class="sair-btn" style="margin-top: auto; color: var(--danger);">
+                <i class="fa-solid fa-right-from-bracket"></i> Sair
+            </a>
+        </div>
     </div>
-</div>
 
     <article>
 
@@ -281,7 +281,6 @@ if(! empty($_POST)){
                     event.preventDefault();
 
                     const form = event.target.closest("form");
-
                     const cepInput = form.querySelector('input[name="cep"]');
                     const ruaInput = form.querySelector('input[name="rua"]');
                     const bairroInput = form.querySelector('input[name="bairro"]');
@@ -621,6 +620,8 @@ if(! empty($_POST)){
 
 <script defer src="../../../JS/secretario.js"></script>
 <script defer src="../../../JS/fromPessoas.js"></script>
+<script src="../../../JS/menu.js"></script>
+    <script src="../../../JS/atividades.js"></script>
 
 </body>
 </html>

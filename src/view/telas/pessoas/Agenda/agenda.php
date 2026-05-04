@@ -104,19 +104,19 @@ if($pessoas['pkSecretario'] != null || $pessoas['pkPsicologo'] != null){
                 }
             ?>
             
-            <a href="agenda/agendarConsulta.php"><i class="fa-solid fa-calendar-plus"></i> Agenda</a>
-            <a href="agenda/agenda.php"><i class="fa-solid fa-calendar-check"></i> Consultas Agendadas</a>
+            
+  
 
             <?php 
 
               if($tipoPessoa){
                 echo "<a href='agendarConsulta.php'><i class='fa-solid fa-calendar-plus'></i> Agendar Consultas</a>";
-                
+                echo "<a href='agenda/agendarConsulta.php'><i class='fa-solid fa-calendar-plus'></i> Agenda</a>";
               }
 
             ?>
             
-            <a href="#" style="margin-top: auto; color: var(--danger);">
+            <a href="../sair.php" style="margin-top: auto; color: var(--danger);">
                 <i class="fa-solid fa-right-from-bracket"></i> Sair
             </a> 
             

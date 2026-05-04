@@ -88,6 +88,8 @@ body {
     padding: 25px;
     border-radius: var(--radius-input);
     border: 1px solid var(--border-soft);
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .AnotacaoDoPacientes p:first-child {
@@ -95,8 +97,8 @@ body {
     line-height: 1.7;
     color: var(--text-dark);
     margin-bottom: 15px;
-    
 }
+
 
 .AnotacaoDoPacientes p:last-child {
     font-size: 0.85rem;

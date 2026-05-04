@@ -230,7 +230,7 @@ if($_POST){
         <a href="agenda/agendarConsulta.php"><i class="fa-solid fa-calendar-plus"></i> Agendar Consulta</a>
         <a href="agenda/agenda.php"><i class="fa-solid fa-calendar-check"></i> Consultas Agendadas</a>
         
-        <a href="#" class="sair" style="margin-top: auto; color: var(--danger);">
+        <a href="./sair.php" class="sair" style="margin-top: auto; color: var(--danger);">
             <i class="fa-solid fa-right-from-bracket"></i> Sair
         </a> 
         
