@@ -38,11 +38,6 @@ if(! empty($_GET["pesquisa"])){
 
 }
 
-
-// $listaDePacientes = $listaDePacientes->findAllPacientesOfPsicologo($psicologos);
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -163,6 +158,11 @@ if(! empty($_GET["pesquisa"])){
         <article class="anotação" hidden>
             <h1 class="anotacao-title">Anotação</h1>
 
+            <div>
+                <label for="nome">PACIENTE</label>
+                <input type="text" name="nome_selecionado" value="SELECIONE UM PACIENTE POR FAVOR" id="nome_selecionado" disabled>
+            </div>
+
             <section class="anotacao-content">
                 
                 <section hidden="true" id="listaDeAnotacoesDoPaciente" class="listaDeAnotacoesDoPaciente">
@@ -182,6 +182,12 @@ if(! empty($_GET["pesquisa"])){
             
             <form action="../../../../Controllers/Atividades/ControllerAtividades.php" method="post" class="atividades-form">
                 
+                <div>
+                    <label for="nome">PACIENTE</label>
+                    <input type="text" value="SELECIONE UM PACIENTE POR FAVOR" id="nome_selecionado_anotacao" disabled>
+                </div>
+
+
                 <label for="titulo">Título</label>
                 <input type="text" name="titulo" id="titulo" class="titulo">
                 

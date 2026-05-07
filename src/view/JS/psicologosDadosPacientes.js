@@ -106,6 +106,8 @@ function showListaDeAtividadesPaciente(array){
         section.appendChild(divNovoItem)
 
     });
+
+    showPacienteSelecionado(array[0]['nome'])
 }
 
 function showListaDeAnotacoesPaciente(array){
@@ -155,6 +157,8 @@ function showListaDeAnotacoesPaciente(array){
         divNovoItem.appendChild(redirect)
         section.appendChild(divNovoItem)
 
+        showPacienteSelecionado(array[0]['nome'])
+
     });
 }
 
@@ -181,4 +185,12 @@ function ligarVisibilidadeDasAnotacoes(){
 function hiddenListaDeAnotacoes(){
     let section = document.getElementById("listaDeAnotacoesDoPaciente");
     section.hidden = true
+}
+
+function showPacienteSelecionado(nome){
+    let paciente_selecionado = document.getElementById("nome_selecionado");
+    let paciente_selecionado_anotacao = document.getElementById("nome_selecionado_anotacao");
+
+    paciente_selecionado.value = nome;
+    paciente_selecionado_anotacao.value = nome;
 }

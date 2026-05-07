@@ -12,7 +12,7 @@ $(document).ready(function () {
 
     // Abrir modal
     function openModal(modalId) {
-        $(`#${modalId}`).fadeIn();
+        $(`#${modalId}`).css('display', 'flex').fadeIn();
     }
 
     // Fechar modal

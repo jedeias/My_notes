@@ -275,6 +275,7 @@ if(! empty($_POST)){
         <div class="modal-content">
             
             <h2>Cadastrar pacientes</h2>
+            <span class="close">&times;</span>
 
             <script>
                 async function consultaCEP(event) {
@@ -437,6 +438,7 @@ if(! empty($_POST)){
         <div class="modal-content">
             
             <h2>Cadastrar Psicólogo</h2>
+            <span class="close">&times;</span>
             
             <form id="fromularioDadosPessoais" action="" method="post" enctype="multipart/form-data">
                 
@@ -621,7 +623,6 @@ if(! empty($_POST)){
 <script defer src="../../../JS/secretario.js"></script>
 <script defer src="../../../JS/fromPessoas.js"></script>
 <script src="../../../JS/menu.js"></script>
-    <script src="../../../JS/atividades.js"></script>
-
+    
 </body>
 </html>
