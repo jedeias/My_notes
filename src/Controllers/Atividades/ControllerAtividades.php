@@ -39,26 +39,21 @@ class ControllerAtividades{
 
 if(!empty($_POST)){
 
-    foreach($_POST as $key => $value){
-        if(empty($_POST[$key])){
-            echo "O campo $key é obrigatório.";
-            // var_dump($_POST);
-            header("Refresh: 3; url=../../view/telas/pessoas/psicologos/psicologos.php");
-            exit;
-            die();
-        }   
-    }
-    
-
-
-    if(isset($_POST['titulo']) && isset($_POST['atividade'])){
+    if(isset($_POST['titulo']) && isset($_POST['atividade']) && $_POST['titulo'] != "" && $_POST['atividade'] != ""){
         $controllerAtividades = new ControllerAtividades();
         $controllerAtividades->getAtividades()->setTitulo($_POST['titulo'])->setDescricao($_POST["atividade"]);
         $controllerAtividades->getRepositorio()->insertAtividadesPaciente($controllerAtividades->getAtividades(), $_POST['pkPaciente']);
         header("location: ../../view/telas/pessoas/psicologos/psicologos.php");
+    }else{
+        echo "Todos os campos são obrigatórios.";
+        header("Refresh: 3; url=../../view/telas/pessoas/psicologos/psicologos.php");
     }
 
 
+}else{
+    echo "Nenhum dado foi enviado."; 
+    header("Refresh: 3; url=../../view/telas/pessoas/psicologos/psicologos.php");
+            
 }
 
 ?>
