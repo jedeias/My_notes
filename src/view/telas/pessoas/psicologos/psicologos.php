@@ -159,7 +159,7 @@ if(! empty($_GET["pesquisa"])){
             <h1 class="anotacao-title">Anotação</h1>
 
             <div>
-                <label for="nome">PACIENTE</label>
+                <label for="nome">Paciente</label>
                 <input type="text" name="nome_selecionado" value="SELECIONE UM PACIENTE POR FAVOR" id="nome_selecionado" disabled>
             </div>
 

@@ -463,6 +463,38 @@ main {
     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
+.anotação > div {
+    display: grid;
+    gap: 10px;
+    max-width: 520px;
+}
+
+.anotação > div label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.anotação > div input#nome_selecionado,
+#nome_selecionado_anotacao {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-soft);
+    background: var(--bg-app);
+    color: var(--text-dark);
+    font-size: 0.98rem;
+    outline: none;
+    transition: var(--transition-normal);
+}
+
+.anotação > div input#nome_selecionado:disabled,
+#nome_selecionado_anotacao:disabled {
+    background: #f8fafc;
+    color: var(--text-muted);
+    cursor: not-allowed;
+}
+
 .anotacao-content {
     display: flex;
     flex-direction: column;
